@@ -1,0 +1,34 @@
+<!--@subject {{trans "New contact form message from %store_name" store_name=$store_name}} @-->
+<!--@vars {
+"var label_message":"Message label",
+"var label_firstname":"First name label",
+"var label_lastname":"Last name label",
+"var label_email":"Email label",
+"var label_company":"Company label",
+"var label_telephone":"Telephone label",
+"var message":"Message",
+"var firstname":"First name",
+"var lastname":"Last name",
+"var email":"Email",
+"var company":"Company",
+"var telephone":"Telephone",
+"var custom_fields_text":"Additional fields",
+"var store_name":"Store name"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "A new contact form message was submitted."}}</p>
+<p><strong>{{var label_firstname|escape}}:</strong> {{var firstname|escape}}</p>
+<p><strong>{{var label_lastname|escape}}:</strong> {{var lastname|escape}}</p>
+<p><strong>{{var label_email|escape}}:</strong> {{var email|escape}}</p>
+<p><strong>{{var label_company|escape}}:</strong> {{var company|escape}}</p>
+<p><strong>{{var label_telephone|escape}}:</strong> {{var telephone|escape}}</p>
+<p><strong>{{var label_message|escape}}:</strong></p>
+<pre style="font-family:inherit;white-space:pre-wrap">{{var message|escape}}</pre>
+
+{{depend custom_fields_text}}
+<p><strong>{{trans "Additional information"}}:</strong></p>
+<pre style="font-family:inherit;white-space:pre-wrap">{{var custom_fields_text|escape}}</pre>
+{{/depend}}
+
+{{template config_path="design/email/footer_template"}}

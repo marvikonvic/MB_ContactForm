@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mb_contactform>
+            <general>
+                <enabled>1</enabled>
+                <form_title>Contact Us</form_title>
+                <recipient_email>office@drtechno.rs</recipient_email>
+                <sender_email>office@drtechno.rs</sender_email>
+                <sender_name>MB Contact Form</sender_name>
+                <email_template>mb_contactform_general_email_template</email_template>
+                <success_message>Thank you. Your message has been sent successfully. We will contact you as soon as possible.</success_message>
+                <success_meta_title>Message sent successfully</success_meta_title>
+                <success_meta_description>Your message has been sent successfully. Our team will contact you as soon as possible.</success_meta_description>
+                <newsletter_url>https://drtechno.rs/newsletter/subscriber/new/</newsletter_url>
+                <newsletter_message>Subscribe to our newsletter and do not miss the best discounts and special offers!</newsletter_message>
+            </general>
+            <labels>
+                <message>Message</message>
+                <firstname>First Name</firstname>
+                <lastname>Last Name</lastname>
+                <email>Email Address</email>
+                <company>Company Name</company>
+                <telephone>Phone Number</telephone>
+                <submit>Submit</submit>
+            </labels>
+            <captcha>
+                <provider>none</provider>
+            </captcha>
+        </mb_contactform>
+    </default>
+</config>

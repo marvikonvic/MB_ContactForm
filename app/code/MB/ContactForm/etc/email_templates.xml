@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mb_contactform_general_email_template"
+              label="MB Contact Form Notification"
+              file="contact_form_notification.html"
+              type="html"
+              module="MB_ContactForm"
+              area="frontend"/>
+</config>

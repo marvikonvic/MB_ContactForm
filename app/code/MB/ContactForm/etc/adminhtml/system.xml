@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mb" translate="label" sortOrder="900">
+            <label>MB Contact Form</label>
+        </tab>
+        <section id="mb_contactform" translate="label" type="text" sortOrder="100"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Contact Form</label>
+            <tab>mb</tab>
+            <resource>Magento_Backend::all</resource>
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Contact Form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_customer_groups" translate="label comment" type="multiselect" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Customer Groups</label>
+                    <comment>Leave empty to show the form to every customer group, including guests.</comment>
+                    <source_model>MB\ContactForm\Model\Config\Source\CustomerGroups</source_model>
+                </field>
+                <field id="form_title" translate="label" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Form Title</label>
+                </field>
+                <field id="recipient_email" translate="label comment" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Recipient Email</label>
+                    <comment>Contact form notifications are sent to this address.</comment>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="sender_email" translate="label comment" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sender Email</label>
+                    <comment>The notification From address. Use an address authorized by the store domain SPF/DMARC policy.</comment>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="sender_name" translate="label" type="text" sortOrder="55"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sender Name</label>
+                </field>
+                <field id="email_template" translate="label comment" type="select" sortOrder="57"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <comment>Create or edit templates under Marketing &gt; Communications &gt; Email Templates, then select one here.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="success_url" translate="label comment" type="text" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Success URL</label>
+                    <comment>Leave empty to use the module success page at /contact-success/. A custom URL will not include the prefilled newsletter email.</comment>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="success_message" translate="label comment" type="textarea" sortOrder="70"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Message</label>
+                    <comment>Plain text only. Line breaks are preserved.</comment>
+                </field>
+                <field id="success_meta_title" translate="label" type="text" sortOrder="80"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Page Meta Title</label>
+                </field>
+                <field id="success_meta_description" translate="label" type="textarea" sortOrder="90"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Page Meta Description</label>
+                </field>
+                <field id="newsletter_url" translate="label" type="text" sortOrder="100"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Newsletter Subscribe URL</label>
+                    <validate>required-entry validate-url</validate>
+                </field>
+                <field id="newsletter_message" translate="label" type="textarea" sortOrder="110"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Newsletter Message</label>
+                </field>
+                <field id="widget_code" translate="label comment" type="text" sortOrder="120"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>CMS Widget Code</label>
+                    <comment>Copy this directive into the content of a CMS page or CMS block.</comment>
+                    <frontend_model>MB\ContactForm\Block\Adminhtml\System\Config\Form\Field\WidgetCode</frontend_model>
+                </field>
+            </group>
+            <group id="labels" translate="label" type="text" sortOrder="20"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Field Labels</label>
+                <field id="message" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1"><label>Message Body Label</label></field>
+                <field id="firstname" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1"><label>First Name Label</label></field>
+                <field id="lastname" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1"><label>Last Name Label</label></field>
+                <field id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1"><label>Email Address Label</label></field>
+                <field id="company" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1"><label>Company Name Label</label></field>
+                <field id="telephone" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1"><label>Phone Number Label</label></field>
+                <field id="submit" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1"><label>Submit Button Label</label></field>
+            </group>
+            <group id="custom_fields" translate="label comment" type="text" sortOrder="30"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Additional Fields</label>
+                <comment>Add store-specific fields and validation rules. Codes must be unique.</comment>
+                <field id="rows" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fields</label>
+                    <frontend_model>MB\ContactForm\Block\Adminhtml\System\Config\Form\Field\CustomFields</frontend_model>
+                    <backend_model>MB\ContactForm\Model\Config\Backend\CustomFields</backend_model>
+                </field>
+            </group>
+            <group id="captcha" translate="label" type="text" sortOrder="40"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Spam Protection</label>
+                <field id="provider" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CAPTCHA Provider</label>
+                    <comment>CAPTCHA is always verified again on the server.</comment>
+                    <source_model>MB\ContactForm\Model\Config\Source\CaptchaProvider</source_model>
+                </field>
+                <field id="google_site_key" translate="label" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google reCAPTCHA v2 Site Key</label>
+                    <depends><field id="provider">google</field></depends>
+                </field>
+                <field id="google_secret_key" translate="label" type="obscure" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google reCAPTCHA v2 Secret Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends><field id="provider">google</field></depends>
+                </field>
+                <field id="turnstile_site_key" translate="label" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cloudflare Turnstile Site Key</label>
+                    <depends><field id="provider">turnstile</field></depends>
+                </field>
+                <field id="turnstile_secret_key" translate="label" type="obscure" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cloudflare Turnstile Secret Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends><field id="provider">turnstile</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

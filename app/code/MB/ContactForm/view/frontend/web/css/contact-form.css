@@ -1,0 +1,120 @@
+.mb-contact,
+.mb-contact-success {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 900px;
+    width: 100%;
+}
+
+.mb-contact *,
+.mb-contact-success * {
+    box-sizing: border-box;
+}
+
+.mb-contact__title,
+.mb-contact-success h1 {
+    margin: 0 0 1.5rem;
+}
+
+.mb-contact__form {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mb-contact__field {
+    min-width: 0;
+}
+
+.mb-contact__field--full,
+.mb-contact__actions,
+.mb-contact__captcha {
+    grid-column: 1 / -1;
+}
+
+.mb-contact label,
+.mb-contact-success label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .45rem;
+}
+
+.mb-contact input,
+.mb-contact select,
+.mb-contact textarea,
+.mb-contact-success input {
+    background: #fff;
+    border: 1px solid #c7c7c7;
+    border-radius: 4px;
+    color: #222;
+    font: inherit;
+    min-height: 44px;
+    padding: .7rem .8rem;
+    width: 100%;
+}
+
+.mb-contact textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.mb-contact input:focus,
+.mb-contact select:focus,
+.mb-contact textarea:focus,
+.mb-contact-success input:focus {
+    border-color: #1979c3;
+    box-shadow: 0 0 0 2px rgba(25, 121, 195, .2);
+    outline: none;
+}
+
+.mb-contact__captcha {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.mb-contact__captcha-error {
+    color: #b30000;
+    margin: .5rem 0 0;
+}
+
+.mb-contact__actions button,
+.mb-contact-success button {
+    min-height: 44px;
+    padding: .7rem 1.5rem;
+}
+
+.mb-contact-success__message {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.mb-contact-success__newsletter {
+    align-items: end;
+    display: grid;
+    gap: .75rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.mb-contact-success__newsletter label {
+    grid-column: 1 / -1;
+}
+
+.mb-contact-success__newsletter-message {
+    margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+    .mb-contact__form,
+    .mb-contact-success__newsletter {
+        grid-template-columns: 1fr;
+    }
+
+    .mb-contact-success__newsletter label {
+        grid-column: auto;
+    }
+
+    .mb-contact__actions button,
+    .mb-contact-success button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,29 @@
+<?php
+/** @var \MB\ContactForm\Block\Success $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$submittedEmail = $block->getSubmittedEmail();
+?>
+<section class="mb-contact-success" aria-labelledby="mb-contact-success-title">
+    <h1 id="mb-contact-success-title"><?= $escaper->escapeHtml(__('Message sent successfully')) ?></h1>
+    <div class="mb-contact-success__message">
+        <?= /* @noEscape */ nl2br($escaper->escapeHtml(__($block->getSuccessMessage()))) ?>
+    </div>
+
+    <form class="mb-contact-success__newsletter"
+          action="<?= $escaper->escapeUrl($block->getNewsletterUrl()) ?>"
+          method="post">
+        <?= $block->getBlockHtml('formkey') ?>
+        <label for="mb-contact-newsletter-email"><?= $escaper->escapeHtml(__('Email Address')) ?></label>
+        <input id="mb-contact-newsletter-email"
+               name="email"
+               type="email"
+               value="<?= $escaper->escapeHtmlAttr($submittedEmail) ?>"
+               autocomplete="email"
+               required>
+        <button class="action primary" type="submit"><span><?= $escaper->escapeHtml(__('Subscribe')) ?></span></button>
+    </form>
+
+    <p class="mb-contact-success__newsletter-message">
+        <?= $escaper->escapeHtml(__($block->getNewsletterMessage())) ?>
+    </p>
+</section>
