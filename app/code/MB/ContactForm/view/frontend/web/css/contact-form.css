@@ -2,6 +2,8 @@
 .mb-contact-success {
     box-sizing: border-box;
     margin: 0 auto;
+    padding-top: 24px;
+    padding-bottom: 24px;
     max-width: 900px;
     width: 100%;
 }
@@ -89,7 +91,8 @@
     padding: .7rem 1.5rem;
 }
 
-.mb-contact .mb-contact__actions button[type="submit"] {
+.mb-contact .mb-contact__actions button[type="submit"],
+.mb-contact-success .mb-contact-success__newsletter button[type="submit"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -103,17 +106,20 @@
     cursor: pointer;
 }
 
-.mb-contact .mb-contact__actions button[type="submit"]:hover {
+.mb-contact .mb-contact__actions button[type="submit"]:hover,
+.mb-contact-success .mb-contact-success__newsletter button[type="submit"]:hover {
     background: #104680;
     border-color: #104680;
 }
 
-.mb-contact .mb-contact__actions button[type="submit"]:focus-visible {
+.mb-contact .mb-contact__actions button[type="submit"]:focus-visible,
+.mb-contact-success .mb-contact-success__newsletter button[type="submit"]:focus-visible {
     outline: 3px solid #1559a6;
     outline-offset: 3px;
 }
 
-.mb-contact .mb-contact__actions button[type="submit"]:disabled {
+.mb-contact .mb-contact__actions button[type="submit"]:disabled,
+.mb-contact-success .mb-contact-success__newsletter button[type="submit"]:disabled {
     opacity: .6;
     cursor: not-allowed;
 }
