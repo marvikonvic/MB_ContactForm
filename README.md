@@ -8,7 +8,7 @@ Magento 2 kontakt forma kompatibilna sa Luma i Hyvä temama. Modul pruža cache-
 
 ## DEMO
 
-[Isprobajte kontakt formu](https://stagento.com/kontakt)
+[Isprobajte kontakt formu](https://stagento.com/kontakt) — Trenutno samo Frontend.
 
 ## Funkcionalnosti
 
@@ -185,7 +185,7 @@ Magento 2 contact form compatible with Luma and Hyvä themes. The module provide
 
 ## Demo
 
-[Try the contact form](https://stagento.com/kontakt)
+[Try the contact form](https://stagento.com/kontakt) — Currently frontend only.
 
 ## Features
 
