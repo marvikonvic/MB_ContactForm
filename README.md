@@ -85,6 +85,38 @@ Ista pravila se primenjuju u browseru i ponovo na serveru.
 - CSP pravila dozvoljavaju CAPTCHA hostove, dok se newsletter `form-action` origin dodaje dinamički samo na success stranici.
 - Success stranica koristi `NOINDEX,FOLLOW`.
 
+## Screenshots
+
+Prikazi sa staging okruženja.
+
+### Kontakt forma na Hyvä temi
+
+![Kontakt forma na Hyvä temi](docs/screenshots/contact-form.png)
+
+### Popunjena forma sa dodatnim poljima i Turnstile zaštitom
+
+![Popunjena forma sa dodatnim poljima i Turnstile zaštitom](docs/screenshots/contact-form-filled.png)
+
+### Validacija imena i prezimena
+
+![Validacija imena i prezimena](docs/screenshots/name-validation.png)
+
+### Validacija email adrese
+
+![Validacija email adrese](docs/screenshots/email-validation.png)
+
+### Potvrda slanja i newsletter prijava
+
+![Potvrda slanja i newsletter prijava](docs/screenshots/success-newsletter.png)
+
+### Email obaveštenje sa porukom i dodatnim poljima
+
+![Email obaveštenje sa porukom i dodatnim poljima](docs/screenshots/email-notification.png)
+
+### Admin podešavanja, dodatna polja i CAPTCHA
+
+![Admin podešavanja, dodatna polja i CAPTCHA](docs/screenshots/admin-settings.png)
+
 ## Instalacija
 
 ### Composer (GitHub)
