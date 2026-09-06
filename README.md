@@ -1,4 +1,7 @@
-# MB Contact Form 1.0.0
+# MB Contact Form 1.0.1
+
+Verzija 1.0.1 ispravlja identifikator Admin taba za Magento XML validaciju.
+ZIP paket ispod ostaje arhiva verzije 1.0.0; za ispravljenu verziju koristiti Composer.
 
 Magento 2 kontakt forma kompatibilna sa Luma i Hyvä temama. Modul pruža cache-friendly CMS widget, Store View konfiguraciju, prilagodljiva polja, Magento Email Templates i izbor između Google reCAPTCHA v2 i Cloudflare Turnstile zaštite.
 
@@ -31,7 +34,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.0.0 --prefer-dist
+composer require mb/module-contact-form:1.0.1 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
