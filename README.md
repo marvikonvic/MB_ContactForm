@@ -1,4 +1,6 @@
-# MB Contact Form 1.0.2
+# MB Contact Form 1.0.3
+
+Verzija 1.0.3 postavlja naslov forme na 20 px i bold (700).
 
 Verzija 1.0.2 proširuje Additional Fields tabelu i dodaje CTA stil Submit dugmetu.
 
@@ -36,7 +38,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.0.2 --prefer-dist
+composer require mb/module-contact-form:1.0.3 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
