@@ -1,5 +1,9 @@
 # MB Contact Form 1.0.4
 
+[Srpski](#srpski) | [English](#english)
+
+## Srpski
+
 Magento 2 kontakt forma kompatibilna sa Luma i Hyvä temama. Modul pruža cache-friendly CMS widget, Store View konfiguraciju, prilagodljiva polja, Magento Email Templates i izbor između Google reCAPTCHA v2 i Cloudflare Turnstile zaštite.
 
 ## DEMO
@@ -85,7 +89,7 @@ Ista pravila se primenjuju u browseru i ponovo na serveru.
 - CSP pravila dozvoljavaju CAPTCHA hostove, dok se newsletter `form-action` origin dodaje dinamički samo na success stranici.
 - Success stranica koristi `NOINDEX,FOLLOW`.
 
-## Screenshots
+## Snimci ekrana
 
 Prikazi sa staging okruženja.
 
@@ -172,3 +176,179 @@ Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izri�
 - **1.0.3:** Postavlja naslov forme na 20 px i bold (700).
 - **1.0.2:** Proširuje Additional Fields tabelu i dodaje CTA stil Submit dugmetu.
 - **1.0.1:** Ispravlja identifikator Admin taba za Magento XML validaciju.
+
+---
+
+## English
+
+Magento 2 contact form compatible with Luma and Hyvä themes. The module provides a cache-friendly CMS widget, Store View configuration, customizable fields, Magento Email Templates, and a choice between Google reCAPTCHA v2 and Cloudflare Turnstile protection.
+
+## Demo
+
+[Try the contact form](https://stagento.com/kontakt)
+
+## Features
+
+MB Contact Form lets you customize the contact form through Magento Admin without changing code.
+
+- Full Page Cache compatible CMS widget.
+- Responsive, Hyvä-compatible storefront without RequireJS, jQuery, or Knockout.
+- Configuration at Default, Website, and Store View scope.
+- Form visibility by customer group, including `NOT LOGGED IN`.
+- Additional fields, required inputs, and validation rules.
+- Customizable standard field labels and support for `text`, `textarea`, and `select` fields.
+- Configurable `Sender Email`, `Sender Name`, and `Recipient Email`.
+- Magento `Email Template` selection for notification emails.
+- Google reCAPTCHA v2 Checkbox and Cloudflare Turnstile with server-side token verification.
+- Custom success message, success URL, and newsletter URL.
+- English source text and Serbian Latin translations through `sr_Latn_RS.csv`.
+- Admin configuration restricted to Full Access administrators.
+- Newsletter subscription option after sending a message.
+- Installation and updates through GitHub and Composer.
+
+## Compatibility
+
+- **PHP:** 8.1.x, 8.2.x, 8.3.x, and 8.4.x according to the module's `composer.json` requirements. The selected PHP version must also be supported by the installed Magento version.
+- **Magento:** verified on Magento 2.4.7-p3. Composer does not restrict Magento packages to a specific version; other versions have not been confirmed by this staging test.
+- **Themes:** Hyvä and Luma support; staging verification was performed on the Hyvä environment below.
+
+### Tested staging environment
+
+| Component | Version |
+| --- | --- |
+| MB Contact Form | 1.0.4 |
+| PHP | 8.3.33 |
+| Magento | 2.4.7-p3 |
+| Hyvä Theme Module | 1.5.2 |
+
+## Configuration
+
+Configuration is available under:
+
+```text
+Stores > Configuration > MB Contact Form > Contact Form
+```
+
+Available settings include:
+
+1. Module status and allowed customer groups.
+2. Form title and field labels.
+3. Sender, recipient, and Magento Email Template.
+4. Additional fields and their validation.
+5. Google reCAPTCHA or Cloudflare Turnstile keys.
+6. Success message, success URL, and newsletter settings.
+
+## CMS Widget usage
+
+Add the widget through Page Builder / Insert Widget or directly to a CMS page or block:
+
+```text
+{{widget type="MB\ContactForm\Block\Widget\Form"}}
+```
+
+## Validation
+
+- Message: Latin and Cyrillic letters, ASCII digits, spaces, line breaks, and punctuation.
+- First and last name: Latin and Cyrillic letters and spaces.
+- Email: strict browser and server-side email validation.
+- Company: Latin and Cyrillic letters, ASCII digits, and spaces.
+- Phone: ASCII digits only.
+- Chinese, Thai, Hebrew, Arabic, Greek, and other unsupported scripts are rejected in fields restricted to supported letters.
+
+The same rules are applied in the browser and again on the server.
+
+## Cache and security
+
+- The widget remains cacheable and respects Magento's customer-group HTTP context.
+- The success page intentionally uses `cacheable="false"` because it reads the submitted email from the session once.
+- The POST endpoint checks the form key, module status, customer group, all fields, and CAPTCHA token.
+- User data is escaped in PHTML and email templates.
+- CSP rules allow CAPTCHA hosts; the newsletter `form-action` origin is added dynamically only on the success page.
+- The success page uses `NOINDEX,FOLLOW`.
+
+## Screenshots
+
+Screenshots from the staging environment.
+
+### Contact form on Hyvä
+
+![Contact form on Hyvä](docs/screenshots/contact-form.png)
+
+### Completed form with additional fields and Turnstile protection
+
+![Completed form with additional fields and Turnstile protection](docs/screenshots/contact-form-filled.png)
+
+### First and last name validation
+
+![First and last name validation](docs/screenshots/name-validation.png)
+
+### Email address validation
+
+![Email address validation](docs/screenshots/email-validation.png)
+
+### Submission confirmation and newsletter subscription
+
+![Submission confirmation and newsletter subscription](docs/screenshots/success-newsletter.png)
+
+### Email notification with the message and additional fields
+
+![Email notification with the message and additional fields](docs/screenshots/email-notification.png)
+
+### Admin settings, additional fields, and CAPTCHA
+
+![Admin settings, additional fields, and CAPTCHA](docs/screenshots/admin-settings.png)
+
+## Installation
+
+### Composer installation (GitHub)
+
+Configure Composer GitHub authentication for the private repository first.
+Run from the Magento root directory:
+
+```bash
+composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
+composer require mb/module-contact-form:1.0.4 --prefer-dist
+```
+
+Composer automatically registers the module from its package in `vendor`.
+Do not also install a copy in `app/code`. After installation, run the Magento activation commands below.
+
+### ZIP installation
+
+Extract the module into:
+
+```text
+app/code/MB/ContactForm
+```
+
+Then run from the Magento root directory:
+
+```bash
+bin/magento module:enable MB_ContactForm
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento cache:clean
+```
+
+In Production mode, deploy static content for the active locales and themes:
+
+```bash
+bin/magento setup:static-content:deploy -f en_US sr_Latn_RS
+```
+
+## Documentation
+
+Full technical documentation and the staging checklist are available in the [module README](app/code/MB/ContactForm/README.md).
+
+## License
+
+The module is distributed under the proprietary [MB Perpetual Module License](LICENSE.md). The license permits perpetual use on an unlimited number of Magento installations and domains owned or directly controlled by the same licensee.
+
+The module is not currently offered for commercial sale; private distribution requires the licensor's express authorization. Full English and Serbian terms are available in the license file.
+
+## Version history
+
+- **1.0.4:** Adds 24 px of spacing above and below the form and confirmation content, plus CTA styling for the Subscribe button.
+- **1.0.3:** Sets the form title to 20 px and bold (700).
+- **1.0.2:** Widens the Additional Fields table and adds CTA styling to the Submit button.
+- **1.0.1:** Fixes the Admin tab identifier for Magento XML validation.
