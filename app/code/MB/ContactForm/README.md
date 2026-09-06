@@ -100,3 +100,10 @@ Obavezno proveriti oba aktivna storefront locale-a i Hyvä temu:
 6. email From/To/Reply-To i SPF/DMARC isporuku;
 7. success redirect, jednokratno popunjen email i newsletter POST;
 8. mobilni prikaz i browser konzolu bez CSP grešaka.
+
+
+## Licenca
+
+Modul se distribuira pod vlasničkom [MB trajnom licencom za modul](LICENSE.md). Licenca dozvoljava trajno korišćenje na neograničenom broju Magento instalacija i domena koji su u vlasništvu ili pod neposrednom kontrolom istog korisnika licence.
+
+Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izričito odobrenje davaoca licence. Puni uslovi na engleskom i srpskom nalaze se u licencnom fajlu.
