@@ -1,4 +1,6 @@
-# MB Contact Form 1.0.1
+# MB Contact Form 1.0.2
+
+Verzija 1.0.2 proširuje Additional Fields tabelu i dodaje CTA stil Submit dugmetu.
 
 Verzija 1.0.1 ispravlja identifikator Admin taba za Magento XML validaciju.
 ZIP paket ispod ostaje arhiva verzije 1.0.0; za ispravljenu verziju koristiti Composer.
@@ -34,7 +36,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.0.1 --prefer-dist
+composer require mb/module-contact-form:1.0.2 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.

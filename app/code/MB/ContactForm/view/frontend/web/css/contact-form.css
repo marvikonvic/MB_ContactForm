@@ -83,6 +83,35 @@
     padding: .7rem 1.5rem;
 }
 
+.mb-contact .mb-contact__actions button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    background: #1559a6;
+    border: 1px solid #1559a6;
+    border-radius: 6px;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mb-contact .mb-contact__actions button[type="submit"]:hover {
+    background: #104680;
+    border-color: #104680;
+}
+
+.mb-contact .mb-contact__actions button[type="submit"]:focus-visible {
+    outline: 3px solid #1559a6;
+    outline-offset: 3px;
+}
+
+.mb-contact .mb-contact__actions button[type="submit"]:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
 .mb-contact-success__message {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;

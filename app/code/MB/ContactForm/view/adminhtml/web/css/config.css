@@ -1,0 +1,43 @@
+#mb_contactform_custom_fields > .config {
+    width: 100%;
+}
+
+#mb_contactform_custom_fields > .config > tbody > tr > td.label {
+    width: 12%;
+}
+
+#mb_contactform_custom_fields > .config > tbody > tr > td.value {
+    width: 83%;
+}
+
+#mb_contactform_custom_fields .design_theme_ua_regexp {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+#mb_contactform_custom_fields .admin__control-table {
+    min-width: 1120px;
+}
+
+#mb_contactform_custom_fields .admin__control-table input {
+    box-sizing: border-box;
+    min-width: 150px;
+    width: 100%;
+}
+
+#mb_contactform_custom_fields .admin__control-table select {
+    min-width: 110px;
+    width: 100%;
+}
+
+#mb_contactform_custom_fields input[name$="[options]"] {
+    min-width: 220px;
+}
+
+#mb_contactform_custom_fields input[name$="[sort_order]"] {
+    min-width: 65px;
+}
+
+#mb_contactform_custom_fields select[name$="[validation]"] {
+    min-width: 200px;
+}
