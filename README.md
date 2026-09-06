@@ -24,6 +24,22 @@ Izvorni kod modula: [`app/code/MB/ContactForm`](app/code/MB/ContactForm)
 
 ## Instalacija
 
+### Composer (GitHub)
+
+Za privatni repozitorijum prethodno podesiti Composer GitHub autentifikaciju.
+Iz Magento root foldera pokrenuti:
+
+```bash
+composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
+composer require mb/module-contact-form:1.0.0 --prefer-dist
+```
+
+Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
+Ne instalirati istovremeno i kopiju u `app/code`. Nakon instalacije pokrenuti
+Magento komande za aktivaciju navedene ispod.
+
+### ZIP
+
 Raspakovati modul tako da se nalazi u:
 
 ```text
