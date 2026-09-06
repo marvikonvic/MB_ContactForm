@@ -97,6 +97,14 @@ Prikazi sa staging okruženja.
 
 ![Kontakt forma na Hyvä temi](docs/screenshots/contact-form.png)
 
+### Mobilni prikaz — naslov i polja forme
+
+<img src="docs/screenshots/contact-form-mobile-top.png" alt="Mobilni prikaz kontakt forme — naslov i polja" width="390">
+
+### Mobilni prikaz — dodatna polja, Turnstile i Submit
+
+<img src="docs/screenshots/contact-form-mobile-submit.png" alt="Mobilni prikaz dodatnih polja, Turnstile zaštite i Submit dugmeta" width="390">
+
 ### Popunjena forma sa dodatnim poljima i Turnstile zaštitom
 
 ![Popunjena forma sa dodatnim poljima i Turnstile zaštitom](docs/screenshots/contact-form-filled.png)
@@ -273,6 +281,14 @@ Screenshots from the staging environment.
 ### Contact form on Hyvä
 
 ![Contact form on Hyvä](docs/screenshots/contact-form.png)
+
+### Mobile view — title and form fields
+
+<img src="docs/screenshots/contact-form-mobile-top.png" alt="Mobile contact form — title and fields" width="390">
+
+### Mobile view — additional fields, Turnstile, and Submit
+
+<img src="docs/screenshots/contact-form-mobile-submit.png" alt="Mobile additional fields, Turnstile protection, and Submit button" width="390">
 
 ### Completed form with additional fields and Turnstile protection
 
