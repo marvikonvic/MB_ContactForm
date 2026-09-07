@@ -24,112 +24,36 @@ $captchaProvider = $block->getCaptchaProvider();
           data-error-captcha="<?= $escaper->escapeHtmlAttr(__('Please complete the CAPTCHA verification.')) ?>">
         <?= $block->getBlockHtml('formkey') ?>
 
-        <div class="mb-contact__field mb-contact__field--full">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-message">
-                <?= $escaper->escapeHtml(__($block->getLabel('message'))) ?> <span aria-hidden="true">*</span>
-            </label>
-            <textarea id="<?= $escaper->escapeHtmlAttr($formId) ?>-message"
-                      name="message"
-                      rows="7"
-                      maxlength="5000"
-                      required
-                      data-validation="safe_text"></textarea>
-        </div>
-
-        <div class="mb-contact__field">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-firstname">
-                <?= $escaper->escapeHtml(__($block->getLabel('firstname'))) ?> <span aria-hidden="true">*</span>
-            </label>
-            <input id="<?= $escaper->escapeHtmlAttr($formId) ?>-firstname"
-                   name="firstname"
-                   type="text"
-                   maxlength="100"
-                   autocomplete="given-name"
-                   required
-                   data-validation="letters">
-        </div>
-
-        <div class="mb-contact__field">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-lastname">
-                <?= $escaper->escapeHtml(__($block->getLabel('lastname'))) ?> <span aria-hidden="true">*</span>
-            </label>
-            <input id="<?= $escaper->escapeHtmlAttr($formId) ?>-lastname"
-                   name="lastname"
-                   type="text"
-                   maxlength="100"
-                   autocomplete="family-name"
-                   required
-                   data-validation="letters">
-        </div>
-
-        <div class="mb-contact__field">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-email">
-                <?= $escaper->escapeHtml(__($block->getLabel('email'))) ?> <span aria-hidden="true">*</span>
-            </label>
-            <input id="<?= $escaper->escapeHtmlAttr($formId) ?>-email"
-                   name="email"
-                   type="email"
-                   maxlength="254"
-                   autocomplete="email"
-                   inputmode="email"
-                   required
-                   data-validation="email">
-        </div>
-
-        <div class="mb-contact__field">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-company">
-                <?= $escaper->escapeHtml(__($block->getLabel('company'))) ?>
-            </label>
-            <input id="<?= $escaper->escapeHtmlAttr($formId) ?>-company"
-                   name="company"
-                   type="text"
-                   maxlength="150"
-                   autocomplete="organization"
-                   data-validation="alphanumeric">
-        </div>
-
-        <div class="mb-contact__field">
-            <label for="<?= $escaper->escapeHtmlAttr($formId) ?>-telephone">
-                <?= $escaper->escapeHtml(__($block->getLabel('telephone'))) ?>
-            </label>
-            <input id="<?= $escaper->escapeHtmlAttr($formId) ?>-telephone"
-                   name="telephone"
-                   type="tel"
-                   maxlength="30"
-                   autocomplete="tel"
-                   inputmode="numeric"
-                   data-validation="numbers">
-        </div>
-
-        <?php foreach ($block->getCustomFields() as $field): ?>
-            <?php $fieldId = $formId . '-custom-' . $field['code']; ?>
+        <?php foreach ($block->getFields() as $field): ?>
+            <?php $fieldId = $formId . '-' . preg_replace('/[^a-z0-9_-]/i', '-', $field['name']); ?>
             <div class="mb-contact__field<?= $field['type'] === 'textarea' ? ' mb-contact__field--full' : '' ?>">
                 <label for="<?= $escaper->escapeHtmlAttr($fieldId) ?>">
-                    <?= $escaper->escapeHtml(__($field['label'])) ?>
+                    <?= $escaper->escapeHtml($field['label']) ?>
                     <?php if ($field['required']): ?><span aria-hidden="true">*</span><?php endif; ?>
                 </label>
                 <?php if ($field['type'] === 'textarea'): ?>
                     <textarea id="<?= $escaper->escapeHtmlAttr($fieldId) ?>"
-                              name="custom[<?= $escaper->escapeHtmlAttr($field['code']) ?>]"
-                              rows="5"
-                              maxlength="1000"
+                              name="<?= $escaper->escapeHtmlAttr($field['name']) ?>"
+                              rows="<?= $field['name'] === 'message' ? 7 : 5 ?>"
+                              maxlength="<?= (int)$field['maxlength'] ?>"
                               data-validation="<?= $escaper->escapeHtmlAttr($field['validation']) ?>"
                               <?= $field['required'] ? 'required' : '' ?>></textarea>
                 <?php elseif ($field['type'] === 'select'): ?>
                      <select id="<?= $escaper->escapeHtmlAttr($fieldId) ?>"
-                             name="custom[<?= $escaper->escapeHtmlAttr($field['code']) ?>]"
+                             name="<?= $escaper->escapeHtmlAttr($field['name']) ?>"
                              data-validation="<?= $escaper->escapeHtmlAttr($field['validation']) ?>"
                              <?= $field['required'] ? 'required' : '' ?>>
                         <option value=""><?= $escaper->escapeHtml(__('Please select')) ?></option>
                         <?php foreach ($field['options'] as $option): ?>
-                            <option value="<?= $escaper->escapeHtmlAttr($option) ?>"><?= $escaper->escapeHtml(__($option)) ?></option>
+                            <option value="<?= $escaper->escapeHtmlAttr($option) ?>"><?= $escaper->escapeHtml($option) ?></option>
                         <?php endforeach; ?>
                     </select>
                 <?php else: ?>
                     <input id="<?= $escaper->escapeHtmlAttr($fieldId) ?>"
-                           name="custom[<?= $escaper->escapeHtmlAttr($field['code']) ?>]"
+                           name="<?= $escaper->escapeHtmlAttr($field['name']) ?>"
                            type="<?= $field['validation'] === 'email' ? 'email' : 'text' ?>"
-                           maxlength="255"
+                           autocomplete="<?= $escaper->escapeHtmlAttr(['firstname' => 'given-name', 'lastname' => 'family-name', 'email' => 'email', 'company' => 'organization', 'telephone' => 'tel'][$field['name']] ?? 'off') ?>"
+                           maxlength="<?= (int)$field['maxlength'] ?>"
                            data-validation="<?= $escaper->escapeHtmlAttr($field['validation']) ?>"
                            <?= $field['required'] ? 'required' : '' ?>>
                 <?php endif; ?>
@@ -150,7 +74,7 @@ $captchaProvider = $block->getCaptchaProvider();
 
         <div class="mb-contact__actions mb-contact__field--full">
             <button class="action primary" type="submit">
-                <span><?= $escaper->escapeHtml(__($block->getLabel('submit'))) ?></span>
+                <span><?= $escaper->escapeHtml($block->getLabel('submit')) ?></span>
             </button>
         </div>
     </form>

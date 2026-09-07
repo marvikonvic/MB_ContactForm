@@ -23,38 +23,32 @@ class DataValidator
 
     public function validate(array $data, int $storeId): array
     {
-        $clean = [
-            'message' => $this->normalizeText((string)($data['message'] ?? '')),
-            'firstname' => $this->normalizeText((string)($data['firstname'] ?? '')),
-            'lastname' => $this->normalizeText((string)($data['lastname'] ?? '')),
-            'email' => $this->normalizeText((string)($data['email'] ?? '')),
-            'company' => $this->normalizeText((string)($data['company'] ?? '')),
-            'telephone' => $this->normalizeText((string)($data['telephone'] ?? '')),
-            'custom' => [],
-        ];
-
-        $this->assertRequired($clean['message'], $this->config->getLabel('message', $storeId));
-        $this->assertRequired($clean['firstname'], $this->config->getLabel('firstname', $storeId));
-        $this->assertRequired($clean['lastname'], $this->config->getLabel('lastname', $storeId));
-        $this->assertRequired($clean['email'], $this->config->getLabel('email', $storeId));
-
-        $this->assertLength($clean['message'], self::MAX_MESSAGE_LENGTH, $this->config->getLabel('message', $storeId));
-        $this->assertLength($clean['firstname'], 100, $this->config->getLabel('firstname', $storeId));
-        $this->assertLength($clean['lastname'], 100, $this->config->getLabel('lastname', $storeId));
-        $this->assertLength($clean['email'], 254, $this->config->getLabel('email', $storeId));
-        $this->assertLength($clean['company'], 150, $this->config->getLabel('company', $storeId));
-        $this->assertLength($clean['telephone'], 30, $this->config->getLabel('telephone', $storeId));
-
-        $this->assertPattern($clean['message'], 'safe_text', $this->config->getLabel('message', $storeId));
-        $this->assertPattern($clean['firstname'], 'letters', $this->config->getLabel('firstname', $storeId));
-        $this->assertPattern($clean['lastname'], 'letters', $this->config->getLabel('lastname', $storeId));
-        $this->assertPattern($clean['email'], 'email', $this->config->getLabel('email', $storeId));
-        $this->assertPattern($clean['company'], 'alphanumeric', $this->config->getLabel('company', $storeId));
-        $this->assertPattern($clean['telephone'], 'numbers', $this->config->getLabel('telephone', $storeId));
+        $clean = array_fill_keys(\MB\ContactForm\Model\StandardFields::CODES, '');
+        $clean['custom'] = [];
+        foreach ($this->config->getStandardFields($storeId) as $definition) {
+            $posted = $data[$definition['code']] ?? '';
+            if (!is_scalar($posted)) {
+                throw new LocalizedException(__('Invalid form field value.'));
+            }
+            $value = $this->normalizeText((string)$posted);
+            if ($definition['required']) {
+                $this->assertRequired($value, $definition['label']);
+            }
+            $this->assertLength($value, $definition['maxlength'], $definition['label']);
+            if ($definition['type'] === 'select' && $value !== '' && !in_array($value, $definition['options'], true)) {
+                throw new LocalizedException(__('The value selected for "%1" is not valid.', $definition['label']));
+            }
+            $this->assertPattern($value, $definition['validation'], $definition['label']);
+            $clean[$definition['code']] = $value;
+        }
 
         $postedCustom = isset($data['custom']) && is_array($data['custom']) ? $data['custom'] : [];
         foreach ($this->config->getCustomFields($storeId) as $definition) {
-            $value = $this->normalizeText((string)($postedCustom[$definition['code']] ?? ''));
+            $posted = $postedCustom[$definition['code']] ?? '';
+            if (!is_scalar($posted)) {
+                throw new LocalizedException(__('Invalid form field value.'));
+            }
+            $value = $this->normalizeText((string)$posted);
             if ($definition['required']) {
                 $this->assertRequired($value, $definition['label']);
             }

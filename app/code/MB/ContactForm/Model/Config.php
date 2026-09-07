@@ -107,6 +107,44 @@ class Config
         return $this->getValue('labels/' . $field, $storeId);
     }
 
+    public function getStandardFieldRows(?int $storeId = null): array
+    {
+        $schema = new StandardFields();
+        $labels = [];
+        foreach (StandardFields::CODES as $code) {
+            $labels[$code] = $this->getLabel($code, $storeId);
+        }
+        $defaults = $schema->defaults(array_filter($labels, 'strlen'));
+        $raw = $this->scopeConfig->getValue(self::XML_PREFIX . 'labels/rows', ScopeInterface::SCOPE_STORE, $storeId);
+        if ($raw === null || $raw === '') {
+            return $defaults;
+        }
+        try {
+            $rows = is_array($raw) ? $raw : $this->serializer->unserialize($raw);
+            return $schema->normalize(is_array($rows) ? $rows : []);
+        } catch (\Throwable $exception) {
+            $this->logger->error('Invalid MB Contact Form standard fields configuration.', ['exception' => $exception]);
+            return $defaults;
+        }
+    }
+
+    public function getStandardFields(?int $storeId = null): array
+    {
+        $fields = [];
+        foreach ($this->getStandardFieldRows($storeId) as $row) {
+            if ($row['disabled'] === '1') {
+                continue;
+            }
+            $row['required'] = $row['required'] === '1';
+            $row['options'] = array_values(array_filter(array_map('trim', explode(',', $row['options'])), 'strlen'));
+            $row['maxlength'] = StandardFields::LIMITS[$row['code']];
+            $row['name'] = $row['code'];
+            $fields[] = $row;
+        }
+        usort($fields, static fn(array $a, array $b): int => $a['sort_order'] <=> $b['sort_order']);
+        return $fields;
+    }
+
     public function getCaptchaProvider(?int $storeId = null): string
     {
         $provider = $this->getValue('captcha/provider', $storeId);

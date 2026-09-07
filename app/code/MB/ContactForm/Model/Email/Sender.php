@@ -59,6 +59,14 @@ class Sender
             'store_name' => $this->storeManager->getStore($storeId)->getName(),
         ];
 
+        foreach (\MB\ContactForm\Model\StandardFields::CODES as $code) {
+            $variables['show_' . $code] = false;
+        }
+        foreach ($this->config->getStandardFields($storeId) as $field) {
+            $variables['show_' . $field['code']] = true;
+            $variables['label_' . $field['code']] = $field['label'];
+        }
+
         try {
             $transport = $this->transportBuilder
                 ->setTemplateIdentifier($this->config->getEmailTemplate($storeId))

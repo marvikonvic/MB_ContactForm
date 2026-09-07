@@ -18,11 +18,19 @@
 {{template config_path="design/email/header_template"}}
 
 <p>{{trans "A new contact form message was submitted."}}</p>
+{{depend show_firstname}}
 <p><strong>{{var label_firstname|escape}}:</strong> {{var firstname|escape}}</p>
+{{/depend}}
+{{depend show_lastname}}
 <p><strong>{{var label_lastname|escape}}:</strong> {{var lastname|escape}}</p>
+{{/depend}}
 <p><strong>{{var label_email|escape}}:</strong> {{var email|escape}}</p>
+{{depend show_company}}
 <p><strong>{{var label_company|escape}}:</strong> {{var company|escape}}</p>
+{{/depend}}
+{{depend show_telephone}}
 <p><strong>{{var label_telephone|escape}}:</strong> {{var telephone|escape}}</p>
+{{/depend}}
 <p><strong>{{var label_message|escape}}:</strong></p>
 <pre style="font-family:inherit;white-space:pre-wrap">{{var message|escape}}</pre>
 

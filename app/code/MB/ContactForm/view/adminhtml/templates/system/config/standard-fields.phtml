@@ -1,0 +1,54 @@
+<?php
+/** @var \MB\ContactForm\Block\Adminhtml\System\Config\Form\Field\StandardFields $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$choices = [
+    'type' => ['text' => 'Text', 'textarea' => 'Textarea', 'select' => 'Select'],
+    'required' => ['1' => 'Yes', '0' => 'No'],
+    'validation' => ['none' => 'No additional validation', 'letters' => 'Latin and Cyrillic letters only',
+        'alphanumeric' => 'Latin and Cyrillic letters and numbers', 'numbers' => 'Numbers only',
+        'email' => 'Email Address', 'safe_text' => 'Latin and Cyrillic letters, numbers and punctuation']
+];
+?>
+<div class="design_theme_ua_regexp">
+<table class="admin__control-table">
+    <thead><tr>
+    <?php foreach (['Code', 'Label', 'Type', 'Required', 'Validation', 'Options (comma-separated)', 'Sort Order', 'Action'] as $heading): ?>
+        <th><?= $escaper->escapeHtml(__($heading)) ?></th>
+    <?php endforeach; ?>
+    </tr></thead>
+    <tbody>
+    <?php foreach ($block->getRows() as $code => $row): ?>
+        <?php $locked = in_array($code, ['email', 'message'], true); $name = $block->getInputName() . '[' . $code . ']'; ?>
+        <tr>
+        <?php foreach (['code', 'label', 'type', 'required', 'validation', 'options', 'sort_order'] as $column): ?>
+            <?php $fixed = $column === 'code' || ($locked && in_array($column, ['type', 'required', 'validation', 'options'], true)); ?>
+            <td>
+            <?php if (isset($choices[$column]) && !$fixed): ?>
+                <select name="<?= $escaper->escapeHtmlAttr($name . '[' . $column . ']') ?>" aria-label="<?= $escaper->escapeHtmlAttr($code . ' ' . __($column)) ?>">
+                    <?php foreach ($choices[$column] as $value => $label): ?>
+                    <option value="<?= $escaper->escapeHtmlAttr($value) ?>" <?= (string)$row[$column] === (string)$value ? 'selected' : '' ?>><?= $escaper->escapeHtml(__($label)) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php elseif (isset($choices[$column])): ?>
+                <input type="hidden" name="<?= $escaper->escapeHtmlAttr($name . '[' . $column . ']') ?>" value="<?= $escaper->escapeHtmlAttr($row[$column]) ?>">
+                <span><?= $escaper->escapeHtml(__($choices[$column][$row[$column]])) ?></span>
+            <?php else: ?>
+                <input type="<?= $column === 'sort_order' ? 'number' : 'text' ?>" name="<?= $escaper->escapeHtmlAttr($name . '[' . $column . ']') ?>"
+                       value="<?= $escaper->escapeHtmlAttr($row[$column]) ?>" <?= $fixed ? 'readonly' : '' ?>
+                       aria-label="<?= $escaper->escapeHtmlAttr($code . ' ' . __($column)) ?>">
+            <?php endif; ?>
+            </td>
+        <?php endforeach; ?>
+            <td>
+                <input type="hidden" name="<?= $escaper->escapeHtmlAttr($name . '[disabled]') ?>" value="0">
+                <?php if ($locked): ?>
+                    <span><?= $escaper->escapeHtml(__('Protected')) ?></span>
+                <?php else: ?>
+                    <label><input type="checkbox" name="<?= $escaper->escapeHtmlAttr($name . '[disabled]') ?>" value="1" <?= $row['disabled'] === '1' ? 'checked' : '' ?>> <?= $escaper->escapeHtml(__('Remove')) ?></label>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+</div>

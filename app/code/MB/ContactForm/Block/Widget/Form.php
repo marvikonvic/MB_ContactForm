@@ -55,6 +55,17 @@ class Form extends Template implements BlockInterface
         return $this->config->getLabel($field, $this->getStoreId());
     }
 
+    public function getFields(): array
+    {
+        $fields = $this->config->getStandardFields($this->getStoreId());
+        foreach ($this->getCustomFields() as $row) {
+            $row['name'] = 'custom[' . $row['code'] . ']';
+            $row['maxlength'] = $row['type'] === 'textarea' ? 1000 : 255;
+            $fields[] = $row;
+        }
+        return $fields;
+    }
+
     public function getCustomFields(): array
     {
         return $this->config->getCustomFields($this->getStoreId());

@@ -1,3 +1,43 @@
+# MB Contact Form 1.1.0
+
+## Srpski — nadogradnja
+
+### Novo u verziji 1.1.0
+
+- **Field Labels → Fields** je tabela: Code, Label, Type, Required, Validation, Options (comma-separated), Sort Order i Action.
+- Standardni kodovi su fiksni: `message`, `firstname`, `lastname`, `email`, `company`, `telephone`.
+- **Email i Message** ostaju uključeni i obavezni. Required je zaključan na Yes; tip i validacija su zaštićeni. Njihovi nazivi i Sort Order mogu se menjati.
+- **Action → Remove** isključuje opciono polje iz forme i emaila. Poništavanje izbora vraća polje bez gubitka podešavanja.
+- Sort Order menja redosled standardnih polja na formi. Additional Fields ostaju zasebna tabela i prikazuju se zatim prema svom Sort Order-u.
+- Email uvek koristi redosled: First Name, Last Name, Email Address, Company Name, Phone Number, Message, Additional information. Uklonjena polja se izostavljaju.
+- **Submit Button Label** ostaje zasebno podesiv po Store View-u; CTA stil ostaje isti.
+- Admin prevodi prate jezik administratora: engleski izvorni tekst i srpska latinica (`sr_Latn_RS`). Ručno uneti nazivi standardnih polja čuvaju se po Store View-u.
+- Ako nova tabela još nije sačuvana, postojeći nazivi iz verzije 1.0.4 koriste se automatski, uz isti početni raspored i obaveznost. Nema prepisivanja postojećih scope vrednosti.
+
+**Provera:** verzija 1.1.0 je proverena lokalnim testovima pravila i PHP/PHTML/XML proverama. Staging tabela i screenshotovi ispod odnose se na ranije potvrđenu verziju 1.0.4; nova verzija još zahteva Magento runtime proveru.
+
+**Email šabloni:** ugrađeni šablon poštuje uklonjena polja. Ako je izabran ranije kopiran šablon iz Marketing → Email Templates, ažurirajte ga novim uslovima `show_firstname`, `show_lastname`, `show_company`, `show_telephone` ili izaberite ugrađeni šablon.
+
+## English — upgrade
+
+### New in version 1.1.0
+
+- **Field Labels → Fields** is a table with Code, Label, Type, Required, Validation, Options (comma-separated), Sort Order, and Action.
+- Standard codes are fixed: `message`, `firstname`, `lastname`, `email`, `company`, `telephone`.
+- **Email and Message** remain enabled and required. Required is locked to Yes; type and validation are protected. Their labels and Sort Order can be changed.
+- **Action → Remove** excludes an optional field from the form and email. Clearing the checkbox restores it without losing its settings.
+- Sort Order changes the standard field order on the form. Additional Fields remain a separate table and follow in their own Sort Order.
+- Email always uses this order: First Name, Last Name, Email Address, Company Name, Phone Number, Message, Additional information. Removed fields are omitted.
+- **Submit Button Label** remains separately configurable per Store View; CTA styling is retained.
+- Admin translations follow the administrator's interface locale: English source text and Serbian Latin (`sr_Latn_RS`). Manually entered standard field labels are stored per Store View.
+- Until the new table is saved, existing 1.0.4 labels are used automatically with the original default order and required flags. Existing scope values are not overwritten.
+
+**Verification:** version 1.1.0 has local contract tests and PHP/PHTML/XML checks. The staging table and screenshots below describe the previously verified 1.0.4 release; the new version still requires Magento runtime verification.
+
+**Email templates:** the built-in template respects removed fields. If an older copied template is selected under Marketing → Email Templates, update it with the new `show_firstname`, `show_lastname`, `show_company`, and `show_telephone` conditions, or select the built-in template.
+
+---
+
 # MB Contact Form 1.0.0
 
 Standalone Magento 2 contact form widget compatible with Luma and Hyvä themes.

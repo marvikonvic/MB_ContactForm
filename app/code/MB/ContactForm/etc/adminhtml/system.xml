@@ -88,12 +88,12 @@
             <group id="labels" translate="label" type="text" sortOrder="20"
                    showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Field Labels</label>
-                <field id="message" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1"><label>Message Body Label</label></field>
-                <field id="firstname" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1"><label>First Name Label</label></field>
-                <field id="lastname" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1"><label>Last Name Label</label></field>
-                <field id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1"><label>Email Address Label</label></field>
-                <field id="company" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1"><label>Company Name Label</label></field>
-                <field id="telephone" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1"><label>Phone Number Label</label></field>
+                <field id="rows" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fields</label>
+                    <comment>Email and Message are always required. Remove excludes an optional field from the form and email; clear Remove to restore it. Sort Order affects the form only.</comment>
+                    <frontend_model>MB\ContactForm\Block\Adminhtml\System\Config\Form\Field\StandardFields</frontend_model>
+                    <backend_model>MB\ContactForm\Model\Config\Backend\StandardFields</backend_model>
+                </field>
                 <field id="submit" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1"><label>Submit Button Label</label></field>
             </group>
             <group id="custom_fields" translate="label comment" type="text" sortOrder="30"
