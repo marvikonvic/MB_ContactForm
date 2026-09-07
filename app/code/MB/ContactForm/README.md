@@ -1,6 +1,10 @@
-# MB Contact Form 1.2.0
+# MB Contact Form 1.2.1
 
 ## Srpski — nadogradnja
+
+### Novo u verziji 1.2.1
+
+Remove checkbox je zamenjen dugmetom **Remove / Restore**. Klik menja stanje polja; **Save Config** čuva promenu. Email i Message ostaju zaštićeni.
 
 ### Novo u verziji 1.2.0
 
@@ -27,6 +31,10 @@
 **Email šabloni:** ugrađeni šablon poštuje uklonjena polja. Ako je izabran ranije kopiran šablon iz Marketing → Email Templates, ažurirajte ga novim uslovima `show_firstname`, `show_lastname`, `show_company`, `show_telephone` ili izaberite ugrađeni šablon.
 
 ## English — upgrade
+
+### New in version 1.2.1
+
+The Remove checkbox is replaced by a **Remove / Restore** button. Clicking toggles the field state; **Save Config** saves the change. Email and Message remain protected.
 
 ### New in version 1.2.0
 

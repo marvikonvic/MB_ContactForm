@@ -115,7 +115,7 @@
 "Protected","Zaštićeno"
 "Remove","Ukloni"
 "Standard field codes must be unique and cannot be changed.","Kodovi standardnih polja moraju biti jedinstveni i ne mogu se menjati."
-"Email and Message are always required. Remove excludes an optional field from the form and email; clear Remove to restore it. Sort Order affects the form only.","Email i Poruka su uvek obavezni. Ukloni isključuje opciono polje iz forme i emaila; poništite izbor da ga vratite. Redosled utiče samo na formu."
+"Email and Message are always required. Remove excludes an optional field from the form and email; click Restore to restore it. Sort Order affects the form only.","Email i Poruka su uvek obavezni. Ukloni isključuje opciono polje iz forme i emaila; kliknite na Vrati da ga vratite. Redosled utiče samo na formu."
 "Action","Radnja"
 "code","Kod"
 "label","Naziv"
@@ -126,3 +126,5 @@
 "sort_order","Redosled"
 
 "Name","Ime"
+
+"Restore","Vrati"

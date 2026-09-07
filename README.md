@@ -1,8 +1,12 @@
-# MB Contact Form 1.2.0
+# MB Contact Form 1.2.1
 
 [Srpski](#srpski) | [English](#english)
 
 ## Srpski
+
+### Novo u verziji 1.2.1
+
+Remove checkbox je zamenjen dugmetom **Remove / Restore**. Klik menja stanje polja; **Save Config** čuva promenu. Email i Message ostaju zaštićeni.
 
 ### Novo u verziji 1.2.0
 
@@ -165,7 +169,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.0 --prefer-dist
+composer require mb/module-contact-form:1.2.1 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
@@ -217,6 +221,10 @@ Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izri�
 ---
 
 ## English
+
+### New in version 1.2.1
+
+The Remove checkbox is replaced by a **Remove / Restore** button. Clicking toggles the field state; **Save Config** saves the change. Email and Message remain protected.
 
 ### New in version 1.2.0
 
@@ -379,7 +387,7 @@ Run from the Magento root directory:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.0 --prefer-dist
+composer require mb/module-contact-form:1.2.1 --prefer-dist
 ```
 
 Composer automatically registers the module from its package in `vendor`.

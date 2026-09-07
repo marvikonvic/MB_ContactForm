@@ -40,11 +40,17 @@ $choices = [
             </td>
         <?php endforeach; ?>
             <td>
-                <input type="hidden" name="<?= $escaper->escapeHtmlAttr($name . '[disabled]') ?>" value="0">
+                <input type="hidden" name="<?= $escaper->escapeHtmlAttr($name . '[disabled]') ?>" value="<?= $locked ? '0' : $escaper->escapeHtmlAttr($row['disabled']) ?>" data-field-disabled>
                 <?php if ($locked): ?>
                     <span><?= $escaper->escapeHtml(__('Protected')) ?></span>
                 <?php else: ?>
-                    <label><input type="checkbox" name="<?= $escaper->escapeHtmlAttr($name . '[disabled]') ?>" value="1" <?= $row['disabled'] === '1' ? 'checked' : '' ?>> <?= $escaper->escapeHtml(__('Remove')) ?></label>
+                    <button type="button" class="action-default mb-contact-field-toggle"
+                            data-mage-init='{"MB_ContactForm/js/field-toggle":{}}'
+                            data-remove-label="<?= $escaper->escapeHtmlAttr(__('Remove')) ?>"
+                            data-restore-label="<?= $escaper->escapeHtmlAttr(__('Restore')) ?>"
+                            aria-pressed="<?= $row['disabled'] === '1' ? 'true' : 'false' ?>">
+                        <span><?= $escaper->escapeHtml(__($row['disabled'] === '1' ? 'Restore' : 'Remove')) ?></span>
+                    </button>
                 <?php endif; ?>
             </td>
         </tr>

@@ -52,4 +52,8 @@
     min-width: 200px;
 }
 
-#mb_contactform_labels input[type="checkbox"] { min-width: 0; width: auto; }
+#mb_contactform_labels .mb-contact-field-toggle {
+    display: inline-block;
+    min-width: 90px;
+    white-space: nowrap;
+}
