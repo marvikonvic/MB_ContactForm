@@ -37,7 +37,7 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 
 | Komponenta | Verzija |
 | --- | --- |
-| MB Contact Form | 1.0.4 |
+| MB Contact Form | 1.2.1 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
@@ -222,7 +222,7 @@ Remove checkbox je zamenjen dugmetom **Remove / Restore**. Klik menja stanje pol
 - Admin prevodi prate jezik administratora: engleski izvorni tekst i srpska latinica (`sr_Latn_RS`). Ručno uneti nazivi standardnih polja čuvaju se po Store View-u.
 - Ako nova tabela još nije sačuvana, postojeći nazivi iz verzije 1.0.4 koriste se automatski, uz isti početni raspored i obaveznost. Nema prepisivanja postojećih scope vrednosti.
 
-**Provera:** verzija 1.1.0 je proverena lokalnim testovima pravila i PHP/PHTML/XML proverama. Staging tabela i screenshotovi ispod odnose se na ranije potvrđenu verziju 1.0.4; nova verzija još zahteva Magento runtime proveru.
+**Provera:** verzija 1.1.0 je proverena lokalnim testovima pravila i PHP/PHTML/XML proverama. Staging tabela i screenshotovi iznad potvrđuju Magento runtime proveru aktuelne verzije 1.2.1.
 
 **Email šabloni:** ugrađeni šablon poštuje uklonjena polja. Ako je izabran ranije kopiran šablon iz Marketing → Email Templates, ažurirajte ga novim uslovima `show_firstname`, `show_lastname`, `show_company`, `show_telephone` ili izaberite ugrađeni šablon.
 
@@ -272,7 +272,7 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 
 | Component | Version |
 | --- | --- |
-| MB Contact Form | 1.0.4 |
+| MB Contact Form | 1.2.1 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
@@ -456,7 +456,7 @@ The Remove checkbox is replaced by a **Remove / Restore** button. Clicking toggl
 - Admin translations follow the administrator's interface locale: English source text and Serbian Latin (`sr_Latn_RS`). Manually entered standard field labels are stored per Store View.
 - Until the new table is saved, existing 1.0.4 labels are used automatically with the original default order and required flags. Existing scope values are not overwritten.
 
-**Verification:** version 1.1.0 has local contract tests and PHP/PHTML/XML checks. The staging table and screenshots below describe the previously verified 1.0.4 release; the new version still requires Magento runtime verification.
+**Verification:** version 1.1.0 has local contract tests and PHP/PHTML/XML checks. The staging table and screenshots above confirm Magento runtime verification of the current version 1.2.1.
 
 **Email templates:** the built-in template respects removed fields. If an older copied template is selected under Marketing → Email Templates, update it with the new `show_firstname`, `show_lastname`, `show_company`, and `show_telephone` conditions, or select the built-in template.
 
