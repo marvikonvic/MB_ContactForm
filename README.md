@@ -1,5 +1,10 @@
 # MB Contact Form 1.2.1
 
+[![Version](https://img.shields.io/badge/version-1.2.1-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.1)
+[![Magento](https://img.shields.io/badge/Magento-2.4.7--p3%20tested-EE672F.svg?logo=magento&logoColor=white)](https://github.com/marvikonvic/MB_ContactForm)
+[![PHP](https://img.shields.io/badge/PHP-8.1--8.4-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
+[![License](https://img.shields.io/badge/license-MB%20Perpetual%20Module%20License-6F42C1.svg)](LICENSE.md)
+
 [Srpski](#srpski) | [English](#english)
 
 ## Srpski
