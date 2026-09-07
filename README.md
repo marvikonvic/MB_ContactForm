@@ -160,6 +160,22 @@ Prikazi sa staging okruženja.
 
 ![Admin podešavanja, dodatna polja i CAPTCHA](docs/screenshots/admin-settings.png)
 
+### Zaštita od spama
+
+![Zaštita od spama](docs/screenshots/spam-protection.png)
+
+### CMS widget kod
+
+![CMS widget kod](docs/screenshots/widget-code.png)
+
+### Field Labels
+
+![Field Labels](docs/screenshots/field-labels.png)
+
+### Mobilni prikaz forme
+
+![Mobilni prikaz forme](docs/screenshots/mobile-form.png)
+
 ## Instalacija
 
 ### Composer (GitHub)
@@ -377,6 +393,22 @@ Screenshots from the staging environment.
 ### Admin settings, additional fields, and CAPTCHA
 
 ![Admin settings, additional fields, and CAPTCHA](docs/screenshots/admin-settings.png)
+
+### Spam protection
+
+![Spam protection](docs/screenshots/spam-protection.png)
+
+### CMS widget code
+
+![CMS widget code](docs/screenshots/widget-code.png)
+
+### Field Labels
+
+![Field Labels](docs/screenshots/field-labels.png)
+
+### Mobile form view
+
+![Mobile form view](docs/screenshots/mobile-form.png)
 
 ## Installation
 
