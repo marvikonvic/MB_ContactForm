@@ -1,8 +1,16 @@
-# MB Contact Form 1.1.0
+# MB Contact Form 1.2.0
 
 ## Srpski — nadogradnja
 
-### Novo u verziji 1.1.0
+### Novo u verziji 1.2.0
+
+- First Name i Last Name zamenjeni su jednim poljem **Name** (`name`), početno obaveznim, sa validacijom latiničnih i ćiriličnih slova i razmaka. Može se ukloniti i promeniti Required.
+- Postojeći redovi za ime/prezime se pri čitanju konfiguracije zamenjuju novim Name redom, na ranijoj od dve pozicije. Novi Name je uključen i obavezan čak i ako je staro polje bilo uklonjeno. Ostala podešavanja ostaju sačuvana. Čuvanje tabele upisuje novi format samo u izabrani scope.
+- Email redosled: **Name → Email Address → Company Name → Phone Number → Message → Additional information**. Reply-To naziv koristi Name.
+- Ako koristite kopirani email šablon, zamenite stare firstname/lastname promenljive sa `name`, `label_name` i uslovom `show_name`, ili izaberite ugrađeni šablon.
+- Verzija 1.2.0 je proverena lokalno; slanje emaila i Admin prikaz ove verzije još treba proveriti na stagingu.
+
+### Istorijski pregled verzije 1.1.0
 
 - **Field Labels → Fields** je tabela: Code, Label, Type, Required, Validation, Options (comma-separated), Sort Order i Action.
 - Standardni kodovi su fiksni: `message`, `firstname`, `lastname`, `email`, `company`, `telephone`.
@@ -20,7 +28,15 @@
 
 ## English — upgrade
 
-### New in version 1.1.0
+### New in version 1.2.0
+
+- First Name and Last Name are replaced by **Name** (`name`), required by default, allowing Latin/Cyrillic letters and spaces. It can be removed or made optional.
+- Legacy name rows are replaced when configuration is read, retaining the earlier sort position. The new Name is enabled and required even if a legacy field was removed. Other settings are preserved. Saving the table persists the new format only in the selected scope.
+- Email order: **Name → Email Address → Company Name → Phone Number → Message → Additional information**. Reply-To uses Name.
+- For copied email templates, replace firstname/lastname variables with `name`, `label_name`, and the `show_name` condition, or select the built-in template.
+- Version 1.2.0 has local verification; email delivery and Admin rendering still require staging verification.
+
+### Historical notes for version 1.1.0
 
 - **Field Labels → Fields** is a table with Code, Label, Type, Required, Validation, Options (comma-separated), Sort Order, and Action.
 - Standard codes are fixed: `message`, `firstname`, `lastname`, `email`, `company`, `telephone`.

@@ -50,8 +50,7 @@ class Sender
 
         $variables = $data + [
             'label_message' => (string)__($this->config->getLabel('message', $storeId)),
-            'label_firstname' => (string)__($this->config->getLabel('firstname', $storeId)),
-            'label_lastname' => (string)__($this->config->getLabel('lastname', $storeId)),
+            'label_name' => $this->config->getLabel('name', $storeId),
             'label_email' => (string)__($this->config->getLabel('email', $storeId)),
             'label_company' => (string)__($this->config->getLabel('company', $storeId)),
             'label_telephone' => (string)__($this->config->getLabel('telephone', $storeId)),
@@ -74,7 +73,7 @@ class Sender
                 ->setTemplateVars($variables)
                 ->setFromByScope(['email' => $senderEmail, 'name' => $senderName], $storeId)
                 ->addTo($recipient)
-                ->setReplyTo($data['email'], trim($data['firstname'] . ' ' . $data['lastname']))
+                ->setReplyTo($data['email'], trim($data['name']))
                 ->getTransport();
             $transport->sendMessage();
         } catch (\Throwable $exception) {

@@ -1,14 +1,12 @@
 <!--@subject {{trans "New contact form message from %store_name" store_name=$store_name}} @-->
 <!--@vars {
 "var label_message":"Message label",
-"var label_firstname":"First name label",
-"var label_lastname":"Last name label",
+"var label_name":"Name label",
 "var label_email":"Email label",
 "var label_company":"Company label",
 "var label_telephone":"Telephone label",
 "var message":"Message",
-"var firstname":"First name",
-"var lastname":"Last name",
+"var name":"Name",
 "var email":"Email",
 "var company":"Company",
 "var telephone":"Telephone",
@@ -18,11 +16,8 @@
 {{template config_path="design/email/header_template"}}
 
 <p>{{trans "A new contact form message was submitted."}}</p>
-{{depend show_firstname}}
-<p><strong>{{var label_firstname|escape}}:</strong> {{var firstname|escape}}</p>
-{{/depend}}
-{{depend show_lastname}}
-<p><strong>{{var label_lastname|escape}}:</strong> {{var lastname|escape}}</p>
+{{depend show_name}}
+<p><strong>{{var label_name|escape}}:</strong> {{var name|escape}}</p>
 {{/depend}}
 <p><strong>{{var label_email|escape}}:</strong> {{var email|escape}}</p>
 {{depend show_company}}

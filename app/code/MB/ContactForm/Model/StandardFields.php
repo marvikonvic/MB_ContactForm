@@ -6,20 +6,20 @@ use Magento\Framework\Exception\LocalizedException;
 
 class StandardFields
 {
-    public const CODES = ['message', 'firstname', 'lastname', 'email', 'company', 'telephone'];
+    public const CODES = ['message', 'name', 'email', 'company', 'telephone'];
     public const REQUIRED = ['email', 'message'];
-    public const LIMITS = ['message' => 5000, 'firstname' => 100, 'lastname' => 100,
+    public const LIMITS = ['message' => 5000, 'name' => 200,
         'email' => 254, 'company' => 150, 'telephone' => 30];
 
     public function defaults(array $labels = []): array
     {
-        $names = ['Message', 'First Name', 'Last Name', 'Email Address', 'Company Name', 'Phone Number'];
-        $rules = ['safe_text', 'letters', 'letters', 'email', 'alphanumeric', 'numbers'];
+        $names = ['Message', 'Name', 'Email Address', 'Company Name', 'Phone Number'];
+        $rules = ['safe_text', 'letters', 'email', 'alphanumeric', 'numbers'];
         $rows = [];
         foreach (self::CODES as $i => $code) {
             $rows[$code] = ['code' => $code, 'label' => $labels[$code] ?? $names[$i],
                 'type' => $code === 'message' ? 'textarea' : 'text',
-                'required' => $i < 4 ? '1' : '0', 'validation' => $rules[$i],
+                'required' => $i < 3 ? '1' : '0', 'validation' => $rules[$i],
                 'options' => '', 'sort_order' => ($i + 1) * 10, 'disabled' => '0'];
         }
         return $rows;
@@ -28,6 +28,23 @@ class StandardFields
     public function normalize(array $rows, bool $strict = false): array
     {
         unset($rows['__empty']);
+        // Upgrade legacy rows in memory at the current configuration scope.
+        // Saving the table persists the new representation without rewriting other scopes.
+        $legacy = [];
+        $hasName = false;
+        foreach ($rows as $key => $row) {
+            if (!is_array($row)) { continue; }
+            if (($row['code'] ?? '') === 'name') { $hasName = true; }
+            if (in_array($row['code'] ?? '', ['firstname', 'lastname'], true)) {
+                $legacy[] = $row;
+                unset($rows[$key]);
+            }
+        }
+        if ($legacy !== [] && !$hasName) {
+            $name = $this->defaults()['name'];
+            $name['sort_order'] = min(array_map(static fn(array $row): int => (int)($row['sort_order'] ?? 20), $legacy));
+            $rows[] = $name;
+        }
         $result = [];
         foreach ($rows as $row) {
             if (!is_array($row)) {

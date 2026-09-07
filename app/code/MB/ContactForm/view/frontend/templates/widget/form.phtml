@@ -52,7 +52,7 @@ $captchaProvider = $block->getCaptchaProvider();
                     <input id="<?= $escaper->escapeHtmlAttr($fieldId) ?>"
                            name="<?= $escaper->escapeHtmlAttr($field['name']) ?>"
                            type="<?= $field['validation'] === 'email' ? 'email' : 'text' ?>"
-                           autocomplete="<?= $escaper->escapeHtmlAttr(['firstname' => 'given-name', 'lastname' => 'family-name', 'email' => 'email', 'company' => 'organization', 'telephone' => 'tel'][$field['name']] ?? 'off') ?>"
+                           autocomplete="<?= $escaper->escapeHtmlAttr(['name' => 'name', 'email' => 'email', 'company' => 'organization', 'telephone' => 'tel'][$field['name']] ?? 'off') ?>"
                            maxlength="<?= (int)$field['maxlength'] ?>"
                            data-validation="<?= $escaper->escapeHtmlAttr($field['validation']) ?>"
                            <?= $field['required'] ? 'required' : '' ?>>

@@ -30,7 +30,7 @@ namespace {
     }
     $schema = new \MB\ContactForm\Model\StandardFields();
     $rows = $schema->defaults();
-    check(count($schema->normalize($rows, true)) === 6, 'Default fields');
+    check(count($schema->normalize($rows, true)) === 5, 'Default fields');
     foreach (['email', 'message'] as $code) {
         $bad = $rows; unset($bad[$code]);
         rejected(fn() => $schema->normalize($bad, true), 'Cannot remove protected field');
@@ -43,6 +43,17 @@ namespace {
     rejected(fn() => $schema->normalize($bad, true), 'Unknown code rejected');
     $bad = $rows; $bad['company']['type'] = 'select';
     rejected(fn() => $schema->normalize($bad, true), 'Select requires options');
+    $legacy = $rows;
+    unset($legacy['name']);
+    $legacy['firstname'] = $rows['name']; $legacy['firstname']['code'] = 'firstname';
+    $legacy['firstname']['disabled'] = '1'; $legacy['firstname']['sort_order'] = 7;
+    $legacy['lastname'] = $rows['name']; $legacy['lastname']['code'] = 'lastname';
+    $legacy['lastname']['sort_order'] = 8;
+    $migrated = $schema->normalize($legacy, true);
+    check(isset($migrated['name']) && !isset($migrated['firstname']) && !isset($migrated['lastname']), 'Legacy names merged');
+    check($migrated['name']['required'] === '1' && $migrated['name']['disabled'] === '0', 'New Name enabled and required');
+    check($migrated['name']['sort_order'] === 7, 'Legacy position retained');
+    check($schema->normalize($migrated, true) === $migrated, 'Upgrade is idempotent');
     $scope = new class implements \Magento\Framework\App\Config\ScopeConfigInterface {
         public array $values = [];
         public function getValue($path, $scope = null, $id = null) { return $this->values[$id][$path] ?? null; }
@@ -50,12 +61,11 @@ namespace {
     $logger = new class implements \Psr\Log\LoggerInterface { public function error(...$args) {} };
     $encryptor = new class implements \Magento\Framework\Encryption\EncryptorInterface {};
     $config = new \MB\ContactForm\Model\Config($scope, $encryptor, new \Magento\Framework\Serialize\Serializer\Json(), $logger);
-    $scope->values[1]['mb_contactform/labels/firstname'] = 'Ime';
-    check($config->getStandardFieldRows(1)['firstname']['label'] === 'Ime', 'Legacy Store View label retained');
-    check($config->getStandardFieldRows(2)['firstname']['label'] === 'First Name', 'Store labels isolated');
+    $scope->values[1]['mb_contactform/labels/name'] = 'Ime';
+    check($config->getStandardFieldRows(1)['name']['label'] === 'Ime', 'Legacy Store View label retained');
+    check($config->getStandardFieldRows(2)['name']['label'] === 'Name', 'Store labels isolated');
     $rows['company']['disabled'] = '1';
-    $rows['firstname']['required'] = '0';
-    $rows['lastname']['disabled'] = '1';
+    $rows['name']['required'] = '0';
     $rows['message']['sort_order'] = 999;
     $scope->values[1]['mb_contactform/labels/rows'] = json_encode($rows);
     $fields = $config->getStandardFields(1);
@@ -64,8 +74,8 @@ namespace {
     $validator = new \MB\ContactForm\Model\Form\DataValidator($config);
     $data = ['email' => 'test@example.com', 'message' => 'Hello world!', 'company' => '<script>ignored</script>'];
     $clean = $validator->validate($data, 1);
-    check($clean['company'] === '' && $clean['lastname'] === '', 'Disabled values discarded');
-    check($clean['firstname'] === '', 'Optional name can be empty');
+    check($clean['company'] === '', 'Disabled values discarded');
+    check($clean['name'] === '', 'Optional name can be empty');
     rejected(fn() => $validator->validate(['email' => 'bad', 'message' => 'Hello'], 1), 'Email validated');
     rejected(fn() => $validator->validate(['email' => 'test@example.com'], 1), 'Message required');
     rejected(fn() => $validator->validate(['email' => ['bad'], 'message' => 'Hello'], 1), 'Non-scalar rejected');
@@ -75,7 +85,7 @@ namespace {
     check($validator->validate($data + ['telephone' => '123'], 1)['telephone'] === '123', 'Valid select accepted');
     $email = file_get_contents($root . 'view/frontend/email/contact_form_notification.html');
     $last = -1;
-    foreach (['firstname', 'lastname', 'email', 'company', 'telephone', 'message'] as $code) {
+    foreach (['name', 'email', 'company', 'telephone', 'message'] as $code) {
         $position = strpos($email, '<p><strong>{{var label_' . $code);
         check($position > $last, 'Email order ' . $code); $last = $position;
     }

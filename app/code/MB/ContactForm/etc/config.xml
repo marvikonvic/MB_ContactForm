@@ -18,8 +18,7 @@
             </general>
             <labels>
                 <message>Message</message>
-                <firstname>First Name</firstname>
-                <lastname>Last Name</lastname>
+                <name>Name</name>
                 <email>Email Address</email>
                 <company>Company Name</company>
                 <telephone>Phone Number</telephone>
