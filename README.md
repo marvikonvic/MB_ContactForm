@@ -141,9 +141,11 @@ Prikazi sa staging okruženja.
 
 ![Field Labels](docs/screenshots/field-labels.png)
 
-### Mobilni prikaz forme
+### Email zaglavlja i Mailpit HTML compatibility provera
 
-![Mobilni prikaz forme](docs/screenshots/mobile-form.png)
+Screenshot prikazuje `From`, `To` i `Reply-To` zaglavlja koja dobijaju email klijenti, kao i Mailpit `HTML Check` rezultat kompatibilnosti ugrađenog email šablona.
+
+![Email zaglavlja i Mailpit HTML compatibility provera](docs/screenshots/mobile-form.png)
 
 ## Instalacija
 
@@ -374,9 +376,11 @@ Screenshots from the staging environment.
 
 ![Field Labels](docs/screenshots/field-labels.png)
 
-### Mobile form view
+### Email headers and Mailpit HTML compatibility check
 
-![Mobile form view](docs/screenshots/mobile-form.png)
+The screenshot shows the `From`, `To`, and `Reply-To` headers delivered to email clients, together with the Mailpit `HTML Check` compatibility result for the built-in email template.
+
+![Email headers and Mailpit HTML compatibility check](docs/screenshots/mobile-form.png)
 
 ## Installation
 
