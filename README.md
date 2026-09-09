@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/badge/version-1.2.2-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.2)
 [![Magento](https://img.shields.io/badge/Magento-2.4.7--p3%20tested-EE672F.svg?logo=magento&logoColor=white)](https://github.com/marvikonvic/MB_ContactForm)
 [![PHP](https://img.shields.io/badge/PHP-8.1--8.4-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
-[![License](https://img.shields.io/badge/license-MB%20Perpetual%20Module%20License-6F42C1.svg)](LICENSE.md)
+[![License](https://img.shields.io/badge/license-GPL--3.0--or--later-6F42C1.svg)](LICENSE.md)
 
 [Srpski](#srpski) | [English](#english)
 
@@ -47,7 +47,7 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
 
-## Podešavanje
+## Podešavanja
 
 Konfiguracija se nalazi na:
 
@@ -62,6 +62,9 @@ Tu se podešavaju:
 3. email pošiljaoca, primaoca i Magento Email Template;
 4. dodatna polja i njihova validacija;
 5. Google reCAPTCHA ili Cloudflare Turnstile ključevi;
+
+   **Napomena:** pre unosa ključeva izaberite odgovarajući **Store View** u biraču scope-a. Proverite CAPTCHA provajdera i oba ključa za prodavnicu na kojoj je forma prikazana; obratite pažnju na nasleđivanje vrednosti. Sačuvajte konfiguraciju, očistite cache i proverite slanje forme.
+
 6. success poruka, success URL i newsletter podešavanja.
 
 ## CMS Widget
@@ -156,7 +159,7 @@ Screenshot prikazuje `From`, `To` i `Reply-To` zaglavlja koja dobijaju email kli
 
 ### Composer (GitHub)
 
-Za privatni repozitorijum prethodno podesiti Composer GitHub autentifikaciju.
+Za javni repozitorijum koristite HTTPS URL ispod; GitHub autentifikacija nije potrebna za čitanje javnog koda (Composer može tražiti token ako se dostigne GitHub API limit). Ovaj postupak bez autentifikacije važi nakon promene vidljivosti repozitorijuma na Public.
 Iz Magento root foldera pokrenuti:
 
 ```bash
@@ -191,15 +194,46 @@ U Production modu generisati static content za aktivne locale i teme:
 bin/magento setup:static-content:deploy -f en_US sr_Latn_RS
 ```
 
+## Ažuriranje
+
+Pre ažuriranja napravite backup baze, koda i konfiguracije i proverite novu verziju na stagingu. Komande pokrećite iz Magento root direktorijuma kao vlasnik Magento fajlova.
+
+### Instalacija preko Composera
+
+Za prelazak sa ranije verzije (uključujući 1.0.x) na objavljeni tag 1.2.2:
+
+```bash
+bin/magento maintenance:enable
+composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
+composer require mb/module-contact-form:1.2.2 --prefer-dist --with-dependencies
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+```
+
+U Production modu zatim pokrenite `bin/magento setup:static-content:deploy -f en_US sr_Latn_RS`, prilagođeno aktivnim locale-ima. Nakon uspešnog izvršavanja:
+
+```bash
+bin/magento cache:clean
+bin/magento maintenance:disable
+```
+
+Ako neki korak ne uspe, prekinite postupak i rešite grešku ili vratite backup pre isključivanja maintenance režima. Za naredna izdanja zamenite `1.2.2` željenim objavljenim tagom. Tačno zaključana Composer verzija ne prelazi na novo izdanje običnim `composer update`.
+
+### Ručna instalacija u app/code
+
+Preuzmite [ZIP taga v1.2.2](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.2.zip). Sačuvajte postojeći `app/code/MB/ContactForm` van Magento stabla i proverite lokalne izmene. U maintenance režimu zamenite ceo direktorijum kopijom `app/code/MB/ContactForm` iz arhive, uz ispravno vlasništvo fajlova. Pokrenite iste Magento upgrade, compile, static-content (Production) i cache komande iznad. Ne kombinujte ručnu i Composer instalaciju.
+
+Pri prelasku sa 1.0.x proverite nazive/redosled polja i prilagođene email šablone: od 1.2.0 koristi se `name` umesto `firstname`/`lastname`. Proverite CAPTCHA ključeve za odgovarajući Store View, pošaljite test poruku i potvrdite prijem emaila. Detalji promena su u istoriji verzija.
+
 ## Dokumentacija
 
 Kompletna tehnička dokumentacija i staging kontrolna lista nalaze se u [README fajlu modula](app/code/MB/ContactForm/README.md).
 
 ## Licenca
 
-Modul se distribuira pod vlasničkom [MB trajnom licencom za modul](LICENSE.md). Licenca dozvoljava trajno korišćenje na neograničenom broju Magento instalacija i domena koji su u vlasništvu ili pod neposrednom kontrolom istog korisnika licence.
+Modul se distribuira pod [GNU General Public License, verzija 3 ili bilo koja novija verzija](LICENSE.md) (`GPL-3.0-or-later`). Copyright © 2026 MB.
 
-Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izričito odobrenje davaoca licence. Puni uslovi na engleskom i srpskom nalaze se u licencnom fajlu.
+Ova licenca važi za ovu reviziju koda. Ranije objavljeni tagovi zadržavaju licencne fajlove iz tih izdanja; tag `v1.2.2` nije retroaktivno izmenjen.
 
 ## Istorija verzija
 
@@ -303,6 +337,9 @@ Available settings include:
 3. Sender, recipient, and Magento Email Template.
 4. Additional fields and their validation.
 5. Google reCAPTCHA or Cloudflare Turnstile keys.
+
+   **Note:** select the correct **Store View** in the scope selector before entering keys. Verify the CAPTCHA provider and both keys for the storefront displaying the form, including inherited values. Save the configuration, clean the cache, and test form submission.
+
 6. Success message, success URL, and newsletter settings.
 
 ## CMS Widget usage
@@ -397,7 +434,7 @@ The screenshot shows the `From`, `To`, and `Reply-To` headers delivered to email
 
 ### Composer installation (GitHub)
 
-Configure Composer GitHub authentication for the private repository first.
+For a public repository, use the HTTPS URL below; GitHub authentication is not required to read public code (Composer may request a token if the GitHub API rate limit is reached). Unauthenticated access applies once the repository visibility is set to Public.
 Run from the Magento root directory:
 
 ```bash
@@ -431,15 +468,46 @@ In Production mode, deploy static content for the active locales and themes:
 bin/magento setup:static-content:deploy -f en_US sr_Latn_RS
 ```
 
+## Updating
+
+Back up the database, code, and configuration and test the new version on staging first. Run commands from the Magento root as the Magento filesystem owner.
+
+### Composer installation
+
+To upgrade an earlier version (including 1.0.x) to the published 1.2.2 tag:
+
+```bash
+bin/magento maintenance:enable
+composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
+composer require mb/module-contact-form:1.2.2 --prefer-dist --with-dependencies
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+```
+
+In Production mode, next run `bin/magento setup:static-content:deploy -f en_US sr_Latn_RS`, adjusted for active locales. After successful completion:
+
+```bash
+bin/magento cache:clean
+bin/magento maintenance:disable
+```
+
+If any step fails, stop and resolve the error or restore the backup before disabling maintenance mode. For future releases, replace `1.2.2` with the desired published tag. A Composer requirement pinned to an exact version will not advance to a new release with a plain `composer update`.
+
+### Manual app/code installation
+
+Download the [v1.2.2 tag ZIP](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.2.zip). Back up the existing `app/code/MB/ContactForm` outside the Magento tree and review local changes. In maintenance mode, replace the whole directory with `app/code/MB/ContactForm` from the archive, preserving correct filesystem ownership. Run the same Magento upgrade, compile, static-content (Production), and cache commands above. Do not combine manual and Composer installations.
+
+When upgrading from 1.0.x, review field labels/order and custom email templates: since 1.2.0, `name` replaces `firstname`/`lastname`. Check CAPTCHA keys for the correct Store View, submit a test message, and confirm email receipt. See the version history for details.
+
 ## Documentation
 
 Full technical documentation and the staging checklist are available in the [module README](app/code/MB/ContactForm/README.md).
 
 ## License
 
-The module is distributed under the proprietary [MB Perpetual Module License](LICENSE.md). The license permits perpetual use on an unlimited number of Magento installations and domains owned or directly controlled by the same licensee.
+The module is distributed under the [GNU General Public License, version 3 or any later version](LICENSE.md) (`GPL-3.0-or-later`). Copyright © 2026 MB.
 
-The module is not currently offered for commercial sale; private distribution requires the licensor's express authorization. Full English and Serbian terms are available in the license file.
+This license applies to this code revision. Previously published tags retain the license files shipped with those releases; tag `v1.2.2` has not been retroactively changed.
 
 ## Version history
 

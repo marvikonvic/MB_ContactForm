@@ -1,4 +1,4 @@
-# MB Contact Form 1.2.1
+# MB Contact Form 1.2.2
 
 ## Srpski — nadogradnja
 
@@ -168,6 +168,6 @@ Obavezno proveriti oba aktivna storefront locale-a i Hyvä temu:
 
 ## Licenca
 
-Modul se distribuira pod vlasničkom [MB trajnom licencom za modul](LICENSE.md). Licenca dozvoljava trajno korišćenje na neograničenom broju Magento instalacija i domena koji su u vlasništvu ili pod neposrednom kontrolom istog korisnika licence.
+Modul se distribuira pod [GNU General Public License, verzija 3 ili bilo koja novija verzija](LICENSE.md) (`GPL-3.0-or-later`). Copyright © 2026 MB.
 
-Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izričito odobrenje davaoca licence. Puni uslovi na engleskom i srpskom nalaze se u licencnom fajlu.
+Ova licenca važi za ovu reviziju koda. Ranije objavljeni tagovi zadržavaju licencne fajlove iz tih izdanja; tag `v1.2.2` nije retroaktivno izmenjen.
