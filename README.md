@@ -42,7 +42,7 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 
 | Komponenta | Verzija |
 | --- | --- |
-| MB Contact Form | 1.2.1 |
+| MB Contact Form | 1.2.3 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
@@ -256,7 +256,7 @@ Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact For
 - Email Subject i Email Introduction u General Settings, podesivi po Store View-u.
 - Ugrađeni email šablon koristi novi naslov i uvodni tekst; za kopirane šablone pogledajte uputstvo iznad.
 - GPL-3.0-or-later licenca, ažurirani bedževi i uputstva za instalaciju i ažuriranje.
-- PHP/XML provere su prošle; staging test novih email podešavanja još nije potvrđen.
+- PHP/XML provere su prošle; korisnik je potvrdio uspešan staging test emaila i svih podešavanja, uključujući Email Subject i Email Introduction.
 
 ### Novo u verziji 1.2.2
 
@@ -338,7 +338,7 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 
 | Component | Version |
 | --- | --- |
-| MB Contact Form | 1.2.1 |
+| MB Contact Form | 1.2.3 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
@@ -551,7 +551,7 @@ The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-
 - Store View-scoped Email Subject and Email Introduction in General Settings.
 - The built-in email template uses the new subject and introduction; see the instructions above for copied templates.
 - GPL-3.0-or-later licensing, updated badges, and installation/update instructions.
-- PHP/XML checks passed; staging testing of the new email settings is not yet confirmed.
+- PHP/XML checks passed; the user confirmed successful staging tests of email delivery and all settings, including Email Subject and Email Introduction.
 
 ### New in version 1.2.2
 
