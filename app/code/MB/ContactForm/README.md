@@ -1,4 +1,4 @@
-# MB Contact Form 1.2.2
+# MB Contact Form 1.2.3
 
 ## Srpski — nadogradnja
 
@@ -170,4 +170,4 @@ Obavezno proveriti oba aktivna storefront locale-a i Hyvä temu:
 
 Modul se distribuira pod [GNU General Public License, verzija 3 ili bilo koja novija verzija](LICENSE.md) (`GPL-3.0-or-later`). Copyright © 2026 MB.
 
-Ova licenca važi za ovu reviziju koda. Ranije objavljeni tagovi zadržavaju licencne fajlove iz tih izdanja; tag `v1.2.2` nije retroaktivno izmenjen.
+Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact Form modula pod licencom GPL-3.0-or-later.

@@ -14,6 +14,10 @@ GNU General Public License for more details.
 
 SPDX-License-Identifier: GPL-3.0-or-later
 
+The copyright holder also offers earlier releases of MB Contact Form
+under GPL-3.0-or-later. This permission is additional to the licensing
+terms originally supplied with those releases.
+
 Full license text follows (https://www.gnu.org/licenses/gpl-3.0.txt).
 
                     GNU GENERAL PUBLIC LICENSE
