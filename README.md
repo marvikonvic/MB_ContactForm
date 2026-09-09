@@ -1,6 +1,6 @@
-# MB Contact Form 1.2.1
+# MB Contact Form 1.2.2
 
-[![Version](https://img.shields.io/badge/version-1.2.1-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.1)
+[![Version](https://img.shields.io/badge/version-1.2.2-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.2)
 [![Magento](https://img.shields.io/badge/Magento-2.4.7--p3%20tested-EE672F.svg?logo=magento&logoColor=white)](https://github.com/marvikonvic/MB_ContactForm)
 [![PHP](https://img.shields.io/badge/PHP-8.1--8.4-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-MB%20Perpetual%20Module%20License-6F42C1.svg)](LICENSE.md)
@@ -161,7 +161,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.1 --prefer-dist
+composer require mb/module-contact-form:1.2.2 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
@@ -203,6 +203,12 @@ Modul trenutno nije u komercijalnoj prodaji; privatna distribucija zahteva izri�
 
 ## Istorija verzija
 
+### Novo u verziji 1.2.2
+
+Vraćena je klasa `action primary` na Submit i Subscribe dugmadima, čime je poništena privremena izmena na `pagebuilder-button-primary`. Zastareli ZIP verzije 1.0.0 više nije deo paketa. Composer verzija je usklađena sa tagom `v1.2.2`.
+
+Staging potvrda i screenshotovi odnose se na verziju 1.2.1; verzija 1.2.2 nije posebno testirana u Magento runtime okruženju. CAPTCHA podešavanja ostaju po Store View-u.
+
 ### Novo u verziji 1.2.1
 
 Remove checkbox je zamenjen dugmetom **Remove / Restore**. Klik menja stanje polja; **Save Config** čuva promenu. Email i Message ostaju zaštićeni.
@@ -227,7 +233,7 @@ Remove checkbox je zamenjen dugmetom **Remove / Restore**. Klik menja stanje pol
 - Admin prevodi prate jezik administratora: engleski izvorni tekst i srpska latinica (`sr_Latn_RS`). Ručno uneti nazivi standardnih polja čuvaju se po Store View-u.
 - Ako nova tabela još nije sačuvana, postojeći nazivi iz verzije 1.0.4 koriste se automatski, uz isti početni raspored i obaveznost. Nema prepisivanja postojećih scope vrednosti.
 
-**Provera:** verzija 1.1.0 je proverena lokalnim testovima pravila i PHP/PHTML/XML proverama. Staging tabela i screenshotovi iznad potvrđuju Magento runtime proveru aktuelne verzije 1.2.1.
+**Provera:** verzija 1.1.0 je proverena lokalnim testovima pravila i PHP/PHTML/XML proverama. Staging tabela i screenshotovi iznad potvrđuju Magento runtime proveru verzije 1.2.1.
 
 **Email šabloni:** ugrađeni šablon poštuje uklonjena polja. Ako je izabran ranije kopiran šablon iz Marketing → Email Templates, ažurirajte ga novim uslovima `show_firstname`, `show_lastname`, `show_company`, `show_telephone` ili izaberite ugrađeni šablon.
 
@@ -396,7 +402,7 @@ Run from the Magento root directory:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.1 --prefer-dist
+composer require mb/module-contact-form:1.2.2 --prefer-dist
 ```
 
 Composer automatically registers the module from its package in `vendor`.
@@ -437,6 +443,12 @@ The module is not currently offered for commercial sale; private distribution re
 
 ## Version history
 
+### New in version 1.2.2
+
+Restored the `action primary` class on Submit and Subscribe buttons, reverting the temporary `pagebuilder-button-primary` change. The obsolete 1.0.0 ZIP is no longer included in the package. The Composer version matches tag `v1.2.2`.
+
+Staging confirmation and screenshots refer to version 1.2.1; version 1.2.2 has not been separately tested in a Magento runtime environment. CAPTCHA settings remain scoped by Store View.
+
 ### New in version 1.2.1
 
 The Remove checkbox is replaced by a **Remove / Restore** button. Clicking toggles the field state; **Save Config** saves the change. Email and Message remain protected.
@@ -461,7 +473,7 @@ The Remove checkbox is replaced by a **Remove / Restore** button. Clicking toggl
 - Admin translations follow the administrator's interface locale: English source text and Serbian Latin (`sr_Latn_RS`). Manually entered standard field labels are stored per Store View.
 - Until the new table is saved, existing 1.0.4 labels are used automatically with the original default order and required flags. Existing scope values are not overwritten.
 
-**Verification:** version 1.1.0 has local contract tests and PHP/PHTML/XML checks. The staging table and screenshots above confirm Magento runtime verification of the current version 1.2.1.
+**Verification:** version 1.1.0 has local contract tests and PHP/PHTML/XML checks. The staging table and screenshots above confirm Magento runtime verification of version 1.2.1.
 
 **Email templates:** the built-in template respects removed fields. If an older copied template is selected under Marketing → Email Templates, update it with the new `show_firstname`, `show_lastname`, `show_company`, and `show_telephone` conditions, or select the built-in template.
 
