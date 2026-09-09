@@ -1,5 +1,7 @@
-<!--@subject {{trans "New contact form message from %store_name" store_name=$store_name}} @-->
+<!--@subject {{var email_subject|raw}} @-->
 <!--@vars {
+"var email_subject":"Email subject",
+"var email_intro":"Email introduction",
 "var label_message":"Message label",
 "var label_name":"Name label",
 "var label_email":"Email label",
@@ -15,7 +17,9 @@
 } @-->
 {{template config_path="design/email/header_template"}}
 
-<p>{{trans "A new contact form message was submitted."}}</p>
+{{depend email_intro}}
+<p>{{var email_intro|escape|nl2br}}</p>
+{{/depend}}
 {{depend show_name}}
 <p><strong>{{var label_name|escape}}:</strong> {{var name|escape}}</p>
 {{/depend}}

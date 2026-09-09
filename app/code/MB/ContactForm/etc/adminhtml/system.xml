@@ -50,6 +50,16 @@
                     <comment>Create or edit templates under Marketing &gt; Communications &gt; Email Templates, then select one here.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
                 </field>
+                <field id="email_subject" translate="label comment" type="text" sortOrder="58"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Subject</label>
+                    <comment>Plain text. Use %store_name for the store name. Leave empty to use the default subject. Custom email templates must use the email_subject variable in their subject.</comment>
+                </field>
+                <field id="email_intro" translate="label comment" type="textarea" sortOrder="59"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Introduction</label>
+                    <comment>Plain text only. Line breaks are preserved. Leave empty to hide the introduction. Custom email templates must use the email_intro variable.</comment>
+                </field>
                 <field id="success_url" translate="label comment" type="text" sortOrder="60"
                        showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Custom Success URL</label>

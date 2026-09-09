@@ -72,6 +72,17 @@ class Config
             ?: 'mb_contactform_general_email_template';
     }
 
+    public function getEmailSubject(?int $storeId = null): string
+    {
+        return $this->getValue('general/email_subject', $storeId)
+            ?: 'New contact form message from %store_name';
+    }
+
+    public function getEmailIntro(?int $storeId = null): string
+    {
+        return $this->getValue('general/email_intro', $storeId);
+    }
+
     public function getSuccessUrl(?int $storeId = null): string
     {
         return $this->getValue('general/success_url', $storeId);

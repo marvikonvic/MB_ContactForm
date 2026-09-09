@@ -67,6 +67,20 @@ Tu se podešavaju:
 
 6. success poruka, success URL i newsletter podešavanja.
 
+### Naslov i uvodni tekst emaila
+
+U **General Settings** podesite **Email Subject** i **Email Introduction** za odgovarajući Store View. Subject podržava `%store_name`; prazan Subject koristi podrazumevani naslov. Uvod je običan tekst sa prelomima redova; prazna vrednost ga skriva. Ugrađeni email šablon automatski koristi oba polja.
+
+Za već kopiran šablon u **Marketing > Communications > Email Templates**, postavite Template Subject na `{{var email_subject|raw}}`, a postojeći uvodni pasus zamenite sledećim:
+
+```html
+{{depend email_intro}}
+<p>{{var email_intro|escape|nl2br}}</p>
+{{/depend}}
+```
+
+Ova mogućnost je dodata na `main` nakon taga `v1.2.2`.
+
 ## CMS Widget
 
 Widget se može dodati kroz Page Builder / Insert Widget ili direktno u sadržaj CMS stranice ili bloka:
@@ -341,6 +355,20 @@ Available settings include:
    **Note:** select the correct **Store View** in the scope selector before entering keys. Verify the CAPTCHA provider and both keys for the storefront displaying the form, including inherited values. Save the configuration, clean the cache, and test form submission.
 
 6. Success message, success URL, and newsletter settings.
+
+### Email subject and introduction
+
+Set **Email Subject** and **Email Introduction** in **General Settings** for the correct Store View. The subject supports `%store_name`; an empty subject uses the default. The introduction is plain text with line breaks; an empty value hides it. The built-in email template uses both settings automatically.
+
+For an existing copied template under **Marketing > Communications > Email Templates**, set Template Subject to `{{var email_subject|raw}}` and replace the existing introduction paragraph with:
+
+```html
+{{depend email_intro}}
+<p>{{var email_intro|escape|nl2br}}</p>
+{{/depend}}
+```
+
+This feature was added on `main` after tag `v1.2.2`.
 
 ## CMS Widget usage
 

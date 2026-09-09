@@ -128,3 +128,7 @@
 "Name","Ime"
 
 "Restore","Vrati"
+"Email Subject","Naslov email poruke"
+"Email Introduction","Uvodni tekst email poruke"
+"Plain text. Use %store_name for the store name. Leave empty to use the default subject. Custom email templates must use the email_subject variable in their subject.","Običan tekst. Koristite %store_name za naziv prodavnice. Ostavite prazno za podrazumevani naslov. Prilagođeni email šabloni moraju koristiti promenljivu email_subject u naslovu."
+"Plain text only. Line breaks are preserved. Leave empty to hide the introduction. Custom email templates must use the email_intro variable.","Samo običan tekst. Prelomi redova se čuvaju. Ostavite prazno da sakrijete uvod. Prilagođeni email šabloni moraju koristiti promenljivu email_intro."

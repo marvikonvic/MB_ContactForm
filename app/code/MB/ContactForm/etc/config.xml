@@ -10,6 +10,8 @@
                 <sender_email>office@drtechno.rs</sender_email>
                 <sender_name>MB Contact Form</sender_name>
                 <email_template>mb_contactform_general_email_template</email_template>
+                <email_subject>New contact form message from %store_name</email_subject>
+                <email_intro>A new contact form message was submitted.</email_intro>
                 <success_message>Thank you. Your message has been sent successfully. We will contact you as soon as possible.</success_message>
                 <success_meta_title>Message sent successfully</success_meta_title>
                 <success_meta_description>Your message has been sent successfully. Our team will contact you as soon as possible.</success_meta_description>

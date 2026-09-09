@@ -58,6 +58,13 @@ class Sender
             'store_name' => $this->storeManager->getStore($storeId)->getName(),
         ];
 
+        $subject = (string)__($this->config->getEmailSubject($storeId), [
+            'store_name' => $variables['store_name'],
+        ]);
+        // Keep the subject on one line, including when configuration is imported.
+        $variables['email_subject'] = trim((string)preg_replace('/[\x00-\x1F\x7F]+/', ' ', $subject));
+        $variables['email_intro'] = (string)__($this->config->getEmailIntro($storeId));
+
         foreach (\MB\ContactForm\Model\StandardFields::CODES as $code) {
             $variables['show_' . $code] = false;
         }
