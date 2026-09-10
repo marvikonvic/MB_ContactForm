@@ -65,6 +65,24 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 - **Full Page Cache:** slanje forme sa potvrđenim cache `HIT` u odvojenoj Edge InPrivate sesiji uspelo je bez session/form key greške, a email je stigao.
 - **Privatnost success stranice:** otvaranje success URL-a u novoj InPrivate sesiji prikazuje prazno newsletter email polje, bez emaila prethodne sesije.
 
+#### Dodatne QA provere — 10. septembar 2026.
+
+Ručno testirano na QA staging okruženju sa isključenim kešom. Korisnik je potvrdio isti kod i podrazumevani email šablon kao u pregledanom commitu `bffbacc4`. Rezultati ispod odnose se na ovo okruženje i konkretne pokušaje; ne proširuju automatski prethodne Stagento rezultate.
+
+- **Uspešno slanje:** potvrđen POST → 302 → success stranica → GET 200, uz prijem emaila.
+- **Serverska validacija:** direktnim slanjem uz zaobilaženje browser provere odbijeni su prazni Message i Name, neispravan email i poruka od 5.001 znaka.
+- **CSRF:** zahtevi sa neispravnim i potpuno odsutnim `form_key` odbijeni su porukom o nevažećem ključu i povratkom na kontakt formu.
+- **HTML unos:** literalni `<b>` tag odbijen je u svih pet standardnih polja (Message, Name, Email Address, Company Name, Phone Number), bez odgovarajućeg emaila u kontrolisanim pokušajima.
+- **SVG/XSS proba:** SVG sa `onload` atributom u Message polju odbijen je; email nije stigao, a bezopasna testna JavaScript oznaka nije postavljena na vraćenoj stranici.
+- **Kodirani HTML:** jednostruko i dvostruko kodirani tagovi prihvaćeni su kao poruka; u primljenim emailovima prikazani su kao tekst, bez aktivnog HTML formatiranja.
+- **Ponovni prikaz i privatnost:** nakon greške zbog praznog Name polja Message je prazan i email nije poslat. Nova InPrivate sesija prikazuje prazno email polje na success stranici; ovo je provereno sa isključenim kešom.
+- **Email header injection:** stvarni CRLF (`%0D%0A`) i bezopasno dodatno zaglavlje testirani su zasebno kroz Name i Email. Server je odbio oba unosa, vratio 302 na kontakt formu i emailovi nisu stigli.
+- **CAPTCHA:** zahtev bez tokena odbijen je CAPTCHA greškom, bez emaila. Ponavljanje prethodno uspešnog zahteva sa istim tokenom vratilo je 302 na kontakt formu, bez drugog emaila.
+- **SQL test unos:** `QA SQL ALFA ' OR '1'='1` odbijen je validacijom Message polja, uz 302 na kontakt formu i bez emaila. Ovo potvrđuje odbijanje konkretnog unosa, ne zaštitu svih SQL upita od injekcije.
+- **Učestalost slanja:** tri uzastopna ručna slanja sa svežim CAPTCHA proverama prihvaćena su i proizvela tri emaila. Ograničenje nije aktivirano tokom ova tri slanja.
+- **Pregled koda:** u pregledanim putanjama forme nije pronađen konkretan XSS propust. Success email atribut koristi `escapeHtmlAttr`, podrazumevani email šablon koristi `|escape` za korisnička polja, a CAPTCHA greška u JavaScriptu koristi `textContent`. Ovo je statički pregled uz navedene ručne probe, ne kompletan bezbednosni audit.
+
+
 ## Podešavanja
 
 Konfiguracija se nalazi na:
@@ -378,6 +396,24 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 - **Token replay:** two sequential requests using the same Turnstile token produced only one email; the second request was rejected with a CAPTCHA error.
 - **Full Page Cache:** submission with a confirmed cache `HIT` in a separate Edge InPrivate session succeeded without a session/form key error, and email arrived.
 - **Success-page privacy:** opening the success URL in a new InPrivate session shows an empty newsletter email field without the previous session's email.
+
+#### Additional QA checks — September 10, 2026
+
+Manually tested on QA staging with caching disabled. The user confirmed the same code and default email template as reviewed commit `bffbacc4`. These results apply to this environment and the specific attempts; they do not automatically extend the earlier Stagento results.
+
+- **Successful submission:** POST → 302 → success page → GET 200 and email receipt confirmed.
+- **Server validation:** direct submissions bypassing browser checks rejected empty Message and Name, an invalid email, and a 5,001-character message.
+- **CSRF:** incorrect and entirely missing `form_key` values were rejected with an invalid-key message and a redirect to the contact form.
+- **HTML input:** a literal `<b>` tag was rejected in all five standard fields (Message, Name, Email Address, Company Name, Phone Number), without corresponding email in the controlled attempts.
+- **SVG/XSS probe:** an SVG with an `onload` attribute in Message was rejected; no email arrived and the harmless JavaScript test marker was not set on the returned page.
+- **Encoded HTML:** single- and double-encoded tags were accepted as message text; received emails displayed text without active HTML formatting.
+- **Redisplay and privacy:** after an empty-Name error, Message was empty and no email was sent. A new InPrivate session showed an empty email field on the success page; caching was disabled for this check.
+- **Email header injection:** actual CRLF (`%0D%0A`) with a harmless additional header was tested separately through Name and Email. Both inputs were rejected, returned 302 to the contact form, and produced no received email.
+- **CAPTCHA:** a request without a token was rejected with a CAPTCHA error and no email. Repeating a previously successful request with the same token returned 302 to the contact form without a second email.
+- **SQL probe input:** `QA SQL ALFA ' OR '1'='1` was rejected by Message validation, returning 302 to the contact form without email. This demonstrates rejection of that input, not injection protection for all SQL queries.
+- **Submission frequency:** three consecutive manual submissions with fresh CAPTCHA checks were accepted and produced three emails. No rate limit triggered during these three submissions.
+- **Code review:** no concrete XSS vulnerability was found in the reviewed form paths. The success email attribute uses `escapeHtmlAttr`, the default email template uses `|escape` for user fields, and JavaScript uses `textContent` for the CAPTCHA error. This is a static review with the listed manual probes, not a comprehensive security audit.
+
 
 ## Configuration
 
