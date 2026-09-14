@@ -36,7 +36,7 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 
 - **PHP:** 8.1.x, 8.2.x, 8.3.x i 8.4.x prema zahtevima modula u `composer.json`. Izabrana PHP verzija mora odgovarati i konkretnoj Magento verziji.
 - **Magento:** potvrđeno na Magento 2.4.7-p3. Composer ne ograničava Magento pakete na određenu verziju; druge verzije nisu potvrđene ovim staging testom.
-- **Teme:** podrška za Hyvä i Luma; staging provera potvrđena je na Hyvä okruženju navedenom ispod.
+- **Teme:** podrška za Hyvä, Luma i Breeze Evolution. Staging provera na Hyvä okruženju navedena je ispod; na Breeze Evolution temi potvrđeni su slanje kontakt forme i uspešna isporuka mejla.
 
 ### Testirano na staging okruženju
 
@@ -368,7 +368,7 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 
 - **PHP:** 8.1.x, 8.2.x, 8.3.x, and 8.4.x according to the module's `composer.json` requirements. The selected PHP version must also be supported by the installed Magento version.
 - **Magento:** verified on Magento 2.4.7-p3. Composer does not restrict Magento packages to a specific version; other versions have not been confirmed by this staging test.
-- **Themes:** Hyvä and Luma support; staging verification was performed on the Hyvä environment below.
+- **Themes:** Hyvä, Luma, and Breeze Evolution support. Hyvä staging verification is documented below; contact form submission and successful email delivery have also been confirmed on Breeze Evolution.
 
 ### Tested staging environment
 
