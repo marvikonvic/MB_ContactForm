@@ -46,6 +46,7 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
+| Breeze Evolution | Tačna verzija nije potvrđena; Composer opseg: `^3.1` |
 
 ### Rezultati funkcionalnih i osnovnih bezbednosnih testova
 
@@ -378,6 +379,7 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
+| Breeze Evolution | Exact version not confirmed; Composer constraint: `^3.1` |
 
 ### Functional and basic security test results
 
