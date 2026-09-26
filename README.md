@@ -153,6 +153,16 @@ Ista pravila se primenjuju u browseru i ponovo na serveru.
 
 ## Snimci ekrana
 
+### Store Information — verzija 1.2.4
+
+Prikaz na Stagento sajtu nakon ispravke CMS widgeta: forma levo i podaci prodavnice desno.
+
+![Kontakt forma sa Store Information panelom](docs/screenshots/store-information-form.png)
+
+Nova opcija **Enable Store Information = Yes** u Admin podešavanjima.
+
+![Enable Store Information u General Settings](docs/screenshots/store-information-settings.png)
+
 Prikazi sa staging okruženja.
 
 ### Kontakt forma na Hyvä temi
@@ -297,7 +307,7 @@ Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact For
 - Forma zauzima 65%, a informacije 35% raspoložive širine na desktopu; na telefonu informacije idu ispod forme.
 - Prazne stavke se izostavljaju; isključena opcija zadržava postojeći prikaz forme.
 - Ispravljen je dohvat prodavnice u CMS widgetu preko Magento Store Manager-a.
-- Lokalno: **59 PHPUnit testova / 116 provera**, 33 contract provere i PHP lint prolaze. Prikaz i slanje poruke na Stagento sajtu nakon poslednje ispravke još nisu potvrđeni.
+- Lokalno: **59 PHPUnit testova / 116 provera**, 33 contract provere i PHP lint prolaze. Dostavljeni snimci potvrđuju prikaz forme sa podacima prodavnice i nove Admin opcije na Stagento sajtu; slanje poruke nakon poslednje ispravke još nije potvrđeno.
 - [Podešavanje i detalji provera](docs/store-information.md).
 
 ### Novo u verziji 1.2.3
@@ -495,6 +505,16 @@ The same rules are applied in the browser and again on the server.
 
 ## Screenshots
 
+### Store Information — version 1.2.4
+
+Stagento rendering after the CMS widget fix: contact form on the left and store details on the right.
+
+![Contact form with Store Information panel](docs/screenshots/store-information-form.png)
+
+The new **Enable Store Information = Yes** option in Admin settings.
+
+![Enable Store Information in General Settings](docs/screenshots/store-information-settings.png)
+
 Screenshots from the staging environment.
 
 ### Contact form on Hyvä
@@ -638,7 +658,7 @@ The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-
 - Desktop layout allocates 65% of available width to the form and 35% to store details; mobile places details below the form.
 - Empty values are omitted; disabling the option preserves the original form layout.
 - Fixed CMS widget store resolution through Magento Store Manager.
-- Local validation: **59 PHPUnit tests / 116 assertions**, 33 contract checks and PHP lint passed. Live rendering and email delivery after the final fix are not yet confirmed on Stagento.
+- Local validation: **59 PHPUnit tests / 116 assertions**, 33 contract checks and PHP lint passed. Supplied screenshots confirm the form with store details and the new Admin option on Stagento; email delivery after the final fix remains unconfirmed.
 - [Configuration and validation details](docs/store-information.md).
 
 ### New in version 1.2.3

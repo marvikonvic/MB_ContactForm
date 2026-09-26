@@ -27,8 +27,9 @@ Pregled koristi zamene za Magento block/escaper servise; nije živa Magento inst
 
 Na Stagento sajtu korisnik je potvrdio uspešan setup:upgrade, DI kompilaciju, objavljivanje
 statičkih fajlova i čišćenje keša pri instalaciji funkcionalnosti. Poslednja PHP ispravka
-je preuzeta kroz Composer i keš je očišćen. Prikaz posle ispravke, čuvanje i nasleđivanje
-podešavanja, različiti Store View podaci, CAPTCHA i slanje poruke još nisu potvrđeni.
+je preuzeta kroz Composer i keš je očišćen. Dostavljeni snimci potvrđuju prikaz forme sa
+podacima prodavnice i novu opciju u Adminu nakon ispravke. Nasleđivanje podešavanja,
+različiti Store View podaci i slanje poruke još nisu potvrđeni.
 
 ## English
 
@@ -51,9 +52,9 @@ Local validation: 59 PHPUnit tests / 116 assertions, 33 existing contract checks
 The actual template and stylesheet were previewed with sample data and isolated service
 doubles at 1200 px and 390 px, plus the disabled state. The user confirmed setup:upgrade,
 DI compilation, static deployment and cache cleaning during the Stagento feature install.
-The final PHP fix was downloaded through Composer and cache was cleaned. Live rendering
-after that fix, Admin save/inheritance, multi-store behavior, CAPTCHA and email delivery
-remain unconfirmed.
+The final PHP fix was downloaded through Composer and cache was cleaned. Supplied screenshots
+confirm rendering of the form with store details and the new Admin option after the fix.
+Configuration inheritance, multi-store behavior and email delivery remain unconfirmed.
 
 ## Widget store resolution fix
 
@@ -61,4 +62,10 @@ The CMS widget now resolves its current or explicitly assigned store through Mag
 Store Manager. The original call to the widget's magic `getStore()` returned null and
 caused a TypeError on the live CMS page. Two regression cases cover current-store and
 explicit-store resolution using the real widget methods. Both reproduce the TypeError
-before the fix and pass after it. Frontend verification after the fix on Stagento is pending.
+before the fix and pass after it. Supplied Stagento screenshots confirm frontend rendering after the fix.
+
+## Screenshots / Snimci ekrana
+
+![Store Information beside the form](screenshots/store-information-form.png)
+
+![Enable Store Information setting](screenshots/store-information-settings.png)
