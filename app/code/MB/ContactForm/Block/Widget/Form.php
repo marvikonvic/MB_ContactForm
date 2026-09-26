@@ -45,7 +45,7 @@ class Form extends Template implements BlockInterface
 
     public function getStoreInformation(): array
     {
-        return $this->storeInformation->getDetails($this->getStore());
+        return $this->storeInformation->getDetails($this->_storeManager->getStore($this->getStoreId()));
     }
 
     public function getFormId(): string

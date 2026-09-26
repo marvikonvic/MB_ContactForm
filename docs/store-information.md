@@ -19,8 +19,8 @@ Email se ne prikazuje jer nije deo ove Magento sekcije.
 - Tekst se HTML-escape-uje; prelomi redova u adresi i radnom vremenu ostaju vidljivi.
 - Posle izmene podešavanja osvežite Magento Configuration i Full Page cache kada Admin to zatraži.
 
-Potvrđeno lokalno: 57 PHPUnit testova / 110 provera, 33 postojeće contract provere,
-PHP lint svih 29 PHP/PHTML fajlova, parsiranje XML/JSON/CSV i `git diff --check`.
+Potvrđeno lokalno: 59 PHPUnit testova / 116 provera, 33 postojeće contract provere,
+PHP lint svih 30 PHP/PHTML fajlova, parsiranje XML/JSON/CSV i `git diff --check`.
 Pregled stvarnog PHTML/CSS sa probnim podacima potvrdio je dve kolone na 1200 px,
 slaganje ispod forme na 390 px bez horizontalnog prelivanja i punu širinu bez panela.
 Pregled koristi zamene za Magento block/escaper servise; nije živa Magento instalacija.
@@ -45,8 +45,16 @@ Below that breakpoint, the panel follows the form. Disabled or entirely empty pa
 leave the original form structure and width intact. All values are escaped as text;
 address and operating-hours line breaks are preserved.
 
-Local validation: 57 PHPUnit tests / 110 assertions, 33 existing contract checks,
-29 PHP/PHTML syntax checks, XML/JSON/CSV parsing, and whitespace validation passed.
+Local validation: 59 PHPUnit tests / 116 assertions, 33 existing contract checks,
+30 PHP/PHTML syntax checks, XML/JSON/CSV parsing, and whitespace validation passed.
 The actual template and stylesheet were previewed with sample data and isolated service
 doubles at 1200 px and 390 px, plus the disabled state. No live Magento installation,
 Admin save, DI compilation, theme/CAPTCHA integration, cache or email-delivery test was run.
+
+## Widget store resolution fix
+
+The CMS widget now resolves its current or explicitly assigned store through Magento's
+Store Manager. The original call to the widget's magic `getStore()` returned null and
+caused a TypeError on the live CMS page. Two regression cases cover current-store and
+explicit-store resolution using the real widget methods. Both reproduce the TypeError
+before the fix and pass after it. Deployment verification on Stagento is pending.
