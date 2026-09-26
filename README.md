@@ -1,6 +1,9 @@
-# MB Contact Form 1.2.3
+> Store Information enhancement: optional native Magento store details beside the form.
+> See [configuration and validation notes](docs/store-information.md).
 
-[![Version](https://img.shields.io/badge/version-1.2.3-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.3)
+# MB Contact Form 1.2.4
+
+[![Version](https://img.shields.io/badge/version-1.2.4-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.4)
 [![Magento](https://img.shields.io/badge/Magento-2.4.7--p3%20tested-EE672F.svg?logo=magento&logoColor=white)](https://github.com/marvikonvic/MB_ContactForm)
 [![PHP](https://img.shields.io/badge/PHP-8.1--8.4-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--3.0--or--later-6F42C1.svg)](LICENSE.md)
@@ -215,7 +218,7 @@ Iz Magento root foldera pokrenuti:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.3 --prefer-dist
+composer require mb/module-contact-form:1.2.4 --prefer-dist
 ```
 
 Composer automatski registruje modul iz paketa u `vendor` direktorijumu.
@@ -251,12 +254,12 @@ Pre ažuriranja napravite backup baze, koda i konfiguracije i proverite novu ver
 
 ### Instalacija preko Composera
 
-Za prelazak sa ranije verzije (uključujući 1.0.x) na objavljeni tag 1.2.3:
+Za prelazak sa ranije verzije (uključujući 1.0.x) na objavljeni tag 1.2.4:
 
 ```bash
 bin/magento maintenance:enable
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.3 --prefer-dist --with-dependencies
+composer require mb/module-contact-form:1.2.4 --prefer-dist --with-dependencies
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 ```
@@ -268,11 +271,11 @@ bin/magento cache:clean
 bin/magento maintenance:disable
 ```
 
-Ako neki korak ne uspe, prekinite postupak i rešite grešku ili vratite backup pre isključivanja maintenance režima. Za naredna izdanja zamenite `1.2.3` željenim objavljenim tagom. Tačno zaključana Composer verzija ne prelazi na novo izdanje običnim `composer update`.
+Ako neki korak ne uspe, prekinite postupak i rešite grešku ili vratite backup pre isključivanja maintenance režima. Za naredna izdanja zamenite `1.2.4` željenim objavljenim tagom. Tačno zaključana Composer verzija ne prelazi na novo izdanje običnim `composer update`.
 
 ### Ručna instalacija u app/code
 
-Preuzmite [ZIP taga v1.2.3](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.3.zip). Sačuvajte postojeći `app/code/MB/ContactForm` van Magento stabla i proverite lokalne izmene. U maintenance režimu zamenite ceo direktorijum kopijom `app/code/MB/ContactForm` iz arhive, uz ispravno vlasništvo fajlova. Pokrenite iste Magento upgrade, compile, static-content (Production) i cache komande iznad. Ne kombinujte ručnu i Composer instalaciju.
+Preuzmite [ZIP taga v1.2.4](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.4.zip). Sačuvajte postojeći `app/code/MB/ContactForm` van Magento stabla i proverite lokalne izmene. U maintenance režimu zamenite ceo direktorijum kopijom `app/code/MB/ContactForm` iz arhive, uz ispravno vlasništvo fajlova. Pokrenite iste Magento upgrade, compile, static-content (Production) i cache komande iznad. Ne kombinujte ručnu i Composer instalaciju.
 
 Pri prelasku sa 1.0.x proverite nazive/redosled polja i prilagođene email šablone: od 1.2.0 koristi se `name` umesto `firstname`/`lastname`. Proverite CAPTCHA ključeve za odgovarajući Store View, pošaljite test poruku i potvrdite prijem emaila. Detalji promena su u istoriji verzija.
 
@@ -287,6 +290,15 @@ Modul se distribuira pod [GNU General Public License, verzija 3 ili bilo koja no
 Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact Form modula pod licencom GPL-3.0-or-later.
 
 ## Istorija verzija
+
+### Novo u verziji 1.2.4
+
+- Opcija **Enable Store Information**, podrazumevano isključena, koristi postojeće Magento Store Information podatke.
+- Forma zauzima 65%, a informacije 35% raspoložive širine na desktopu; na telefonu informacije idu ispod forme.
+- Prazne stavke se izostavljaju; isključena opcija zadržava postojeći prikaz forme.
+- Ispravljen je dohvat prodavnice u CMS widgetu preko Magento Store Manager-a.
+- Lokalno: **59 PHPUnit testova / 116 provera**, 33 contract provere i PHP lint prolaze. Prikaz i slanje poruke na Stagento sajtu nakon poslednje ispravke još nisu potvrđeni.
+- [Podešavanje i detalji provera](docs/store-information.md).
 
 ### Novo u verziji 1.2.3
 
@@ -548,7 +560,7 @@ Run from the Magento root directory:
 
 ```bash
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.3 --prefer-dist
+composer require mb/module-contact-form:1.2.4 --prefer-dist
 ```
 
 Composer automatically registers the module from its package in `vendor`.
@@ -583,12 +595,12 @@ Back up the database, code, and configuration and test the new version on stagin
 
 ### Composer installation
 
-To upgrade an earlier version (including 1.0.x) to the published 1.2.3 tag:
+To upgrade an earlier version (including 1.0.x) to the published 1.2.4 tag:
 
 ```bash
 bin/magento maintenance:enable
 composer config repositories.mb-contact-form vcs https://github.com/marvikonvic/MB_ContactForm.git
-composer require mb/module-contact-form:1.2.3 --prefer-dist --with-dependencies
+composer require mb/module-contact-form:1.2.4 --prefer-dist --with-dependencies
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 ```
@@ -600,11 +612,11 @@ bin/magento cache:clean
 bin/magento maintenance:disable
 ```
 
-If any step fails, stop and resolve the error or restore the backup before disabling maintenance mode. For future releases, replace `1.2.3` with the desired published tag. A Composer requirement pinned to an exact version will not advance to a new release with a plain `composer update`.
+If any step fails, stop and resolve the error or restore the backup before disabling maintenance mode. For future releases, replace `1.2.4` with the desired published tag. A Composer requirement pinned to an exact version will not advance to a new release with a plain `composer update`.
 
 ### Manual app/code installation
 
-Download the [v1.2.3 tag ZIP](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.3.zip). Back up the existing `app/code/MB/ContactForm` outside the Magento tree and review local changes. In maintenance mode, replace the whole directory with `app/code/MB/ContactForm` from the archive, preserving correct filesystem ownership. Run the same Magento upgrade, compile, static-content (Production), and cache commands above. Do not combine manual and Composer installations.
+Download the [v1.2.4 tag ZIP](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.4.zip). Back up the existing `app/code/MB/ContactForm` outside the Magento tree and review local changes. In maintenance mode, replace the whole directory with `app/code/MB/ContactForm` from the archive, preserving correct filesystem ownership. Run the same Magento upgrade, compile, static-content (Production), and cache commands above. Do not combine manual and Composer installations.
 
 When upgrading from 1.0.x, review field labels/order and custom email templates: since 1.2.0, `name` replaces `firstname`/`lastname`. Check CAPTCHA keys for the correct Store View, submit a test message, and confirm email receipt. See the version history for details.
 
@@ -619,6 +631,15 @@ The module is distributed under the [GNU General Public License, version 3 or an
 The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-or-later.
 
 ## Version history
+
+### New in version 1.2.4
+
+- **Enable Store Information**, disabled by default, reads the existing Magento Store Information settings.
+- Desktop layout allocates 65% of available width to the form and 35% to store details; mobile places details below the form.
+- Empty values are omitted; disabling the option preserves the original form layout.
+- Fixed CMS widget store resolution through Magento Store Manager.
+- Local validation: **59 PHPUnit tests / 116 assertions**, 33 contract checks and PHP lint passed. Live rendering and email delivery after the final fix are not yet confirmed on Stagento.
+- [Configuration and validation details](docs/store-information.md).
 
 ### New in version 1.2.3
 

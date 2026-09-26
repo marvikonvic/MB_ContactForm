@@ -5,6 +5,7 @@
         <mb_contactform>
             <general>
                 <enabled>1</enabled>
+                <enable_store_information>0</enable_store_information>
                 <form_title>Contact Us</form_title>
                 <recipient_email>office@drtechno.rs</recipient_email>
                 <sender_email>office@drtechno.rs</sender_email>

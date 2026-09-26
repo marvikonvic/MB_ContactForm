@@ -132,3 +132,11 @@
 "Email Introduction","Uvodni tekst email poruke"
 "Plain text. Use %store_name for the store name. Leave empty to use the default subject. Custom email templates must use the email_subject variable in their subject.","Običan tekst. Koristite %store_name za naziv prodavnice. Ostavite prazno za podrazumevani naslov. Prilagođeni email šabloni moraju koristiti promenljivu email_subject u naslovu."
 "Plain text only. Line breaks are preserved. Leave empty to hide the introduction. Custom email templates must use the email_intro variable.","Samo običan tekst. Prelomi redova se čuvaju. Ostavite prazno da sakrijete uvod. Prilagođeni email šabloni moraju koristiti promenljivu email_intro."
+
+"Enable Store Information","Prikaži informacije o prodavnici"
+"Display populated values from General > General > Store Information beside the form, or below it on small screens.","Prikaži popunjene podatke iz General > General > Store Information pored forme ili ispod nje na malim ekranima."
+"Store Information","Informacije o prodavnici"
+"Store Name","Naziv prodavnice"
+"Address","Adresa"
+"Store Hours of Operation","Radno vreme prodavnice"
+"VAT Number","PDV broj"
