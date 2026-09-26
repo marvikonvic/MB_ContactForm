@@ -25,9 +25,10 @@ Pregled stvarnog PHTML/CSS sa probnim podacima potvrdio je dve kolone na 1200 px
 slaganje ispod forme na 390 px bez horizontalnog prelivanja i punu širinu bez panela.
 Pregled koristi zamene za Magento block/escaper servise; nije živa Magento instalacija.
 
-Pre puštanja proveriti: čuvanje i nasleđivanje podešavanja u Adminu, instalaciju i DI
-kompilaciju, prikaz na aktivnoj temi (uključujući CAPTCHA), različite Store View podatke,
-keširanje i slanje kontakt poruke. Ove runtime provere još nisu izvršene.
+Na Stagento sajtu korisnik je potvrdio uspešan setup:upgrade, DI kompilaciju, objavljivanje
+statičkih fajlova i čišćenje keša pri instalaciji funkcionalnosti. Poslednja PHP ispravka
+je preuzeta kroz Composer i keš je očišćen. Prikaz posle ispravke, čuvanje i nasleđivanje
+podešavanja, različiti Store View podaci, CAPTCHA i slanje poruke još nisu potvrđeni.
 
 ## English
 
@@ -48,8 +49,11 @@ address and operating-hours line breaks are preserved.
 Local validation: 59 PHPUnit tests / 116 assertions, 33 existing contract checks,
 30 PHP/PHTML syntax checks, XML/JSON/CSV parsing, and whitespace validation passed.
 The actual template and stylesheet were previewed with sample data and isolated service
-doubles at 1200 px and 390 px, plus the disabled state. No live Magento installation,
-Admin save, DI compilation, theme/CAPTCHA integration, cache or email-delivery test was run.
+doubles at 1200 px and 390 px, plus the disabled state. The user confirmed setup:upgrade,
+DI compilation, static deployment and cache cleaning during the Stagento feature install.
+The final PHP fix was downloaded through Composer and cache was cleaned. Live rendering
+after that fix, Admin save/inheritance, multi-store behavior, CAPTCHA and email delivery
+remain unconfirmed.
 
 ## Widget store resolution fix
 
@@ -57,4 +61,4 @@ The CMS widget now resolves its current or explicitly assigned store through Mag
 Store Manager. The original call to the widget's magic `getStore()` returned null and
 caused a TypeError on the live CMS page. Two regression cases cover current-store and
 explicit-store resolution using the real widget methods. Both reproduce the TypeError
-before the fix and pass after it. Deployment verification on Stagento is pending.
+before the fix and pass after it. Frontend verification after the fix on Stagento is pending.
