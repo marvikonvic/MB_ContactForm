@@ -35,6 +35,15 @@ class Config
         return $this->scopeConfig->isSetFlag(self::XML_PREFIX . 'general/enabled', ScopeInterface::SCOPE_STORE, $storeId);
     }
 
+    public function isStoreInformationEnabled(?int $storeId = null): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PREFIX . 'general/enable_store_information',
+            ScopeInterface::SCOPE_STORE,
+            $storeId
+        );
+    }
+
     public function isAllowedForGroup(int $groupId, ?int $storeId = null): bool
     {
         $raw = trim($this->getValue('general/allowed_customer_groups', $storeId));

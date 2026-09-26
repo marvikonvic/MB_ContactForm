@@ -18,6 +18,12 @@
                     <label>Enable Contact Form</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="enable_store_information" translate="label comment" type="select" sortOrder="15"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Store Information</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display populated values from General &gt; General &gt; Store Information beside the form, or below it on small screens.</comment>
+                </field>
                 <field id="allowed_customer_groups" translate="label comment" type="multiselect" sortOrder="20"
                        showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Allowed Customer Groups</label>

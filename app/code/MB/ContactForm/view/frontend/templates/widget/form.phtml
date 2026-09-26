@@ -3,6 +3,14 @@
 /** @var \Magento\Framework\Escaper $escaper */
 $formId = $block->getFormId();
 $captchaProvider = $block->getCaptchaProvider();
+$storeInformation = $block->getStoreInformation();
+$storeInformationLabels = [
+    'name' => __('Store Name'),
+    'address' => __('Address'),
+    'phone' => __('Phone Number'),
+    'hours' => __('Store Hours of Operation'),
+    'vat_number' => __('VAT Number'),
+];
 ?>
 <section class="mb-contact" aria-labelledby="<?= $escaper->escapeHtmlAttr($formId) ?>-title">
     <?php if ($block->getFormTitle() !== ''): ?>
@@ -11,6 +19,9 @@ $captchaProvider = $block->getCaptchaProvider();
         </h2>
     <?php endif; ?>
 
+    <?php if ($storeInformation !== []): ?>
+    <div class="mb-contact__layout">
+    <?php endif; ?>
     <form class="mb-contact__form"
           id="<?= $escaper->escapeHtmlAttr($formId) ?>"
           action="<?= $escaper->escapeUrl($block->getPostUrl()) ?>"
@@ -78,4 +89,19 @@ $captchaProvider = $block->getCaptchaProvider();
             </button>
         </div>
     </form>
+    <?php if ($storeInformation !== []): ?>
+        <aside class="mb-contact__store-information"
+               aria-labelledby="<?= $escaper->escapeHtmlAttr($formId) ?>-store-information-title">
+            <h3 id="<?= $escaper->escapeHtmlAttr($formId) ?>-store-information-title">
+                <?= $escaper->escapeHtml(__('Store Information')) ?>
+            </h3>
+            <dl>
+                <?php foreach ($storeInformation as $field => $value): ?>
+                    <dt><?= $escaper->escapeHtml($storeInformationLabels[$field]) ?></dt>
+                    <dd><?= $escaper->escapeHtml($value) ?></dd>
+                <?php endforeach; ?>
+            </dl>
+        </aside>
+    </div>
+    <?php endif; ?>
 </section>

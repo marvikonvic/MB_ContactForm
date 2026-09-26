@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MB\ContactForm\Block\Widget;
 
 use MB\ContactForm\Model\Config;
+use MB\ContactForm\Model\StoreInformation;
 use Magento\Customer\Model\Context as CustomerContext;
 use Magento\Framework\App\Http\Context as HttpContext;
 use Magento\Framework\View\Element\Template;
@@ -15,15 +16,18 @@ class Form extends Template implements BlockInterface
 
     private Config $config;
     private HttpContext $httpContext;
+    private StoreInformation $storeInformation;
 
     public function __construct(
         Template\Context $context,
         Config $config,
         HttpContext $httpContext,
+        StoreInformation $storeInformation,
         array $data = []
     ) {
         $this->config = $config;
         $this->httpContext = $httpContext;
+        $this->storeInformation = $storeInformation;
         parent::__construct($context, $data);
     }
 
@@ -37,6 +41,11 @@ class Form extends Template implements BlockInterface
         }
 
         return parent::_toHtml();
+    }
+
+    public function getStoreInformation(): array
+    {
+        return $this->storeInformation->getDetails($this->getStore());
     }
 
     public function getFormId(): string

@@ -159,3 +159,45 @@
         width: 100%;
     }
 }
+
+.mb-contact__layout {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+}
+
+.mb-contact__layout > * {
+    min-width: 0;
+}
+
+.mb-contact__store-information {
+    overflow-wrap: anywhere;
+}
+
+.mb-contact__store-information h3 {
+    margin: 0 0 1.25rem;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.mb-contact__store-information dl {
+    margin: 0;
+}
+
+.mb-contact__store-information dt {
+    margin: 0 0 .35rem;
+    font-weight: 600;
+}
+
+.mb-contact__store-information dd {
+    margin: 0 0 1.25rem;
+    white-space: pre-line;
+}
+
+@media (min-width: 900px) {
+    .mb-contact__layout {
+        grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+    }
+}

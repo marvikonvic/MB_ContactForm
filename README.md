@@ -1,3 +1,6 @@
+> Store Information enhancement: optional native Magento store details beside the form.
+> See [configuration and validation notes](docs/store-information.md).
+
 # MB Contact Form 1.2.3
 
 [![Version](https://img.shields.io/badge/version-1.2.3-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.3)
