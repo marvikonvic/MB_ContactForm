@@ -4,6 +4,10 @@
 $formId = $block->getFormId();
 $captchaProvider = $block->getCaptchaProvider();
 $storeInformation = $block->getStoreInformation();
+$lettersError = __('Please use Latin or Cyrillic letters and spaces only.');
+$alphanumericError = __('Please use Latin or Cyrillic letters, numbers and spaces only.');
+$safeTextError = __('Please use Latin or Cyrillic letters, numbers and punctuation only.');
+$autocomplete = ['name' => 'name', 'email' => 'email', 'company' => 'organization', 'telephone' => 'tel'];
 $storeInformationLabels = [
     'name' => __('Store Name'),
     'address' => __('Address'),
@@ -27,11 +31,11 @@ $storeInformationLabels = [
           action="<?= $escaper->escapeUrl($block->getPostUrl()) ?>"
           method="post"
           data-contact-form
-          data-error-letters="<?= $escaper->escapeHtmlAttr(__('Please use Latin or Cyrillic letters and spaces only.')) ?>"
-          data-error-alphanumeric="<?= $escaper->escapeHtmlAttr(__('Please use Latin or Cyrillic letters, numbers and spaces only.')) ?>"
+          data-error-letters="<?= $escaper->escapeHtmlAttr($lettersError) ?>"
+          data-error-alphanumeric="<?= $escaper->escapeHtmlAttr($alphanumericError) ?>"
           data-error-numbers="<?= $escaper->escapeHtmlAttr(__('Please use numbers only.')) ?>"
           data-error-email="<?= $escaper->escapeHtmlAttr(__('Please enter a valid email address.')) ?>"
-          data-error-safe-text="<?= $escaper->escapeHtmlAttr(__('Please use Latin or Cyrillic letters, numbers and punctuation only.')) ?>"
+          data-error-safe-text="<?= $escaper->escapeHtmlAttr($safeTextError) ?>"
           data-error-captcha="<?= $escaper->escapeHtmlAttr(__('Please complete the CAPTCHA verification.')) ?>">
         <?= $block->getBlockHtml('formkey') ?>
 
@@ -56,14 +60,16 @@ $storeInformationLabels = [
                              <?= $field['required'] ? 'required' : '' ?>>
                         <option value=""><?= $escaper->escapeHtml(__('Please select')) ?></option>
                         <?php foreach ($field['options'] as $option): ?>
-                            <option value="<?= $escaper->escapeHtmlAttr($option) ?>"><?= $escaper->escapeHtml($option) ?></option>
+                            <option value="<?= $escaper->escapeHtmlAttr($option) ?>">
+                                <?= $escaper->escapeHtml($option) ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 <?php else: ?>
                     <input id="<?= $escaper->escapeHtmlAttr($fieldId) ?>"
                            name="<?= $escaper->escapeHtmlAttr($field['name']) ?>"
                            type="<?= $field['validation'] === 'email' ? 'email' : 'text' ?>"
-                           autocomplete="<?= $escaper->escapeHtmlAttr(['name' => 'name', 'email' => 'email', 'company' => 'organization', 'telephone' => 'tel'][$field['name']] ?? 'off') ?>"
+                           autocomplete="<?= $escaper->escapeHtmlAttr($autocomplete[$field['name']] ?? 'off') ?>"
                            maxlength="<?= (int)$field['maxlength'] ?>"
                            data-validation="<?= $escaper->escapeHtmlAttr($field['validation']) ?>"
                            <?= $field['required'] ? 'required' : '' ?>>
@@ -75,9 +81,11 @@ $storeInformationLabels = [
             <div class="mb-contact__captcha mb-contact__field--full"
                  data-contact-captcha-provider="<?= $escaper->escapeHtmlAttr($captchaProvider) ?>">
                 <?php if ($captchaProvider === 'google'): ?>
-                    <div class="g-recaptcha" data-sitekey="<?= $escaper->escapeHtmlAttr($block->getCaptchaSiteKey()) ?>"></div>
+                    <div class="g-recaptcha"
+                         data-sitekey="<?= $escaper->escapeHtmlAttr($block->getCaptchaSiteKey()) ?>"></div>
                 <?php else: ?>
-                    <div class="cf-turnstile" data-sitekey="<?= $escaper->escapeHtmlAttr($block->getCaptchaSiteKey()) ?>"></div>
+                    <div class="cf-turnstile"
+                         data-sitekey="<?= $escaper->escapeHtmlAttr($block->getCaptchaSiteKey()) ?>"></div>
                 <?php endif; ?>
                 <p class="mb-contact__captcha-error" role="alert" hidden></p>
             </div>

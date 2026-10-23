@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Test\Unit\Model\Email;
@@ -10,6 +11,7 @@ use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use MB\ContactForm\Model\Config;
 use MB\ContactForm\Model\Email\Sender;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -24,24 +26,32 @@ final class SenderTest extends TestCase
     {
         $this->config = $this->createMock(Config::class);
         $this->builder = $this->createMock(TransportBuilder::class);
-        $this->stores = $this->createMock(StoreManagerInterface::class);
+        $this->stores = $this->createStub(StoreManagerInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
     }
 
-    private function subject(string $recipient = 'owner@example.com', string $sender = 'form@example.com', string $name = 'Contact'): Sender
-    {
-        $this->config->method('getRecipientEmail')->with(2)->willReturn($recipient);
-        $this->config->method('getSenderEmail')->with(2)->willReturn($sender);
-        $this->config->method('getSenderName')->with(2)->willReturn($name);
+    private function subject(
+        string $recipient = 'owner@example.com',
+        string $sender = 'form@example.com',
+        string $name = 'Contact'
+    ): Sender {
+        $this->config->expects(self::once())->method('getRecipientEmail')->with(2)->willReturn($recipient);
+        $this->config->expects(self::once())->method('getSenderEmail')->with(2)->willReturn($sender);
+        $this->config->expects(self::once())->method('getSenderName')->with(2)->willReturn($name);
         $this->config->method('getEmailTemplate')->willReturn('mb_contactform_email_template');
         $this->config->method('getEmailSubject')->willReturn("Contact\r\n%store_name");
         $this->config->method('getEmailIntro')->willReturn('New message');
         $this->config->method('getLabel')->willReturn('Label');
         $this->config->method('getStandardFields')->willReturn([['code' => 'email', 'label' => 'Email']]);
-        $store = $this->createMock(StoreInterface::class);
+        $store = $this->createStub(StoreInterface::class);
         $store->method('getName')->willReturn('Demo');
-        $this->stores->method('getStore')->with(2)->willReturn($store);
-        foreach (['setTemplateIdentifier', 'setTemplateOptions', 'setTemplateVars', 'setFromByScope', 'addTo', 'setReplyTo'] as $method) {
+        $this->stores->method('getStore')->willReturnCallback(static function (int $storeId) use ($store): StoreInterface {
+            self::assertSame(2, $storeId);
+            return $store;
+        });
+        $methods = ['setTemplateIdentifier', 'setTemplateOptions', 'setTemplateVars',
+            'setFromByScope', 'addTo', 'setReplyTo'];
+        foreach ($methods as $method) {
             $this->builder->method($method)->willReturnSelf();
         }
         return new Sender($this->config, $this->builder, $this->stores, $this->logger);
@@ -66,23 +76,30 @@ final class SenderTest extends TestCase
         $this->builder->expects(self::once())->method('addTo')->with('owner@example.com');
         $this->builder->expects(self::once())->method('setReplyTo')->with('visitor@example.com', 'Bojan');
         $this->builder->expects(self::once())->method('setTemplateOptions')->with(['area' => 'frontend', 'store' => 2]);
-        $this->builder->expects(self::once())->method('setTemplateVars')->with(self::callback(function (array $vars): bool {
-            self::assertSame('Contact Demo', $vars['email_subject']);
-            self::assertSame('Topic: Support', $vars['custom_fields_text']);
-            self::assertSame('Hello', $vars['message']);
-            self::assertTrue($vars['show_email']);
-            self::assertFalse($vars['show_telephone']);
-            return true;
-        }));
+        $this->builder->expects(self::once())->method('setTemplateVars')->with(self::callback(
+            function (array $vars): bool {
+                self::assertSame('Contact Demo', $vars['email_subject']);
+                self::assertSame('Topic: Support', $vars['custom_fields_text']);
+                self::assertSame('Hello', $vars['message']);
+                self::assertTrue($vars['show_email']);
+                self::assertFalse($vars['show_telephone']);
+                return true;
+            }
+        ));
         $this->logger->expects(self::never())->method('critical');
         $subject->send($this->data(), 2);
     }
 
     /** @dataProvider invalidConfiguration */
-    public function testInvalidConfigurationFailsBeforeBuildingMail(string $recipient, string $sender, string $name): void
-    {
+    #[DataProvider('invalidConfiguration')]
+    public function testInvalidConfigurationFailsBeforeBuildingMail(
+        string $recipient,
+        string $sender,
+        string $name
+    ): void {
         $subject = $this->subject($recipient, $sender, $name);
         $this->builder->expects(self::never())->method('getTransport');
+        $this->logger->expects(self::never())->method('critical');
         $this->expectException(LocalizedException::class);
         $this->expectExceptionMessage('The contact form email addresses are not configured correctly.');
         $subject->send($this->data(), 2);
@@ -95,19 +112,21 @@ final class SenderTest extends TestCase
     }
 
     /** @dataProvider failureStages */
+    #[DataProvider('failureStages')]
     public function testMailFailureIsLoggedAndExposesOnlySafeMessage(string $stage): void
     {
         $subject = $this->subject();
         $exception = new \RuntimeException('Sensitive SMTP detail');
         if ($stage === 'build') {
-            $this->builder->method('getTransport')->willThrowException($exception);
+            $this->builder->expects(self::once())->method('getTransport')->willThrowException($exception);
         } else {
             $transport = $this->createMock(TransportInterface::class);
-            $transport->method('sendMessage')->willThrowException($exception);
-            $this->builder->method('getTransport')->willReturn($transport);
+            $transport->expects(self::once())->method('sendMessage')->willThrowException($exception);
+            $this->builder->expects(self::once())->method('getTransport')->willReturn($transport);
         }
         $this->logger->expects(self::once())->method('critical')->with(
-            'Unable to send MB Contact Form email.', ['exception' => $exception]
+            'Unable to send MB Contact Form email.',
+            ['exception' => $exception]
         );
         try {
             $subject->send($this->data(), 2);

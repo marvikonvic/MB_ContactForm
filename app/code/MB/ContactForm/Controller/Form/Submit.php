@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Controller\Form;
@@ -88,7 +89,9 @@ class Submit extends Action implements HttpPostActionInterface
             $this->messageManager->addErrorMessage($exception->getMessage());
         } catch (\Throwable $exception) {
             $this->logger->critical('Unexpected MB Contact Form submission error.', ['exception' => $exception]);
-            $this->messageManager->addErrorMessage(__('We could not send your message right now. Please try again later.'));
+            $this->messageManager->addErrorMessage(
+                __('We could not send your message right now. Please try again later.')
+            );
         }
 
         $referer = $this->_redirect->getRefererUrl();

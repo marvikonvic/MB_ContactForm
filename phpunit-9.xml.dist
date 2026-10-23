@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         bootstrap="tests/unit/bootstrap.php" colors="true" cacheResult="false"
+         failOnWarning="true" failOnRisky="true">
+    <testsuites>
+        <testsuite name="MB Contact Form"><directory>app/code/MB/ContactForm/Test/Unit</directory></testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">app/code/MB/ContactForm/Model/Form</directory>
+            <directory suffix=".php">app/code/MB/ContactForm/Model/Captcha</directory>
+            <directory suffix=".php">app/code/MB/ContactForm/Model/Email</directory>
+        </include>
+    </coverage>
+</phpunit>

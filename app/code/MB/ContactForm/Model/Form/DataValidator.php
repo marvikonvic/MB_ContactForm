@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Model\Form;
@@ -81,7 +82,9 @@ class DataValidator
     private function assertLength(string $value, int $maxLength, string $label): void
     {
         if (mb_strlen($value) > $maxLength) {
-            throw new LocalizedException(__('Field "%1" is too long. Maximum length is %2 characters.', $label, $maxLength));
+            throw new LocalizedException(
+                __('Field "%1" is too long. Maximum length is %2 characters.', $label, $maxLength)
+            );
         }
     }
 

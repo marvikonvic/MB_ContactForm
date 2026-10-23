@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Model\Captcha;
@@ -42,7 +43,11 @@ class Validator
         }
 
         $tokenKey = $provider === 'google' ? 'g-recaptcha-response' : 'cf-turnstile-response';
-        $token = trim((string)($requestData[$tokenKey] ?? ''));
+        $token = $requestData[$tokenKey] ?? '';
+        if (!is_string($token)) {
+            return false;
+        }
+        $token = trim($token);
         $secret = $this->config->getCaptchaSecretKey($storeId);
         if ($token === '' || $secret === '') {
             return false;

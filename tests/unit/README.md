@@ -1,71 +1,70 @@
-# MB Contact Form PHPUnit tests
+# MB Contact Form unit tests
 
 ## Srpski
 
-Testovi su napisani prema javnom `marvikonvic/MB_ContactForm` repozitorijumu,
-commit `4e0493caac5f7bf9bc7fe5d570f39667d99d407d` (composer verzija 1.2.3).
-Raspakujte dodatak u koren tog repozitorijuma, uz postojeci `composer.json`.
-Produkcioni kod i Composer zavisnosti modula nisu menjani.
+Testovi koriste originalne Magento klase iz postojece instalacije, bez
+pokretanja aplikacije ili pristupa bazi. Postavite `MAGENTO_AUTOLOAD` na
+`vendor/autoload.php` te instalacije.
 
-Potrebni su PHP, PHPUnit 9.6 i Composer zavisnosti Magento instalacije.
-Iz korena Contact Form repozitorijuma pokrenite (Linux primer; zamenite putanje):
+### PHPUnit 12
 
-```bash
-MAGENTO_AUTOLOAD=/path/to/magento/vendor/autoload.php \
-php /path/to/magento/vendor/phpunit/phpunit/phpunit -c phpunit.xml.dist
-```
-
-PowerShell:
+Potreban je PHP 8.3 ili noviji, uskladjen sa Magento verzijom instalacije.
+Glavna konfiguracija `phpunit.xml.dist` koristi PHPUnit 12 XML semu i
+`source/include` filter. Data provider metode imaju `DataProvider` atribute.
 
 ```powershell
 $env:MAGENTO_AUTOLOAD = 'C:\path\to\magento\vendor\autoload.php'
-php C:\path\to\magento\vendor\phpunit\phpunit\phpunit -c phpunit.xml.dist
+php C:\path\to\phpunit-12.phar -c phpunit.xml.dist
 ```
 
-Ako su Magento zavisnosti vec instalirane u `vendor/` ovog repozitorijuma,
-`MAGENTO_AUTOLOAD` nije potreban. Bootstrap ucitava Composer klase, bez
-pokretanja Magento aplikacije, baze ili ObjectManager-a.
+### Postojeci PHPUnit 9.6
 
-Za Codecov Clover izvestaj dodajte `--coverage-clover coverage.xml` uz
-aktivan Xdebug coverage ili PCOV. Ovaj dodatak ne podesava GitHub Actions
-ili slanje izvestaja na Codecov. Filter pokriva samo tri testirane Model
-oblasti, a ne ceo modul.
+Za starije Magento instalacije koristite `phpunit-9.xml.dist`.
+`@dataProvider` komentari namerno su zadrzani uz atribute: PHPUnit 9.6
+koristi komentare, a PHPUnit 12 atribute. Nije potreban kompatibilni adapter.
 
-Potvrdjeno lokalno: PHP 8.2.33, PHPUnit 9.6.36, originalne Magento klase iz
-2.4.7-p8 i psr/log 3.0.2: **49 testova, 84 provere, bez gresaka**.
-Korisceno je izdvojeno okruzenje sa originalnim Magento izvorima i minimalnim
-test zavisnostima, ne kompletna Magento instalacija. Coverage procenat nije
-meren (lokalni PHP nema coverage driver). Grana Unicode normalizacije uz
-`ext-intl` nije izvrsena jer ta ekstenzija nije dostupna lokalno.
+```powershell
+$env:MAGENTO_AUTOLOAD = 'C:\path\to\magento\vendor\autoload.php'
+php C:\path\to\magento\vendor\phpunit\phpunit\phpunit -c phpunit-9.xml.dist
+```
 
-Pokriveno: obavezna polja, granice duzine, latinica/cirilica, email i ostala
-pravila, select vrednosti, custom polja i nescalar input; CAPTCHA provider,
-nedostajuci token/tajna, HTTP greske, strogi boolean success, neispravan JSON
-i timeout; email sender/recipient/Reply-To, template vrednosti, neispravna
-konfiguracija i izuzeci pri pripremi/slanju uz bezbednu poruku korisniku.
+Na Linuxu postavite istu promenljivu okruzenja i koristite odgovarajuce putanje.
+Ako repozitorijum vec ima Magento zavisnosti u svom `vendor/` direktorijumu,
+`MAGENTO_AUTOLOAD` nije potreban.
 
-HTTP klijent i mail transport su simulirani. CAPTCHA test sa
-`timeout-or-duplicate` proverava obradu odgovora, ne stvarno sprecavanje
-ponovne upotrebe tokena kod providera. Isporuka mejla, frontend, controller,
-CSRF, session, cache i stvarni CAPTCHA servis zahtevaju zasebne integracione
-ili staging provere.
+### Obuhvat i potvrdjene provere
+
+- PHP 8.4.27, PHPUnit 12.5.40, originalne Magento 2.4.8 klase: 67 testova,
+  333 provera; bez upozorenja, obavestenja i deprecation prijava.
+- PHP 8.2.33, PHPUnit 9.6.36, originalne Magento 2.4.7-p8 klase: 67 testova,
+  198 provere, bez gresaka.
+- `php tests/standard-fields.php`: 33 ugovorne provere.
+
+Broj provera zavisi od PHPUnit verzije i nacina brojanja mock ocekivanja.
+Koriscena su izdvojena okruzenja sa originalnim Magento izvorima, ne kompletne
+Magento instalacije. Novije okruzenje ukljucuje `ext-intl`.
+
+Regresioni CAPTCHA testovi obuhvataju niz, objekat, integer i boolean za oba
+provajdera. PHP upozorenja pretvaraju se u izuzetke u tim testovima; neispravan
+token mora biti odbijen pre citanja tajne i HTTP zahteva. Provereni su i
+validni string tokeni, greske provajdera, validacija polja, email transport,
+store scope i escapovanje Store Information prikaza.
+
+HTTP klijent i mail transport su simulirani. Testovi ne potvrdjuju stvarnu
+isporuku emaila, stvarni CAPTCHA servis, browser, HTTP/CSRF tok, FPC ili DI
+kompilaciju. Coverage procenat nije meren. Za Clover izvestaj dodajte
+`--coverage-clover coverage.xml` uz Xdebug/PCOV. Filter ostaje ogranicen na
+Model/Form, Model/Captcha i Model/Email.
 
 ## English
 
-Extract this additive test bundle into the Contact Form repository root.
-The tests target commit `4e0493caac5f7bf9bc7fe5d570f39667d99d407d`, version
-1.2.3. Use PHPUnit 9.6 and set `MAGENTO_AUTOLOAD` to an existing Magento
-Composer autoloader as shown above. No application bootstrap or database
-is used. Production code and module Composer requirements are unchanged.
+Use `phpunit.xml.dist` with PHPUnit 12 and PHP 8.3+; use
+`phpunit-9.xml.dist` with PHPUnit 9.6. Set `MAGENTO_AUTOLOAD` to the Magento
+installation's Composer autoloader. Provider attributes are used by PHPUnit
+12; legacy provider comments are retained for PHPUnit 9.6.
 
-Verified locally with PHP 8.2.33, PHPUnit 9.6.36, original Magento 2.4.7-p8
-classes and psr/log 3.0.2 in an isolated dependency environment:
-**49 tests, 84 assertions, all passing**. This was not a full Magento install.
-Coverage was not measured; the intl normalization branch was not exercised.
-
-The suite covers field validation, CAPTCHA response/error handling and
-email construction/failure handling using HTTP/mail doubles. It does not
-prove real delivery, token replay protection or storefront/controller behavior.
-Add `--coverage-clover coverage.xml` with Xdebug/PCOV to generate a Codecov
-input report. Coverage scope is the three tested Model directories only;
-CI configuration and Codecov upload are not included.
+Verified in isolated environments with original Magento classes:
+67 tests / 333 assertions on PHP 8.4.27, PHPUnit 12.5.40, Magento 2.4.8;
+67 tests / 198 assertions on PHP 8.2.33, PHPUnit 9.6.36, Magento 2.4.7-p8.
+The standalone standard-fields script passes 33 checks. These results do
+not establish full application, storefront, CAPTCHA or email integration.

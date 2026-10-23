@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Block\Adminhtml\System\Config\Form\Field;
@@ -37,16 +38,23 @@ class CustomFields extends AbstractFieldArray
     protected function _prepareArrayRow(DataObject $row): void
     {
         $options = [];
-        $options['option_' . $this->getTypeRenderer()->calcOptionHash((string)$row->getData('type'))] = 'selected="selected"';
-        $options['option_' . $this->getRequiredRenderer()->calcOptionHash((string)$row->getData('required'))] = 'selected="selected"';
-        $options['option_' . $this->getValidationRenderer()->calcOptionHash((string)$row->getData('validation'))] = 'selected="selected"';
+        $typeHash = $this->getTypeRenderer()->calcOptionHash((string)$row->getData('type'));
+        $options['option_' . $typeHash] = 'selected="selected"';
+        $requiredHash = $this->getRequiredRenderer()->calcOptionHash((string)$row->getData('required'));
+        $options['option_' . $requiredHash] = 'selected="selected"';
+        $validationHash = $this->getValidationRenderer()->calcOptionHash((string)$row->getData('validation'));
+        $options['option_' . $validationHash] = 'selected="selected"';
         $row->setData('option_extra_attrs', $options);
     }
 
     private function getTypeRenderer(): FieldType
     {
         if ($this->typeRenderer === null) {
-            $this->typeRenderer = $this->getLayout()->createBlock(FieldType::class, '', ['data' => ['is_render_to_js_template' => true]]);
+            $this->typeRenderer = $this->getLayout()->createBlock(
+                FieldType::class,
+                '',
+                ['data' => ['is_render_to_js_template' => true]]
+            );
         }
         return $this->typeRenderer;
     }
@@ -54,7 +62,11 @@ class CustomFields extends AbstractFieldArray
     private function getRequiredRenderer(): Required
     {
         if ($this->requiredRenderer === null) {
-            $this->requiredRenderer = $this->getLayout()->createBlock(Required::class, '', ['data' => ['is_render_to_js_template' => true]]);
+            $this->requiredRenderer = $this->getLayout()->createBlock(
+                Required::class,
+                '',
+                ['data' => ['is_render_to_js_template' => true]]
+            );
         }
         return $this->requiredRenderer;
     }
@@ -62,7 +74,11 @@ class CustomFields extends AbstractFieldArray
     private function getValidationRenderer(): Validation
     {
         if ($this->validationRenderer === null) {
-            $this->validationRenderer = $this->getLayout()->createBlock(Validation::class, '', ['data' => ['is_render_to_js_template' => true]]);
+            $this->validationRenderer = $this->getLayout()->createBlock(
+                Validation::class,
+                '',
+                ['data' => ['is_render_to_js_template' => true]]
+            );
         }
         return $this->validationRenderer;
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Model\Config\Source;
@@ -32,7 +33,7 @@ class CustomerGroups implements OptionSourceInterface
             ];
         }
 
-        usort($options, static fn(array $left, array $right): int => (int)$left['value'] <=> (int)$right['value']);
+        usort($options, static fn (array $left, array $right): int => (int)$left['value'] <=> (int)$right['value']);
 
         return $options;
     }

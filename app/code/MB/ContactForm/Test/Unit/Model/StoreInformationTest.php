@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Test\Unit\Model;
@@ -12,6 +13,7 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Store\Model\Information;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\Store;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -23,18 +25,19 @@ class StoreInformationTest extends TestCase
         $config->expects(self::once())->method('isStoreInformationEnabled')->with(7)->willReturn(false);
         $information = $this->createMock(Information::class);
         $information->expects(self::never())->method('getStoreInformationObject');
-        $store = $this->createMock(Store::class);
+        $store = $this->createStub(Store::class);
         $store->method('getId')->willReturn(7);
 
         self::assertSame([], (new StoreInformation($config, $information))->getDetails($store));
     }
 
     /** @dataProvider detailsProvider */
+    #[DataProvider('detailsProvider')]
     public function testEnabledUsesCurrentStoreAndOmitsEmptyValues(array $data, array $expected): void
     {
         $config = $this->createMock(Config::class);
         $config->expects(self::once())->method('isStoreInformationEnabled')->with(12)->willReturn(true);
-        $store = $this->createMock(Store::class);
+        $store = $this->createStub(Store::class);
         $store->method('getId')->willReturn(12);
         $information = $this->createMock(Information::class);
         $information->expects(self::once())->method('getStoreInformationObject')
@@ -85,7 +88,13 @@ class StoreInformationTest extends TestCase
         self::assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
         self::assertStringContainsString("Monday\nTuesday", $html);
         $document = new \DOMDocument();
-        @$document->loadHTML($html);
+        $previousErrorHandling = libxml_use_internal_errors(true);
+        try {
+            $document->loadHTML($html);
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previousErrorHandling);
+        }
         $xpath = new \DOMXPath($document);
         self::assertSame(0, $xpath->query('//form//aside')->length);
         self::assertSame(1, $xpath->query('//div[@class="mb-contact__layout"]/aside')->length);
@@ -96,24 +105,57 @@ class StoreInformationTest extends TestCase
     {
         $block = new class ($details) {
             private array $details;
-            public function __construct(array $details) { $this->details = $details; }
-            public function getFormId(): string { return 'test-form'; }
-            public function getCaptchaProvider(): string { return 'none'; }
-            public function getStoreInformation(): array { return $this->details; }
-            public function getFormTitle(): string { return 'Contact'; }
-            public function getPostUrl(): string { return '/contact-success/form/submit/'; }
-            public function getBlockHtml(string $name): string { return ''; }
-            public function getFields(): array { return []; }
-            public function getLabel(string $field): string { return 'Submit'; }
+            public function __construct(array $details)
+            {
+                $this->details = $details;
+            }
+            public function getFormId(): string
+            {
+                return 'test-form';
+            }
+            public function getCaptchaProvider(): string
+            {
+                return 'none';
+            }
+            public function getStoreInformation(): array
+            {
+                return $this->details;
+            }
+            public function getFormTitle(): string
+            {
+                return 'Contact';
+            }
+            public function getPostUrl(): string
+            {
+                return '/contact-success/form/submit/';
+            }
+            public function getBlockHtml(string $name): string
+            {
+                return '';
+            }
+            public function getFields(): array
+            {
+                return [];
+            }
+            public function getLabel(string $field): string
+            {
+                return 'Submit';
+            }
         };
         // A deterministic escaping double keeps this template test independent of Magento bootstrap.
-        $escaper = new class {
+        $escaper = new class () {
             public function escapeHtml($value): string
             {
                 return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
             }
-            public function escapeHtmlAttr($value): string { return $this->escapeHtml($value); }
-            public function escapeUrl($value): string { return $this->escapeHtml($value); }
+            public function escapeHtmlAttr($value): string
+            {
+                return $this->escapeHtml($value);
+            }
+            public function escapeUrl($value): string
+            {
+                return $this->escapeHtml($value);
+            }
         };
         ob_start();
         try {
@@ -132,9 +174,9 @@ class StoreInformationTest extends TestCase
             ->willReturn(true);
         $config = new Config(
             $scope,
-            $this->createMock(EncryptorInterface::class),
+            $this->createStub(EncryptorInterface::class),
             new Json(),
-            $this->createMock(LoggerInterface::class)
+            $this->createStub(LoggerInterface::class)
         );
 
         self::assertTrue($config->isStoreInformationEnabled(12));
