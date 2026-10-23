@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace MB\ContactForm\Model;
 
 use Magento\Framework\Exception\LocalizedException;
@@ -8,8 +10,13 @@ class StandardFields
 {
     public const CODES = ['message', 'name', 'email', 'company', 'telephone'];
     public const REQUIRED = ['email', 'message'];
-    public const LIMITS = ['message' => 5000, 'name' => 200,
-        'email' => 254, 'company' => 150, 'telephone' => 30];
+    public const LIMITS = [
+        'message' => 5000,
+        'name' => 200,
+        'email' => 254,
+        'company' => 150,
+        'telephone' => 30,
+    ];
 
     public function defaults(array $labels = []): array
     {
@@ -33,8 +40,12 @@ class StandardFields
         $legacy = [];
         $hasName = false;
         foreach ($rows as $key => $row) {
-            if (!is_array($row)) { continue; }
-            if (($row['code'] ?? '') === 'name') { $hasName = true; }
+            if (!is_array($row)) {
+                continue;
+            }
+            if (($row['code'] ?? '') === 'name') {
+                $hasName = true;
+            }
             if (in_array($row['code'] ?? '', ['firstname', 'lastname'], true)) {
                 $legacy[] = $row;
                 unset($rows[$key]);
@@ -42,7 +53,10 @@ class StandardFields
         }
         if ($legacy !== [] && !$hasName) {
             $name = $this->defaults()['name'];
-            $name['sort_order'] = min(array_map(static fn(array $row): int => (int)($row['sort_order'] ?? 20), $legacy));
+            $name['sort_order'] = min(array_map(
+                static fn (array $row): int => (int)($row['sort_order'] ?? 20),
+                $legacy
+            ));
             $rows[] = $name;
         }
         $result = [];
@@ -69,15 +83,21 @@ class StandardFields
                 $expectedType = $code === 'email' ? 'text' : 'textarea';
                 $expectedRule = $code === 'email' ? 'email' : 'safe_text';
                 if ($strict && (!$required || $disabled || $type !== $expectedType || $rule !== $expectedRule)) {
-                    throw new LocalizedException(__('Email and Message must remain enabled and required with their original type and validation.'));
+                    throw new LocalizedException(
+                        __(
+                            'Email and Message must remain enabled and required with their original type and validation.'
+                        )
+                    );
                 }
                 $required = true;
                 $disabled = false;
                 $type = $expectedType;
                 $rule = $expectedRule;
             }
-            $options = array_values(array_unique(array_filter(array_map('trim',
-                explode(',', (string)($row['options'] ?? ''))), 'strlen')));
+            $options = array_values(array_unique(array_filter(array_map(
+                'trim',
+                explode(',', (string)($row['options'] ?? ''))
+            ), 'strlen')));
             if ($type === 'select' && $options === []) {
                 throw new LocalizedException(__('Select field "%1" must have comma-separated options.', $label));
             }

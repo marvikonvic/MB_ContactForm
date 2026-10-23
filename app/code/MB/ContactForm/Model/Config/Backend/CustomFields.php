@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Model\Config\Backend;
@@ -34,17 +35,23 @@ class CustomFields extends ArraySerialized
 
                 if (!preg_match('/^[a-z][a-z0-9_]{1,49}$/', $code)) {
                     throw new LocalizedException(
-                        __('Each additional field code must contain 2-50 lowercase letters, numbers or underscores and start with a letter.')
+                        __(
+                            'Each additional field code must contain 2-50 lowercase letters, numbers or underscores and start with a letter.'
+                        )
                     );
                 }
                 if ($label === '') {
                     throw new LocalizedException(__('Every additional field must have a label.'));
                 }
                 if (isset($seen[$code]) || in_array($code, self::RESERVED_CODES, true)) {
-                    throw new LocalizedException(__('The additional field code "%1" is duplicated or reserved.', $code));
+                    throw new LocalizedException(
+                        __('The additional field code "%1" is duplicated or reserved.', $code)
+                    );
                 }
                 if (!in_array($type, self::TYPES, true) || !in_array($validation, self::VALIDATIONS, true)) {
-                    throw new LocalizedException(__('The additional field "%1" has an unsupported type or validation rule.', $label));
+                    throw new LocalizedException(
+                        __('The additional field "%1" has an unsupported type or validation rule.', $label)
+                    );
                 }
                 if ($type === 'select') {
                     $options = array_values(array_unique(array_filter(
@@ -52,7 +59,9 @@ class CustomFields extends ArraySerialized
                         'strlen'
                     )));
                     if ($options === []) {
-                        throw new LocalizedException(__('Select field "%1" must have comma-separated options.', $label));
+                        throw new LocalizedException(
+                            __('Select field "%1" must have comma-separated options.', $label)
+                        );
                     }
                     $value[$rowId]['options'] = implode(', ', $options);
                 }

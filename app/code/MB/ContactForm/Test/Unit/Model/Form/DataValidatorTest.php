@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Test\Unit\Model\Form;
@@ -6,6 +7,7 @@ namespace MB\ContactForm\Test\Unit\Model\Form;
 use Magento\Framework\Exception\LocalizedException;
 use MB\ContactForm\Model\Config;
 use MB\ContactForm\Model\Form\DataValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class DataValidatorTest extends TestCase
@@ -17,12 +19,13 @@ final class DataValidatorTest extends TestCase
             'required' => true, 'maxlength' => 255, 'validation' => 'letters', 'options' => [],
         ], $overrides);
         $config = $this->createMock(Config::class);
-        $config->method('getStandardFields')->with(2)->willReturn($custom ? [] : [$field]);
+        $config->expects(self::once())->method('getStandardFields')->with(2)->willReturn($custom ? [] : [$field]);
         $config->method('getCustomFields')->with(2)->willReturn($custom ? [$field] : []);
         return new DataValidator($config);
     }
 
     /** @dataProvider acceptedValues */
+    #[DataProvider('acceptedValues')]
     public function testAcceptsAndTrimsValidInput(string $validation, string $value): void
     {
         $result = $this->subject(['validation' => $validation])->validate(['name' => ' ' . $value . ' '], 2);
@@ -39,6 +42,7 @@ final class DataValidatorTest extends TestCase
     }
 
     /** @dataProvider rejectedValues */
+    #[DataProvider('rejectedValues')]
     public function testRejectsInvalidInput(array $definition, $value, string $message): void
     {
         $this->expectException(LocalizedException::class);
@@ -55,7 +59,9 @@ final class DataValidatorTest extends TestCase
             'name with digits' => [[], 'Bojan123', 'not allowed'],
             'emoji' => [[], 'Bojan😀', 'not allowed'],
             'invalid email' => [['validation' => 'email'], 'x@@example.com', 'not allowed'],
-            'email newline injection' => [['validation' => 'email'], "x@example.com\nBcc: x@example.org", 'not allowed'],
+            'email newline injection' => [
+                ['validation' => 'email'], "x@example.com\nBcc: x@example.org", 'not allowed',
+            ],
             'negative number' => [['validation' => 'numbers'], '-123', 'not allowed'],
             'HTML' => [['validation' => 'safe_text'], '<script>alert(1)</script>', 'not allowed'],
             'too long' => [[], str_repeat('ž', 256), 'too long'],
@@ -90,6 +96,7 @@ final class DataValidatorTest extends TestCase
     }
 
     /** @dataProvider customInvalidValues */
+    #[DataProvider('customInvalidValues')]
     public function testRejectsInvalidCustomField(array $definition, $value): void
     {
         $this->expectException(LocalizedException::class);

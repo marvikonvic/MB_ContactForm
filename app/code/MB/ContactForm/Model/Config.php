@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MB\ContactForm\Model;
@@ -32,7 +33,11 @@ class Config
 
     public function isEnabled(?int $storeId = null): bool
     {
-        return $this->scopeConfig->isSetFlag(self::XML_PREFIX . 'general/enabled', ScopeInterface::SCOPE_STORE, $storeId);
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PREFIX . 'general/enabled',
+            ScopeInterface::SCOPE_STORE,
+            $storeId
+        );
     }
 
     public function isStoreInformationEnabled(?int $storeId = null): bool
@@ -161,7 +166,7 @@ class Config
             $row['name'] = $row['code'];
             $fields[] = $row;
         }
-        usort($fields, static fn(array $a, array $b): int => $a['sort_order'] <=> $b['sort_order']);
+        usort($fields, static fn (array $a, array $b): int => $a['sort_order'] <=> $b['sort_order']);
         return $fields;
     }
 
@@ -221,7 +226,10 @@ class Config
             try {
                 $rows = $this->serializer->unserialize($raw);
             } catch (\InvalidArgumentException $exception) {
-                $this->logger->error('Invalid MB Contact Form additional fields configuration.', ['exception' => $exception]);
+                $this->logger->error(
+                    'Invalid MB Contact Form additional fields configuration.',
+                    ['exception' => $exception]
+                );
                 return [];
             }
         }
@@ -237,8 +245,14 @@ class Config
                 continue;
             }
 
-            $type = in_array(($row['type'] ?? ''), ['text', 'textarea', 'select'], true) ? (string)$row['type'] : 'text';
-            $validation = in_array(($row['validation'] ?? ''), ['none', 'letters', 'alphanumeric', 'numbers', 'email', 'safe_text'], true)
+            $type = in_array(($row['type'] ?? ''), ['text', 'textarea', 'select'], true)
+                ? (string)$row['type']
+                : 'text';
+            $validation = in_array(
+                ($row['validation'] ?? ''),
+                ['none', 'letters', 'alphanumeric', 'numbers', 'email', 'safe_text'],
+                true
+            )
                 ? (string)$row['validation']
                 : 'none';
             $options = array_values(array_unique(array_filter(
@@ -257,7 +271,7 @@ class Config
             ];
         }
 
-        uasort($normalized, static fn(array $left, array $right): int => $left['sort_order'] <=> $right['sort_order']);
+        uasort($normalized, static fn (array $left, array $right): int => $left['sort_order'] <=> $right['sort_order']);
         return array_values($normalized);
     }
 

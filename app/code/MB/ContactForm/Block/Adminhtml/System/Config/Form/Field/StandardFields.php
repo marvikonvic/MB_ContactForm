@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace MB\ContactForm\Block\Adminhtml\System\Config\Form\Field;
 
 use Magento\Backend\Block\Template\Context;
@@ -51,6 +53,13 @@ class StandardFields extends Field
         return $this->_toHtml();
     }
 
-    public function getRows(): array { return $this->rows; }
-    public function getInputName(): string { return $this->inputName; }
+    public function getRows(): array
+    {
+        return $this->rows;
+    }
+
+    public function getInputName(): string
+    {
+        return $this->inputName;
+    }
 }
