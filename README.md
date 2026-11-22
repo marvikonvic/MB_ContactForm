@@ -42,6 +42,23 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 - **Magento:** potvrđeno na Magento 2.4.7-p3. Composer ne ograničava Magento pakete na određenu verziju; druge verzije nisu potvrđene ovim staging testom.
 - **Teme:** podrška za Hyvä, Luma i Breeze Evolution. Staging provera na Hyvä okruženju navedena je ispod; na Breeze Evolution temi potvrđeni su slanje kontakt forme i uspešna isporuka mejla.
 
+### Magento / PHP matrica za `main`
+
+PHP kolona prikazuje kombinacije iz [Adobe sistemskih zahteva](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements) koje dopušta i trenutni modul. Kolona provera navodi konkretne verzije korišćene za testiranje; ona ne potvrđuje sve zakrpe određene Magento serije.
+
+| Magento serija | PHP verzije za `main` | Potvrđene provere modula |
+| --- | --- | --- |
+| 2.4.4 | 8.1.x | Originalne 2.4.4 klase + PHP 8.1.34: 67 testova / 198 provera |
+| 2.4.5 | 8.1.x | Originalne 2.4.5 klase + PHP 8.1.34: 67 testova / 198 provera |
+| 2.4.6 | 8.1.x, 8.2.x | Originalne 2.4.6 klase + PHP 8.1.34 i 8.2.33: po 67 testova / 198 provera |
+| 2.4.7 | 8.2.x, 8.3.x | Staging: 2.4.7-p3 + PHP 8.3.33; izolovano: 2.4.7-p8 + PHP 8.2.33 |
+| 2.4.8, uključujući 2.4.8-p5 | 8.3.x, 8.4.x | Originalne 2.4.8-p5 klase + PHP 8.4.27: 67 testova / 333 provere |
+| 2.4.9 | Nema zvanično podržane kombinacije sa trenutnim `main` | Adobe navodi PHP 8.5, koji trenutni Composer zahtev na `main` ne dopušta |
+
+**Magento 2.4.8-p5 + PHP 8.3.36:** kombinacija odgovara Magento i modulskim PHP zahtevima. Tačna kombinacija nije zasebno testirana na kompletnoj prodavnici; pre produkcije proveriti instalaciju/DI, kontakt formu, CAPTCHA i prijem mejla na stagingu. Verzija PHP-FPM-a koju koristi sajt mora odgovarati izabranoj kombinaciji; CLI rezultat sam to ne potvrđuje.
+
+Izolovani testovi koriste originalne Magento klase, bez pune instalacije, baze ili stvarne SMTP/CAPTCHA isporuke. Produkcioni PHP kod u tim proverama jednak je kodu na `main`; prošireni PHP zahtevi i CI infrastruktura nalaze se u [razvojnoj grani / PR #3](https://github.com/marvikonvic/MB_ContactForm/pull/3). Podrška za PHP 8.5/8.6 sa te grane još nije deo `main`.
+
 ### Testirano na staging okruženju
 
 | Komponenta | Verzija |
@@ -376,6 +393,23 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 - **PHP:** 8.1.x, 8.2.x, 8.3.x, and 8.4.x according to the module's `composer.json` requirements. The selected PHP version must also be supported by the installed Magento version.
 - **Magento:** verified on Magento 2.4.7-p3. Composer does not restrict Magento packages to a specific version; other versions have not been confirmed by this staging test.
 - **Themes:** Hyvä, Luma, and Breeze Evolution support. Hyvä staging verification is documented below; contact form submission and successful email delivery have also been confirmed on Breeze Evolution.
+
+### Magento / PHP matrix for `main`
+
+The PHP column lists combinations from [Adobe system requirements](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements) that the current module also permits. The checks column identifies the exact tested versions; it does not establish coverage of every patch in a Magento release line.
+
+| Magento release line | PHP versions for `main` | Verified module checks |
+| --- | --- | --- |
+| 2.4.4 | 8.1.x | Original 2.4.4 classes + PHP 8.1.34: 67 tests / 198 assertions |
+| 2.4.5 | 8.1.x | Original 2.4.5 classes + PHP 8.1.34: 67 tests / 198 assertions |
+| 2.4.6 | 8.1.x, 8.2.x | Original 2.4.6 classes + PHP 8.1.34 and 8.2.33: 67 tests / 198 assertions each |
+| 2.4.7 | 8.2.x, 8.3.x | Staging: 2.4.7-p3 + PHP 8.3.33; isolated: 2.4.7-p8 + PHP 8.2.33 |
+| 2.4.8, including 2.4.8-p5 | 8.3.x, 8.4.x | Original 2.4.8-p5 classes + PHP 8.4.27: 67 tests / 333 assertions |
+| 2.4.9 | No officially supported combination with current `main` | Adobe lists PHP 8.5, which the current `main` Composer constraint excludes |
+
+**Magento 2.4.8-p5 + PHP 8.3.36:** this combination meets Magento and module PHP requirements. The exact combination has not been tested separately in a complete store; verify installation/DI, form submission, CAPTCHA and email delivery on staging before production. The website's PHP-FPM version must match the selected combination; CLI output alone does not establish that.
+
+Isolated tests use original Magento classes without a full installation, database or real SMTP/CAPTCHA delivery. The production PHP code in those checks matches `main`; expanded PHP requirements and CI tooling are in the [development branch / PR #3](https://github.com/marvikonvic/MB_ContactForm/pull/3). That branch's PHP 8.5/8.6 support is not yet part of `main`.
 
 ### Tested staging environment
 
