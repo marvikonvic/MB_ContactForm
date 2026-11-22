@@ -20,6 +20,7 @@
 
 MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administraciju, bez menjanja koda.
 
+- Opcioni prikaz izvornih Magento Store Information podataka pored forme; [podešavanje i detalji provera](docs/store-information.md).
 - Full Page Cache kompatibilan CMS widget.
 - Responsive i Hyvä kompatibilan storefront bez RequireJS-a, jQuery-ja i Knockout-a.
 - Konfiguracija po Default, Website i Store View nivou.
@@ -45,47 +46,18 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 
 | Komponenta | Verzija |
 | --- | --- |
-| MB Contact Form | 1.2.3 |
+| MB Contact Form | 1.2.4 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
 | Breeze Evolution | Tačna verzija nije potvrđena; Composer opseg: `^3.1` |
 
-### Rezultati funkcionalnih i osnovnih bezbednosnih testova
+### Izveštaji o testiranju
 
-**Planirani funkcionalni testovi i osnovni bezbednosni testovi završeni su i prošli.** Rezultate je korisnik potvrdio ručnim testiranjem na Stagento staging okruženju za funkcionalnosti verzije 1.2.3, uključujući testiranje koda sa `dev-main`. Ovo nije izveštaj automatskog test paketa niti kompletan bezbednosni audit.
+- [Rezultati funkcionalnih i osnovnih bezbednosnih testova](docs/functional-security-test-results.md#srpski).
+- [Dodatne QA provere — 10. septembar 2026.](docs/qa-checks-2026-09-10.md#srpski).
 
-- **Obavezna polja:** browser blokira prazne obavezne unose; server odbija prazno Name polje i kada se browser provera zaobiđe.
-- **Email validacija:** neispravan email je odbijen u browseru i direktnim slanjem serveru.
-- **Pisma:** latinica i ćirilica su prihvaćene, nepodržana pisma odbijena; direktan serverski test sa kineskim znakovima u Name polju je odbijen.
-- **Numerička polja:** slova se odbijaju; direktan serverski test sa `abc123` u Phone Number polju je odbijen.
-- **Email isporuka i sadržaj:** poruka stiže, izmenjeni Subject i uvodni tekst prikazuju se u emailu, a Reply-To adresira posetioca.
-- **Opciona polja:** uklonjeno polje ne prikazuje se ni u formi ni u emailu.
-- **Customer grupe:** potvrđeno ograničenje pristupa za nedozvoljenu customer grupu.
-- **Nepotpuna CAPTCHA konfiguracija:** forma je skrivena kada je izabran Google reCAPTCHA bez oba ključa, kao i kada Turnstile Site Key nedostaje. Ovo nije potvrda uspešne Google reCAPTCHA validacije.
-- **Turnstile Siteverify:** Cloudflare analitika beleži serversku validaciju pri uspešnom slanju.
-- **Nedostajući CAPTCHA token:** direktan POST bez Turnstile tokena odbijen je CAPTCHA greškom.
-- **Ponovna upotreba tokena:** dva uzastopna zahteva sa istim Turnstile tokenom proizvela su samo jedan email; drugi zahtev odbijen je CAPTCHA greškom.
-- **Full Page Cache:** slanje forme sa potvrđenim cache `HIT` u odvojenoj Edge InPrivate sesiji uspelo je bez session/form key greške, a email je stigao.
-- **Privatnost success stranice:** otvaranje success URL-a u novoj InPrivate sesiji prikazuje prazno newsletter email polje, bez emaila prethodne sesije.
-
-#### Dodatne QA provere — 10. septembar 2026.
-
-Ručno testirano na QA staging okruženju sa isključenim kešom. Korisnik je potvrdio isti kod i podrazumevani email šablon kao u pregledanom commitu `bffbacc4`. Rezultati ispod odnose se na ovo okruženje i konkretne pokušaje; ne proširuju automatski prethodne Stagento rezultate.
-
-- **Uspešno slanje:** potvrđen POST → 302 → success stranica → GET 200, uz prijem emaila.
-- **Serverska validacija:** direktnim slanjem uz zaobilaženje browser provere odbijeni su prazni Message i Name, neispravan email i poruka od 5.001 znaka.
-- **CSRF:** zahtevi sa neispravnim i potpuno odsutnim `form_key` odbijeni su porukom o nevažećem ključu i povratkom na kontakt formu.
-- **HTML unos:** literalni `<b>` tag odbijen je u svih pet standardnih polja (Message, Name, Email Address, Company Name, Phone Number), bez odgovarajućeg emaila u kontrolisanim pokušajima.
-- **SVG/XSS proba:** SVG sa `onload` atributom u Message polju odbijen je; email nije stigao, a bezopasna testna JavaScript oznaka nije postavljena na vraćenoj stranici.
-- **Kodirani HTML:** jednostruko i dvostruko kodirani tagovi prihvaćeni su kao poruka; u primljenim emailovima prikazani su kao tekst, bez aktivnog HTML formatiranja.
-- **Ponovni prikaz i privatnost:** nakon greške zbog praznog Name polja Message je prazan i email nije poslat. Nova InPrivate sesija prikazuje prazno email polje na success stranici; ovo je provereno sa isključenim kešom.
-- **Email header injection:** stvarni CRLF (`%0D%0A`) i bezopasno dodatno zaglavlje testirani su zasebno kroz Name i Email. Server je odbio oba unosa, vratio 302 na kontakt formu i emailovi nisu stigli.
-- **CAPTCHA:** zahtev bez tokena odbijen je CAPTCHA greškom, bez emaila. Ponavljanje prethodno uspešnog zahteva sa istim tokenom vratilo je 302 na kontakt formu, bez drugog emaila.
-- **SQL test unos:** `QA SQL ALFA ' OR '1'='1` odbijen je validacijom Message polja, uz 302 na kontakt formu i bez emaila. Ovo potvrđuje odbijanje konkretnog unosa, ne zaštitu svih SQL upita od injekcije.
-- **Učestalost slanja:** tri uzastopna ručna slanja sa svežim CAPTCHA proverama prihvaćena su i proizvela tri emaila. Ograničenje nije aktivirano tokom ova tri slanja.
-- **Pregled koda:** u pregledanim putanjama forme nije pronađen konkretan XSS propust. Success email atribut koristi `escapeHtmlAttr`, podrazumevani email šablon koristi `|escape` za korisnička polja, a CAPTCHA greška u JavaScriptu koristi `textContent`. Ovo je statički pregled uz navedene ručne probe, ne kompletan bezbednosni audit.
-
+Izveštaji zadržavaju izvorne verzije, datume i ograničenja pojedinačnih provera.
 
 ## Podešavanja
 
@@ -237,6 +209,8 @@ Magento komande za aktivaciju navedene ispod.
 
 ### ZIP
 
+Preuzmite [ZIP taga v1.2.4](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.4.zip).
+
 Raspakovati modul tako da se nalazi u:
 
 ```text
@@ -301,7 +275,16 @@ Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact For
 
 ## Istorija verzija
 
-### Novo u verziji 1.2.4
+### Izmene na main grani nakon taga v1.2.4
+
+- Neispravni CAPTCHA tokeni koji nisu string odbijaju se pre obrade i HTTP zahteva.
+- Dodati su CAPTCHA regresioni testovi, PHPUnit 12 konfiguracija i atributi, uz posebnu konfiguraciju za PHPUnit 9.6.
+- Ujednačen je stil PHP koda i poboljšana čitljivost PHP/PHTML fajlova.
+- [Detalji lokalnih provera i njihova ograničenja](docs/php-compatibility-fixes.md).
+
+Ove izmene su na `main` grani i nisu deo ranije objavljenog taga `v1.2.4`. PHP zahtevi modula ostaju nepromenjeni.
+
+### Verzija 1.2.4 — Store Information
 
 - Opcija **Enable Store Information**, podrazumevano isključena, koristi postojeće Magento Store Information podatke.
 - Forma zauzima 65%, a informacije 35% raspoložive širine na desktopu; na telefonu informacije idu ispod forme.
@@ -372,6 +355,7 @@ Magento 2 kontakt forma kompatibilna sa Luma i Hyvä temama. Modul pruža cache-
 
 MB Contact Form lets you customize the contact form through Magento Admin without changing code.
 
+- Optional native Magento Store Information panel beside the form; [configuration and validation notes](docs/store-information.md).
 - Full Page Cache compatible CMS widget.
 - Responsive, Hyvä-compatible storefront without RequireJS, jQuery, or Knockout.
 - Configuration at Default, Website, and Store View scope.
@@ -397,47 +381,18 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 
 | Component | Version |
 | --- | --- |
-| MB Contact Form | 1.2.3 |
+| MB Contact Form | 1.2.4 |
 | PHP | 8.3.33 |
 | Magento | 2.4.7-p3 |
 | Hyvä Theme Module | 1.5.2 |
 | Breeze Evolution | Exact version not confirmed; Composer constraint: `^3.1` |
 
-### Functional and basic security test results
+### Test reports
 
-**The planned functional and basic security tests have been completed and passed.** Results were confirmed by the user through manual testing on the Stagento staging environment for version 1.2.3 functionality, including testing code from `dev-main`. This is not an automated test-suite report or a comprehensive security audit.
+- [Functional and basic security test results](docs/functional-security-test-results.md#english).
+- [Additional QA checks — September 10, 2026](docs/qa-checks-2026-09-10.md#english).
 
-- **Required fields:** the browser blocks empty required inputs; the server rejects an empty Name even when browser validation is bypassed.
-- **Email validation:** invalid email input is rejected both in the browser and through direct server submission.
-- **Writing systems:** Latin and Cyrillic are accepted and unsupported scripts rejected; a direct server test with Chinese characters in Name was rejected.
-- **Numeric fields:** letters are rejected; a direct server test with `abc123` in Phone Number was rejected.
-- **Email delivery and content:** email arrives, the configured subject and introduction appear in the message, and Reply-To addresses the visitor.
-- **Optional fields:** a removed field appears in neither the form nor the email.
-- **Customer groups:** access restrictions for a disallowed customer group were confirmed.
-- **Incomplete CAPTCHA configuration:** the form is hidden when Google reCAPTCHA is selected with both keys empty, and when the Turnstile Site Key is missing. This does not confirm successful Google reCAPTCHA validation.
-- **Turnstile Siteverify:** Cloudflare analytics records server-side validation during successful submission.
-- **Missing CAPTCHA token:** a direct POST without a Turnstile token was rejected with a CAPTCHA error.
-- **Token replay:** two sequential requests using the same Turnstile token produced only one email; the second request was rejected with a CAPTCHA error.
-- **Full Page Cache:** submission with a confirmed cache `HIT` in a separate Edge InPrivate session succeeded without a session/form key error, and email arrived.
-- **Success-page privacy:** opening the success URL in a new InPrivate session shows an empty newsletter email field without the previous session's email.
-
-#### Additional QA checks — September 10, 2026
-
-Manually tested on QA staging with caching disabled. The user confirmed the same code and default email template as reviewed commit `bffbacc4`. These results apply to this environment and the specific attempts; they do not automatically extend the earlier Stagento results.
-
-- **Successful submission:** POST → 302 → success page → GET 200 and email receipt confirmed.
-- **Server validation:** direct submissions bypassing browser checks rejected empty Message and Name, an invalid email, and a 5,001-character message.
-- **CSRF:** incorrect and entirely missing `form_key` values were rejected with an invalid-key message and a redirect to the contact form.
-- **HTML input:** a literal `<b>` tag was rejected in all five standard fields (Message, Name, Email Address, Company Name, Phone Number), without corresponding email in the controlled attempts.
-- **SVG/XSS probe:** an SVG with an `onload` attribute in Message was rejected; no email arrived and the harmless JavaScript test marker was not set on the returned page.
-- **Encoded HTML:** single- and double-encoded tags were accepted as message text; received emails displayed text without active HTML formatting.
-- **Redisplay and privacy:** after an empty-Name error, Message was empty and no email was sent. A new InPrivate session showed an empty email field on the success page; caching was disabled for this check.
-- **Email header injection:** actual CRLF (`%0D%0A`) with a harmless additional header was tested separately through Name and Email. Both inputs were rejected, returned 302 to the contact form, and produced no received email.
-- **CAPTCHA:** a request without a token was rejected with a CAPTCHA error and no email. Repeating a previously successful request with the same token returned 302 to the contact form without a second email.
-- **SQL probe input:** `QA SQL ALFA ' OR '1'='1` was rejected by Message validation, returning 302 to the contact form without email. This demonstrates rejection of that input, not injection protection for all SQL queries.
-- **Submission frequency:** three consecutive manual submissions with fresh CAPTCHA checks were accepted and produced three emails. No rate limit triggered during these three submissions.
-- **Code review:** no concrete XSS vulnerability was found in the reviewed form paths. The success email attribute uses `escapeHtmlAttr`, the default email template uses `|escape` for user fields, and JavaScript uses `textContent` for the CAPTCHA error. This is a static review with the listed manual probes, not a comprehensive security audit.
-
+The reports retain the original versions, dates, and limitations of each check.
 
 ## Configuration
 
@@ -588,6 +543,8 @@ Do not also install a copy in `app/code`. After installation, run the Magento ac
 
 ### ZIP installation
 
+Download the [v1.2.4 tag ZIP](https://github.com/marvikonvic/MB_ContactForm/archive/refs/tags/v1.2.4.zip).
+
 Extract the module into:
 
 ```text
@@ -652,7 +609,16 @@ The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-
 
 ## Version history
 
-### New in version 1.2.4
+### Changes on main after the v1.2.4 tag
+
+- Reject malformed non-string CAPTCHA tokens before processing or HTTP requests.
+- Add CAPTCHA regression cases, PHPUnit 12 configuration and attributes, with a separate PHPUnit 9.6 configuration.
+- Apply consistent PHP formatting and improve PHP/PHTML readability.
+- [Local validation details and limitations](docs/php-compatibility-fixes.md).
+
+These changes are on `main` and are not included in the previously published `v1.2.4` tag. The module's PHP requirements remain unchanged.
+
+### Version 1.2.4 — Store Information
 
 - **Enable Store Information**, disabled by default, reads the existing Magento Store Information settings.
 - Desktop layout allocates 65% of available width to the form and 35% to store details; mobile places details below the form.
