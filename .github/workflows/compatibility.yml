@@ -1,0 +1,71 @@
+name: PHP and Magento compatibility
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    name: PHP ${{ matrix.php }} / Magento ${{ matrix.magento }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.1'
+            magento: '2.4.4'
+            security_patches: false
+          - php: '8.2'
+            magento: '2.4.6'
+            security_patches: false
+          - php: '8.3'
+            magento: '2.4.7-p10'
+            security_patches: false
+          - php: '8.4'
+            magento: '2.4.8-p5'
+            security_patches: false
+          - php: '8.5'
+            magento: '2.4.9'
+            security_patches: true
+          - php: '8.6'
+            magento: '2.4.9'
+            security_patches: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, dom, intl, mbstring, xml, xmlwriter
+          coverage: none
+          tools: composer:v2
+      - name: Fetch original Magento source
+        env:
+          MAGENTO_VERSION: ${{ matrix.magento }}
+        run: |
+          git clone --depth 1 --branch "$MAGENTO_VERSION" https://github.com/magento/magento2.git "$RUNNER_TEMP/magento2"
+      - name: Apply pinned official 2.4.9 CE security patches
+        if: matrix.security_patches
+        run: python3 tests/compatibility/prepare-security-patches.py "$RUNNER_TEMP/magento2" --report "$RUNNER_TEMP/security-patches.json"
+      - name: Install isolated test dependencies
+        run: composer install --working-dir=tests/compatibility --no-interaction --no-scripts --no-plugins --prefer-dist
+      - name: Validate Composer manifests
+        run: |
+          composer validate --no-check-publish
+          composer validate --no-check-publish app/code/MB/ContactForm/composer.json
+      - name: Test module with original Magento classes
+        env:
+          MAGENTO_SOURCE: ${{ runner.temp }}/magento2
+        run: php tests/compatibility/run.php
+      - name: Check PHP and PHTML syntax
+        run: find app/code/MB/ContactForm tests -type f \( -name '*.php' -o -name '*.phtml' \) -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
+      - name: Upload security patch provenance
+        if: always() && matrix.security_patches
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-patches-php-${{ matrix.php }}
+          path: ${{ runner.temp }}/security-patches.json
+          if-no-files-found: warn

@@ -1,5 +1,8 @@
 # MB Contact Form unit tests
 
+Za noviju PHP/Magento matricu i pripremu zakrpljenog izvornog koda pogledajte
+[ponovljive provere kompatibilnosti](../compatibility/README.md).
+
 ## Srpski
 
 Testovi koriste originalne Magento klase iz postojece instalacije, bez

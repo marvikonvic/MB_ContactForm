@@ -1,11 +1,11 @@
 > Store Information enhancement: optional native Magento store details beside the form.
 > See [configuration and validation notes](docs/store-information.md).
 
-# MB Contact Form 1.2.4
+# MB Contact Form 1.2.5 — development branch
 
-[![Version](https://img.shields.io/badge/version-1.2.4-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/v1.2.4)
+[![Version](https://img.shields.io/badge/version-1.2.5--dev-0A66C2.svg)](https://github.com/marvikonvic/MB_ContactForm/tree/feature/magento249-php85-86)
 [![Magento](https://img.shields.io/badge/Magento-2.4.7--p3%20tested-EE672F.svg?logo=magento&logoColor=white)](https://github.com/marvikonvic/MB_ContactForm)
-[![PHP](https://img.shields.io/badge/PHP-8.1--8.4-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
+[![PHP](https://img.shields.io/badge/PHP-8.1--8.6-777BB4.svg?logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--3.0--or--later-6F42C1.svg)](LICENSE.md)
 
 [Srpski](#srpski) | [English](#english)
@@ -38,8 +38,8 @@ MB Contact Form omogućava prilagođavanje kontakt forme kroz Magento administra
 
 ## Kompatibilnost
 
-- **PHP:** 8.1.x, 8.2.x, 8.3.x i 8.4.x prema zahtevima modula u `composer.json`. Izabrana PHP verzija mora odgovarati i konkretnoj Magento verziji.
-- **Magento:** potvrđeno na Magento 2.4.7-p3. Composer ne ograničava Magento pakete na određenu verziju; druge verzije nisu potvrđene ovim staging testom.
+- **PHP:** 8.1.x–8.6.x prema zahtevima modula. Magento 2.4.9 cilja PHP 8.5; PHP 8.6 je proveren za modul u izdvojenom okruženju i nije zvanično podržana Magento 2.4.9 kombinacija. [Matrica kompatibilnosti i bezbednosne zakrpe](docs/magento-php-compatibility.md).
+- **Magento:** proverene su originalne klase Magento 2.4.4–2.4.9, uključujući zakrpljeni 2.4.9. To su izdvojene provere; prethodno potvrđeno staging okruženje navedeno je ispod. [Obuhvat i ograničenja](docs/magento-php-compatibility.md).
 - **Teme:** podrška za Hyvä, Luma i Breeze Evolution. Staging provera na Hyvä okruženju navedena je ispod; na Breeze Evolution temi potvrđeni su slanje kontakt forme i uspešna isporuka mejla.
 
 ### Testirano na staging okruženju
@@ -193,6 +193,16 @@ Screenshot prikazuje `From`, `To` i `Reply-To` zaglavlja koja dobijaju email kli
 
 ## Instalacija
 
+### Razvojna grana 1.2.5
+
+Za proveru ove grane na stagingu, nakon postojećeg Composer repository podešavanja:
+
+```bash
+composer require "mb/module-contact-form:dev-feature/magento249-php85-86" --prefer-dist --no-scripts
+```
+
+Pratite Magento upgrade, DI compilation i static-content korake iz odeljka Ažuriranje. Grana ne instalira Magento sigurnosne zakrpe na prodavnicu.
+
 ### Composer (GitHub)
 
 Za javni repozitorijum koristite HTTPS URL ispod; GitHub autentifikacija nije potrebna za čitanje javnog koda (Composer može tražiti token ako se dostigne GitHub API limit). Ovaj postupak bez autentifikacije važi nakon promene vidljivosti repozitorijuma na Public.
@@ -275,6 +285,15 @@ Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact For
 
 ## Istorija verzija
 
+### Verzija 1.2.5 — razvojna grana
+
+- Prošireni PHP zahtevi na 8.1–8.6, uz očuvanu podršku za starije verzije.
+- Provera sa Magento 2.4.9 klasama nakon zvaničnih CE zakrpa za jul–oktobar 2026. i VULN-39341 hotfixa.
+- Dodata ponovljiva izolovana test infrastruktura i GitHub Actions matrica za PHP 8.1–8.6.
+- [Rezultati, status PHP 8.6 i preostale integracione provere](docs/magento-php-compatibility.md).
+
+Verzija 1.2.5 još nema objavljen tag. Komande za stabilno izdanje odnose se na v1.2.4.
+
 ### Izmene na main grani nakon taga v1.2.4
 
 - Neispravni CAPTCHA tokeni koji nisu string odbijaju se pre obrade i HTTP zahteva.
@@ -282,7 +301,7 @@ Nosilac autorskih prava dozvoljava korišćenje i ranijih izdanja MB Contact For
 - Ujednačen je stil PHP koda i poboljšana čitljivost PHP/PHTML fajlova.
 - [Detalji lokalnih provera i njihova ograničenja](docs/php-compatibility-fixes.md).
 
-Ove izmene su na `main` grani i nisu deo ranije objavljenog taga `v1.2.4`. PHP zahtevi modula ostaju nepromenjeni.
+Ove izmene su na `main` grani i nisu deo ranije objavljenog taga `v1.2.4`. U tim ranijim izmenama PHP zahtevi nisu menjani.
 
 ### Verzija 1.2.4 — Store Information
 
@@ -373,8 +392,8 @@ MB Contact Form lets you customize the contact form through Magento Admin withou
 
 ## Compatibility
 
-- **PHP:** 8.1.x, 8.2.x, 8.3.x, and 8.4.x according to the module's `composer.json` requirements. The selected PHP version must also be supported by the installed Magento version.
-- **Magento:** verified on Magento 2.4.7-p3. Composer does not restrict Magento packages to a specific version; other versions have not been confirmed by this staging test.
+- **PHP:** 8.1.x–8.6.x in the module manifests. Magento 2.4.9 targets PHP 8.5; PHP 8.6 is an isolated module compatibility check, not an officially supported Magento 2.4.9 combination. [Compatibility matrix and security patches](docs/magento-php-compatibility.md).
+- **Magento:** isolated checks use original Magento 2.4.4–2.4.9 classes, including patched 2.4.9. The previously verified staging environment remains documented below. [Scope and limitations](docs/magento-php-compatibility.md).
 - **Themes:** Hyvä, Luma, and Breeze Evolution support. Hyvä staging verification is documented below; contact form submission and successful email delivery have also been confirmed on Breeze Evolution.
 
 ### Tested staging environment
@@ -528,6 +547,16 @@ The screenshot shows the `From`, `To`, and `Reply-To` headers delivered to email
 
 ## Installation
 
+### Development branch 1.2.5
+
+To test this branch on staging after configuring the existing Composer repository:
+
+```bash
+composer require "mb/module-contact-form:dev-feature/magento249-php85-86" --prefer-dist --no-scripts
+```
+
+Follow the Magento upgrade, DI compilation and static-content steps under Updating. Installing this module does not install Magento security patches on a store.
+
 ### Composer installation (GitHub)
 
 For a public repository, use the HTTPS URL below; GitHub authentication is not required to read public code (Composer may request a token if the GitHub API rate limit is reached). Unauthenticated access applies once the repository visibility is set to Public.
@@ -609,6 +638,15 @@ The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-
 
 ## Version history
 
+### Version 1.2.5 — development branch
+
+- Extend PHP requirements to 8.1–8.6 while retaining older PHP support.
+- Check original Magento 2.4.9 classes after the July–October 2026 CE patches and VULN-39341 hotfix.
+- Add repeatable isolated test tooling and a PHP 8.1–8.6 GitHub Actions matrix.
+- [Results, PHP 8.6 status and remaining integration checks](docs/magento-php-compatibility.md).
+
+No 1.2.5 tag has been published yet. Stable-release installation examples refer to v1.2.4.
+
 ### Changes on main after the v1.2.4 tag
 
 - Reject malformed non-string CAPTCHA tokens before processing or HTTP requests.
@@ -616,7 +654,7 @@ The copyright holder also offers earlier MB Contact Form releases under GPL-3.0-
 - Apply consistent PHP formatting and improve PHP/PHTML readability.
 - [Local validation details and limitations](docs/php-compatibility-fixes.md).
 
-These changes are on `main` and are not included in the previously published `v1.2.4` tag. The module's PHP requirements remain unchanged.
+These changes are on `main` and are not included in the previously published `v1.2.4` tag. Those earlier changes did not alter PHP requirements.
 
 ### Version 1.2.4 — Store Information
 
