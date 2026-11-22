@@ -29,6 +29,12 @@ na PHPUnit notices, deprecations i notices. Ponovljivi postupak primenjen je na
 obrnutom proverom primene. U oba okruženja učitava se svih 21 produkcionih klasa,
 prolaze CSP/mail API provere i 33 ugovorne provere standardnih polja.
 
+### Automatizovane provere na GitHubu
+
+Prvi [CI prolaz](https://github.com/marvikonvic/MB_ContactForm/actions/runs/45025117716)
+uspešno je izvršio svih šest kombinacija iz matrice PHP 8.1–8.6, uključujući
+Magento 2.4.7-p10 na PHP 8.3. Obuhvat ostaje izolovano testiranje modula.
+
 ### Sigurnosni obuhvat
 
 Proveren je Magento Open Source 2.4.9 commit
@@ -64,6 +70,9 @@ The manifests now permit PHP 8.1–8.6, retaining older PHP support. The support
 platform target is Magento 2.4.9 on PHP 8.5. PHP 8.6 passes isolated module checks
 only; it is excluded by Magento 2.4.9's own Composer constraint and is not an
 officially supported Magento platform combination.
+
+All six combinations in the [initial CI run](https://github.com/marvikonvic/MB_ContactForm/actions/runs/45025117716)
+passed, including Magento 2.4.7-p10 on PHP 8.3.
 
 The local matrix above uses original Magento classes. Patched 2.4.9 on PHP 8.5.13
 and 8.6.0 passes 67 tests / 333 assertions, all 21 production-class loading checks,

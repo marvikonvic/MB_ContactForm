@@ -35,7 +35,7 @@ jobs:
             magento: '2.4.9'
             security_patches: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -64,7 +64,7 @@ jobs:
         run: find app/code/MB/ContactForm tests -type f \( -name '*.php' -o -name '*.phtml' \) -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
       - name: Upload security patch provenance
         if: always() && matrix.security_patches
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: security-patches-php-${{ matrix.php }}
           path: ${{ runner.temp }}/security-patches.json
