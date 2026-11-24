@@ -69,3 +69,25 @@ before the fix and pass after it. Supplied Stagento screenshots confirm frontend
 ![Store Information beside the form](screenshots/store-information-form.png)
 
 ![Enable Store Information setting](screenshots/store-information-settings.png)
+
+## Prevod naslova / Panel heading translation
+
+Za naslov panela koristi se poseban ključ `Store contact details`, kako prevod
+opšte fraze `Store Information` iz jezičkog paketa ne bi prikazivao „Sačuvaj informacije”.
+U `sr_Latn_RS` naslov je **Informacije o prodavnici**, a u `sr_Cyrl_RS`
+**Информације о продавници**. Ćirilični rečnik pokriva naslov i pet naziva polja
+ovog panela; nije kompletan ćirilični prevod celog modula.
+
+Posle preuzimanja izmene očistite `translate`, `block_html` i `full_page` cache.
+Ako tema ima svoj override `MB_ContactForm::widget/form.phtml`, uskladite naslov
+i u tom šablonu. Prikaz na živoj prodavnici nije potvrđen lokalnom proverom.
+
+The panel uses the dedicated phrase `Store contact details` to avoid an unrelated
+language-pack translation of `Store Information`. Its Serbian Latin heading is
+**Informacije o prodavnici** and its Serbian Cyrillic heading is
+**Информације о продавници**. The Cyrillic dictionary covers only the panel heading
+and its five field labels, not the entire module.
+
+After updating, clean the `translate`, `block_html` and `full_page` caches.
+If a theme overrides `MB_ContactForm::widget/form.phtml`, update that heading too.
+Local checks do not establish rendering on a live store.
