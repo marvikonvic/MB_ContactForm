@@ -1,4 +1,10 @@
-# MB Contact Form 1.2.3
+# MB Contact Form 1.2.5 — development branch
+
+PHP 8.1–8.6; target Magento 2.4.9 on PHP 8.5 with the separately applied Magento security patches.
+PHP 8.6 checks establish isolated module compatibility, not official Magento platform support.
+See [compatibility results and repeatable checks](https://github.com/marvikonvic/MB_ContactForm/blob/feature/magento249-php85-86/docs/magento-php-compatibility.md).
+
+Historical upgrade and staging notes below retain their original version scope.
 
 ## Srpski — nadogradnja
 

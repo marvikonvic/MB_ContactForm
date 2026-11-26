@@ -1,0 +1,4 @@
+/tests/compatibility/vendor/
+/tests/compatibility/composer.lock
+/.phpunit.cache/
+/.php-cs-fixer.cache
